@@ -1,55 +1,16 @@
-# Compiled class file
-*.class
+/*.iml
+/*/*.iml
 
-# bak file
-*.bak
+*.sublime-project
+*.sublime-workspace
 
-# Log file
-*.log
-
-# BlueJ files
-*.ctxt
-
-# Mobile Tools for Java (J2ME)
-.mtj.tmp/
-
-# Package Files #
-*.jar
-*.war
-*.ear
-*.zip
-*.tar.gz
-*.rar
-
-#target
 target/
-
-# virtual machine crash logs, see http://www.java.com/en/download/help/error_hotspot.xml
-=======
-# Compiled class file
-*.class
-
-# target dir
-target/
-
-# bak file
-*.bak
-
-# Log file
-*.log
-
-# BlueJ files
-*.ctxt
-
-# Mobile Tools for Java (J2ME)
-.mtj.tmp/
-
-# Package Files #
-*.jar
-*.war
-*.ear
-*.zip
-*.tar.gz
-*.rar
-
-# virtual machine crash logs, see http://www.java.com/en/download/help/error_hotspot.xml
+.classpath
+.project
+.settings/
+/*/target/
+/*/.classpath
+/*/.project
+/*/bin/
+/*/logs/
+/*/.factorypath
