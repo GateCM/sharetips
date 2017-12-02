@@ -4,12 +4,9 @@
 package com.gatecm.tip.config.shiro;
 
 import java.util.HashMap;
-import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
-import java.util.Set;
 
-import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.AccountException;
 import org.apache.shiro.authc.AuthenticationException;
 import org.apache.shiro.authc.AuthenticationInfo;
@@ -23,10 +20,10 @@ import org.apache.shiro.subject.PrincipalCollection;
 import org.apache.shiro.util.ByteSource;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
+import org.springframework.util.CollectionUtils;
 
-import com.baomidou.mybatisplus.toolkit.CollectionUtils;
-import com.gatecm.tip.entity.Member;
-import com.gatecm.tip.mapper.MemberDao;
+import com.gatecm.tip.entity.MemberBasic;
+import com.gatecm.tip.mapper.MemberBasicDao;
 
 /**
  * @Description: TODO()
@@ -38,7 +35,7 @@ import com.gatecm.tip.mapper.MemberDao;
 public class BasicRealm extends AuthorizingRealm {
 
 	@Autowired
-	private MemberDao memberDao;
+	private MemberBasicDao memberBasicDao;
 
 	/**
 	 * 授权
@@ -46,8 +43,8 @@ public class BasicRealm extends AuthorizingRealm {
 	@Override
 	protected AuthorizationInfo doGetAuthorizationInfo(PrincipalCollection principals) {
 		System.out.println("权限认证方法：MyShiroRealm.doGetAuthenticationInfo()");
-		Member user = (Member) SecurityUtils.getSubject().getPrincipal();
-		Long userId = user.getId();
+		// Member user = (Member) SecurityUtils.getSubject().getPrincipal();
+		// Long userId = user.getId();
 		SimpleAuthorizationInfo info = new SimpleAuthorizationInfo();
 		// 根据用户ID查询角色（role），放入到Authorization里。
 		// Map<String, Object> map = new HashMap<String, Object>();
@@ -58,9 +55,9 @@ public class BasicRealm extends AuthorizingRealm {
 		// roleSet.add(role.getType());
 		// }
 		// 实际开发，当前登录用户的角色和权限信息是从数据库来获取的
-		Set<String> roleSet = new HashSet<String>();
-		roleSet.add("供应商");
-		info.setRoles(roleSet);
+		// Set<String> roleSet = new HashSet<String>();
+		// roleSet.add("供应商");
+		// info.setRoles(roleSet);
 		// 根据用户ID查询权限（permission），放入到Authorization里。
 		/*
 		 * List<SysPermission> permissionList =
@@ -68,9 +65,9 @@ public class BasicRealm extends AuthorizingRealm {
 		 * new HashSet<String>(); for(SysPermission Permission :
 		 * permissionList){ permissionSet.add(Permission.getName()); }
 		 */
-		Set<String> permissionSet = new HashSet<String>();
-		permissionSet.add("/portals/index");
-		info.setStringPermissions(permissionSet);
+		// Set<String> permissionSet = new HashSet<String>();
+		// permissionSet.add("/portals/index");
+		// info.setStringPermissions(permissionSet);
 		return info;
 	}
 
@@ -86,17 +83,16 @@ public class BasicRealm extends AuthorizingRealm {
 			throws AuthenticationException {
 		System.out.println("身份认证方法：MyShiroRealm.doGetAuthenticationInfo()");
 		UsernamePasswordToken token = (UsernamePasswordToken) authcToken;
-		
 		Map<String, Object> columnMap = new HashMap<String, Object>();
-		columnMap.put("nickname", token.getUsername());
-		List<Member> users = memberDao.selectByMap(columnMap);
-		Member user;
+		columnMap.put("phone_number", token.getUsername());
+		List<MemberBasic> users = memberBasicDao.selectByMap(columnMap);
+		MemberBasic user;
 		if (CollectionUtils.isEmpty(users)) {
 			throw new AccountException("帐号或密码不正确！");
 		} else {
 			user = users.get(0);
 		}
-		return new SimpleAuthenticationInfo(user, user.getPswd(), ByteSource.Util.bytes(user.getSalt()), getName());
+		return new SimpleAuthenticationInfo(user, user.getPassword(), ByteSource.Util.bytes(user.getSalt()), getName());
 	}
 
 }

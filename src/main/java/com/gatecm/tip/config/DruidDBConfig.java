@@ -21,7 +21,7 @@ import com.alibaba.druid.pool.DruidDataSource;
  *
  */
 @Configuration
-@MapperScan({ "com.gatecm.obsession.mapper*" })
+@MapperScan({ "com.gatecm.tip.mapper*" })
 public class DruidDBConfig {
 	private Logger logger = LoggerFactory.getLogger(DruidDBConfig.class);
 

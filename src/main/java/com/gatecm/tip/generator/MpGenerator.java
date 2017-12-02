@@ -40,19 +40,19 @@ public class MpGenerator {
 
 		// 全局配置
 		GlobalConfig gc = new GlobalConfig();
-		gc.setOutputDir("E://project/obsession/src/test/java");
+		gc.setOutputDir("E://project/generator/sharetips/src/test/java");
 		gc.setFileOverride(true);
 		gc.setActiveRecord(true);
 		gc.setEnableCache(false);// XML 二级缓存
 		gc.setBaseResultMap(true);// XML ResultMap
-		gc.setBaseColumnList(false);// XML columList
+		gc.setBaseColumnList(true);// XML columList
 		gc.setAuthor("chenxiaohui");
 
 		// 自定义文件命名，注意 %s 会自动填充表实体属性！
 		gc.setMapperName("%sDao");
 		gc.setXmlName("%sMapper");
-		gc.setServiceName("%sService");
-		gc.setServiceImplName("%sServiceImpl");
+//		gc.setServiceName("%sService");
+//		gc.setServiceImplName("%sServiceImpl");
 		// gc.setControllerName("%sAction");
 		mpg.setGlobalConfig(gc);
 
@@ -69,17 +69,18 @@ public class MpGenerator {
 			}
 		});
 		dsc.setDriverName("com.mysql.jdbc.Driver");
-		dsc.setUsername("gatecm");
-		dsc.setPassword("XiaoHui12345");
-		dsc.setUrl("jdbc:mysql://rm-uf64f9ej2d3ib59b6o.mysql.rds.aliyuncs.com/my_test?characterEncoding=utf8");
+		dsc.setUsername("root");
+		dsc.setPassword("root");
+		dsc.setUrl("jdbc:mysql://localhost:3306/tip_share?characterEncoding=utf8");
 		mpg.setDataSource(dsc);
 
 		// 策略配置
 		StrategyConfig strategy = new StrategyConfig();
 		// strategy.setCapitalMode(true);// 全局大写命名 ORACLE 注意
-		strategy.setTablePrefix(new String[] { "uc_"});// 此处可以修改为您的表前缀
+//		strategy.setTablePrefix(new String[] { "member_"});// 此处可以修改为您的表前缀
 		strategy.setNaming(NamingStrategy.underline_to_camel);// 表名生成策略
-		strategy.setInclude(new String[] { "sys_identity","sys_identity_model","sys_identity_permission","sys_model","sys_permission","uc_member","uc_member_identity" }); // 需要生成的表
+		strategy.setEntityBooleanColumnRemoveIsPrefix(true);
+		strategy.setInclude(new String[] { "member_basic"}); // 需要生成的表
 		// strategy.setExclude(new String[]{"test"}); // 排除生成的表
 		// 自定义实体父类
 		// strategy.setSuperEntityClass("com.gatecm.obsession.entity");
@@ -104,7 +105,7 @@ public class MpGenerator {
 		// 包配置
 		PackageConfig pc = new PackageConfig();
 		pc.setParent("com.gatecm");
-		pc.setModuleName("obsession");
+		pc.setModuleName("tip");
 		mpg.setPackageInfo(pc);
 
 		// 注入自定义配置，可以在 VM 中使用 cfg.abc 【可无】
@@ -119,18 +120,9 @@ public class MpGenerator {
 
 		// 自定义 xxList.jsp 生成
 		List<FileOutConfig> focList = new ArrayList<FileOutConfig>();
-		// focList.add(new FileOutConfig("/template/list.jsp.vm") {
-		// @Override
-		// public String outputFile(TableInfo tableInfo) {
-		// // 自定义输入文件名称
-		// return "D://my_" + tableInfo.getEntityName() + ".jsp";
-		// }
-		// });
-		// cfg.setFileOutConfigList(focList);
-		// mpg.setCfg(cfg);
 
 		// 调整 xml 生成目录演示
-		focList.add(new FileOutConfig("/templates/mpconfigvm/mapper.xml.vm") {
+		focList.add(new FileOutConfig("/mpconfigvm/mapper.xml.vm") {
 			@Override
 			public String outputFile(TableInfo tableInfo) {
 				return "/mapper/" + tableInfo.getEntityName() + ".xml";
@@ -139,15 +131,15 @@ public class MpGenerator {
 		cfg.setFileOutConfigList(focList);
 		mpg.setCfg(cfg);
 
-		// 自定义模板配置，可以 copy 源码 mybatis-plus/src/main/resources/templates 下面内容修改，
-		// 放置自己项目的 src/main/resources/templates 目录下, 默认名称一下可以不配置，也可以自定义模板名称
+		// 自定义模板配置，可以 copy 源码 mybatis-plus/src/main/resources 下面内容修改，
+		// 放置自己项目的 src/main/resources 目录下, 默认名称一下可以不配置，也可以自定义模板名称
 		TemplateConfig tc = new TemplateConfig();
 		tc.setController(null);
-		tc.setEntity("/templates/mpconfigvm/entity.java.vm");
-		tc.setMapper("/templates/mpconfigvm/mapper.java.vm");
-		tc.setXml("/templates/mpconfigvm/mapper.xml.vm");
-		tc.setService("/templates/mpconfigvm/service.java.vm");
-		tc.setServiceImpl("/templates/mpconfigvm/serviceImpl.java.vm");
+		tc.setEntity("/mpconfigvm/entity.java.vm");
+		tc.setMapper("/mpconfigvm/mapper.java.vm");
+		tc.setXml("/mpconfigvm/mapper.xml.vm");
+		tc.setService("/mpconfigvm/service.java.vm");
+		tc.setServiceImpl("/mpconfigvm/serviceImpl.java.vm");
 		// 如上任何一个模块如果设置 空 OR Null 将不生成该模块。
 
 		mpg.setTemplate(tc);
