@@ -52,7 +52,7 @@ public class LoginController {
 			Subject subject = SecurityUtils.getSubject();
 			Session session = subject.getSession();
 			map.put("result", true);
-			map.put("token", session.getId());
+			map.put("token", session);
 		} else {
 			map.put("result", false);
 			token.clear();

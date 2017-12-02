@@ -5,10 +5,9 @@ package com.gatecm.tip.config;
 
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
-import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
-
+import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
+import org.springframework.web.servlet.config.annotation.WebMvcConfigurationSupport;
 import com.gatecm.tip.interceptor.MyInterceptor;
-import com.gatecm.tip.interceptor.ShiroInterceptor;
 
 /**
  * @Description: TODO()
@@ -17,19 +16,25 @@ import com.gatecm.tip.interceptor.ShiroInterceptor;
  *
  */
 @Configuration
-public class MVCConfiguration extends WebMvcConfigurerAdapter {
+public class MVCConfiguration extends WebMvcConfigurationSupport{
+	
+	 /**
+	   * 发现如果继承了WebMvcConfigurationSupport，则在yml中配置的相关内容会失效。
+	   * @param registry
+	   */
+	  @Override
+	  public void addResourceHandlers(ResourceHandlerRegistry registry) {
+	    registry.addResourceHandler("/plugin/**").addResourceLocations("classpath:/static/plugin/");
+	    registry.addResourceHandler("/custom/**").addResourceLocations("classpath:/static/custom/");
+	  }
 
 	/**
 	 * 拦截器
 	 */
 	@Override
 	public void addInterceptors(InterceptorRegistry registry) {
-		// addPathPatterns 用于添加拦截规则
-		// excludePathPatterns 用于排除拦截
 		registry.addInterceptor(new MyInterceptor()).addPathPatterns("/**").excludePathPatterns("/login/page",
-				"/error","/plugin/**");
-//		registry.addInterceptor(new ShiroInterceptor()).addPathPatterns("/**").excludePathPatterns("/login/page",
-//				"/error","/login/page","/**/img/**","/**/fonts/**","/**/color/**","/**/js/**","/**/css/**");
+				"/error/**","/plugin/**","/custom/**");
 		super.addInterceptors(registry);
 	}
 

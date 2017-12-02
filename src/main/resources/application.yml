@@ -35,6 +35,7 @@ spring:
     multipart:
       max-file-size: 100Mb
       max-request-size: 1000Mb
+      
             
     
 #mybatis
@@ -73,7 +74,7 @@ mybatis-plus:
 logging:
   level:
     org.springframework: WARN
-    com.gatecm.obsession.mapper: DEBUG
+    com.gatecm.tip.mapper: DEBUG
   file: logs/spring-boot-logging.log
   
   

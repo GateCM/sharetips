@@ -7,8 +7,9 @@
 		<!-- <filter class="ch.qos.logback.classic.filter.ThresholdFilter"> <level>ERROR</level> 
 			</filter> -->
 		<encoder>
-			<pattern>%d{HH:mm:ss} [%thread] %-5level %logger{36}
-		- %msg%n</pattern>
+			<!--格式化输出：%d表示日期，%thread表示线程名，%-5level：级别从左显示5个字符宽度 %logger{36}: 表示logger名字最长36个字符，否则按照句点分割%msg：日志消息，%n是换行符 -->
+			<!-- <pattern>%d{HH:mm:ss} [%thread] %-5level %logger{36}- %msg%n</pattern> -->
+			<pattern>%d{HH:mm:ss} %logger{0}- %msg%n</pattern>
 		</encoder>
 	</appender>
 
@@ -21,7 +22,8 @@
 		</rollingPolicy>
 		<encoder>
 			<pattern>%d{HH:mm:ss} %contextName [%thread] %-5level %logger{36}
-				- %msg%n</pattern>
+				-
+				%msg%n</pattern>
 		</encoder>
 	</appender>
 
@@ -31,10 +33,10 @@
 	</root>
 
 	<!-- logback为java中的包 -->
-<!-- 	<logger name="com.dudu.controller" /> -->
+	<!-- <logger name="com.dudu.controller" /> -->
 	<!--logback.LogbackDemo：类的全路径 -->
-<!-- 	<logger name="com.dudu.controller.LearnController" level="WARN" -->
-<!-- 		additivity="false"> -->
-<!-- 		<appender-ref ref="console" /> -->
-<!-- 	</logger> -->
+	<!-- <logger name="com.dudu.controller.LearnController" level="WARN" -->
+	<!-- additivity="false"> -->
+	<!-- <appender-ref ref="console" /> -->
+	<!-- </logger> -->
 </configuration>
