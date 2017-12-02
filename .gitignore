@@ -8,6 +8,7 @@ target/
 .classpath
 .project
 .log
+*.log
 .settings/
 /*/target/
 /*/.classpath
