@@ -76,6 +76,13 @@
 			<version>${druid.version}</version>
 		</dependency>
 
+		<!-- 阿里大于短信 -->
+		<dependency>
+			<groupId>com.alibaba</groupId>
+			<artifactId>sms</artifactId>
+			<version>1.0</version>
+		</dependency>
+
 		<!-- mybatis-plus begin -->
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
