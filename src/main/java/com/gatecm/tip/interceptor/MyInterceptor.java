@@ -6,8 +6,6 @@ package com.gatecm.tip.interceptor;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import org.apache.shiro.SecurityUtils;
-import org.apache.shiro.subject.Subject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.web.servlet.HandlerInterceptor;
@@ -23,9 +21,10 @@ public class MyInterceptor implements HandlerInterceptor {
 
 	private static final Logger log = LoggerFactory.getLogger(MyInterceptor.class);
 
+	@Override
 	public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler)
 			throws Exception {
-		Subject currentUser = SecurityUtils.getSubject();
+//		Subject currentUser = SecurityUtils.getSubject();
 		log.info(MyInterceptor.class.getSimpleName() + "==>preHandle: " + "preHandle:URI [" + request.getRequestURI()
 				+ "], Request Mapping [" + handler + "]");
 		return true;

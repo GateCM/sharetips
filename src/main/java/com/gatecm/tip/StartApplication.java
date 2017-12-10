@@ -6,10 +6,11 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.web.servlet.ServletComponentScan;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 
-//该 @SpringBootApplication 注解等价于以默认属性使用:
-//@Configuration
-//@EnableAutoConfiguration
-//@ComponentScan  
+
+/**
+ * 该 @SpringBootApplication
+ * 注解等价于以默认属性使用:@Configuration、@EnableAutoConfiguration、@ComponentScan
+ */
 @SpringBootApplication
 @ServletComponentScan
 @EnableTransactionManagement

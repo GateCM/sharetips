@@ -9,6 +9,9 @@ package com.gatecm.tip.constant;
  */
 public enum ALISMSEnum {
 
+	/**
+	 * 正式环境
+	 */
 	URL_HTTPS("https://eco.taobao.com/router/rest", "正式环境"),
 
 	SECRET("c5675c2f37edfa87463ada65334b5a2a", "App Secret"),

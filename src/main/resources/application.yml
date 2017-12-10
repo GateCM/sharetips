@@ -7,7 +7,7 @@ spring:
     password: root
     driver-class-name: com.mysql.jdbc.Driver
     type: com.alibaba.druid.pool.DruidDataSource
-    initialSize: 5  
+    initialSize: 5
     minIdle: 5  
     maxActive: 20  
     maxWait: 60000  
@@ -25,16 +25,24 @@ spring:
     cache: false
     check-template: true
     check-template-location: true
-    content-type: text/html; charset=utf-8
+    servlet:
+      content-type: text/html; charset=utf-8
     enabled: true
     encoding: UTF-8
     mode: HTML
     prefix: classpath:/templates/
     suffix: .html
-  http:
+  jackson:
+    time-zone: GMT+8
+    date-format: yyyy-MM-dd HH:mm:ss
+    default-property-inclusion: NON_NULL
+  servlet:
     multipart:
       max-file-size: 100Mb
       max-request-size: 1000Mb
+  mvc:
+    date-format: dd/MM/yyyy
+       
       
             
     

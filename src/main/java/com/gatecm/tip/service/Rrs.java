@@ -1,0 +1,65 @@
+package com.gatecm.tip.service;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import com.gatecm.tip.constant.ErrorEnum;
+
+/**
+ * @ClassName: RRS
+ * @Description: TODO(请求结果集 Request result set)
+ * @author chenxiaohui
+ * @date 2017年12月3日 下午4:13:22
+ *
+ */
+public class Rrs {
+	boolean result;// 操作结果，成功|失败，仅表示方法是否顺利执行
+	Object value;// 返回值
+	ErrorEnum error;// 错误
+	List<ErrorEnum> errors = null;// 多错误码
+
+	public Rrs() {
+
+	}
+
+	public Rrs(boolean result) {
+		this.result = result;
+	}
+
+	public Rrs(boolean result, ErrorEnum error) {
+		this.result = result;
+		this.error = error;
+	}
+
+	public boolean getResult() {
+		return result;
+	}
+
+	public void setResult(boolean result) {
+		this.result = result;
+	}
+
+	public Object getValue() {
+		return value;
+	}
+
+	public void setValue(Object value) {
+		this.value = value;
+	}
+
+	public ErrorEnum getError() {
+		return error;
+	}
+
+	public void setError(ErrorEnum error) {
+		this.error = error;
+	}
+
+	public void addError(ErrorEnum error) {
+		if (errors == null) {
+			errors = new ArrayList<>();
+		}
+		errors.add(error);
+	}
+
+}

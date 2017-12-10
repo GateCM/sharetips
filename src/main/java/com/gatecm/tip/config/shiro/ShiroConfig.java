@@ -36,7 +36,7 @@ public class ShiroConfig {
 		// 必须设置 SecurityManager
 		shiroFilterFactoryBean.setSecurityManager(securityManager);
 		// 如果不设置默认会自动寻找Web工程根目录下的"/login.jsp"页面
-		shiroFilterFactoryBean.setLoginUrl("/login/signup");
+		shiroFilterFactoryBean.setLoginUrl("/login/signin");
 		// 登录成功后要跳转的链接
 		shiroFilterFactoryBean.setSuccessUrl("/portals/ethereal");
 		// 未授权界面;
@@ -47,6 +47,7 @@ public class ShiroConfig {
 		//登录路由
 		filterChainDefinitionMap.put("/login/**", "anon");
 		filterChainDefinitionMap.put("/api/login", "anon");
+		filterChainDefinitionMap.put("/api/sms/reg", "anon");
 		//静态文件
 		filterChainDefinitionMap.put("/custom/**", "anon");
 		filterChainDefinitionMap.put("/plugin/**", "anon");

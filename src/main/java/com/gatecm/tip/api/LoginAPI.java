@@ -10,10 +10,9 @@ import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.UsernamePasswordToken;
 import org.apache.shiro.session.Session;
 import org.apache.shiro.subject.Subject;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.RestController;
 
 /**
  * @Description: TODO()
@@ -21,12 +20,11 @@ import org.springframework.web.bind.annotation.ResponseBody;
  * @date 2017年10月16日 下午2:06:50
  *
  */
-@Controller
+@RestController
 @RequestMapping(value = "/api/login")
 public class LoginAPI {
 
 	@RequestMapping(value = "", method = RequestMethod.POST)
-	@ResponseBody
 	public Map<String, Object> login(String userName, String password) {
 		Map<String, Object> map = new HashMap<>();
 		UsernamePasswordToken token = new UsernamePasswordToken(userName, password);

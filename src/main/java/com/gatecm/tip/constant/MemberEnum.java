@@ -17,6 +17,9 @@ package com.gatecm.tip.constant;
  */
 public enum MemberEnum {
 
+	/**
+	 * 会员状态，正常，默认状态
+	 */
 	STATUS_NORMAL("1", "会员状态，正常，默认状态");
 
 	private Object value;

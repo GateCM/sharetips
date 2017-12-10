@@ -4,6 +4,8 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 
+import com.gatecm.tip.constant.BaseConstant;
+
 /**
  * @ClassName: TimeUtils
  * @Description: TODO(时间操作工具集)
@@ -13,7 +15,6 @@ import java.util.Date;
  */
 public class TimeUtils {
 	public static final String START_DATE = "2000-01-01";// 起始时间
-	private static final String split = "-";
 	private static final String START_TIME = " 00:00:00";
 	private static final String END_TIME = " 23:59:59";
 
@@ -28,8 +29,8 @@ public class TimeUtils {
 	 * @return
 	 */
 	public static String getDateNow() {
-		SimpleDateFormat FROMAT = new SimpleDateFormat("yyyy-MM-dd");
-		return FROMAT.format(new Date());
+		SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+		return format.format(new Date());
 	}
 
 	/**
@@ -39,13 +40,13 @@ public class TimeUtils {
 	 * @return String
 	 * @author chenxiaohui
 	 */
-	public static String DateToStr(Date date) {
+	public static String dateToStr(Date date) {
 		SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 		String str = format.format(date);
 		return str;
 	}
 
-	public static String DateToShortStr(Date date) {
+	public static String dateToShortStr(Date date) {
 		SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
 		String str = format.format(date);
 		return str;
@@ -72,31 +73,31 @@ public class TimeUtils {
 
 	// 获取本日起点，00:00:00
 	public static String getDayStart() {
-		SimpleDateFormat FROMAT = new SimpleDateFormat("yyyy-MM-dd");
-		return parseStartDate(FROMAT.format(new Date()));
+		SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+		return parseStartDate(format.format(new Date()));
 	}
 
 	// 获取本日终点，23:59:59
 	public static String getDayEnd() {
-		SimpleDateFormat FROMAT = new SimpleDateFormat("yyyy-MM-dd");
-		return parseEndDate(FROMAT.format(new Date()));
+		SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+		return parseEndDate(format.format(new Date()));
 	}
 
 	// 获取本月第一天
 	public static String getMonthFirstDate() {
-		SimpleDateFormat FROMAT = new SimpleDateFormat("yyyy-MM-dd");
+		SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
 		Calendar c = Calendar.getInstance();
 		// c.add(Calendar.MONTH, 0);//月份加
 		c.set(Calendar.DAY_OF_MONTH, 1);// 设置为1号,当前日期既为本月第一天
-		return FROMAT.format(c.getTime());
+		return format.format(c.getTime());
 	}
 
 	// 获取本月最后一天
 	public static String getMonthlastDate() {
-		SimpleDateFormat FROMAT = new SimpleDateFormat("yyyy-MM-dd");
+		SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
 		Calendar c = Calendar.getInstance();
 		c.set(Calendar.DAY_OF_MONTH, c.getActualMaximum(Calendar.DAY_OF_MONTH));
-		return FROMAT.format(c.getTime());
+		return format.format(c.getTime());
 	}
 
 	// 获取季度第一天
@@ -173,54 +174,54 @@ public class TimeUtils {
 
 	// 获取某年第一天日期
 	public static String getYearFirst(int year) {
-		SimpleDateFormat FROMAT = new SimpleDateFormat("yyyy-MM-dd");
+		SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
 		Calendar calendar = Calendar.getInstance();
 		calendar.clear();
 		calendar.set(Calendar.YEAR, year);
-		return FROMAT.format(calendar.getTime());
+		return format.format(calendar.getTime());
 	}
 
 	// 获取某年最后一天日期
 	public static String getYearLast(int year) {
-		SimpleDateFormat FROMAT = new SimpleDateFormat("yyyy-MM-dd");
+		SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
 		Calendar calendar = Calendar.getInstance();
 		calendar.clear();
 		calendar.set(Calendar.YEAR, year);
 		calendar.roll(Calendar.DAY_OF_YEAR, -1);
-		return FROMAT.format(calendar.getTime());
+		return format.format(calendar.getTime());
 	}
 
 	// 号年反转，即反转dd与yy
 	public static String reverse(String str) {
-		String[] strings = str.split(split);
+		String[] strings = str.split(BaseConstant.SPLIT);
 		StringBuffer sbBuffer = new StringBuffer(strings[2]);
-		sbBuffer.append(split);
+		sbBuffer.append(BaseConstant.SPLIT);
 		sbBuffer.append(strings[1]);
-		sbBuffer.append(split);
+		sbBuffer.append(BaseConstant.SPLIT);
 		sbBuffer.append(strings[0]);
 		return sbBuffer.toString();
 	}
 
 	private static String getfirstDateStartOfMonth(Calendar calendar) {
-		SimpleDateFormat FROMAT = new SimpleDateFormat("yyyy-MM-dd");
+		SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
 		calendar.set(Calendar.DAY_OF_MONTH, 1);// 设置为1号,当前日期既为本月第一天
-		return FROMAT.format(calendar.getTime()) + START_TIME;
+		return format.format(calendar.getTime()) + START_TIME;
 	}
 
 	private static String getLastDateEndOfMonth(Calendar calendar) {
-		SimpleDateFormat FROMAT = new SimpleDateFormat("yyyy-MM-dd");
+		SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
 		calendar.set(Calendar.DAY_OF_MONTH, calendar.getActualMaximum(Calendar.DAY_OF_MONTH));
-		return FROMAT.format(calendar.getTime()) + END_TIME;
+		return format.format(calendar.getTime()) + END_TIME;
 	}
 
 	// 返回两个日期之间隔了多少天
-	public static int DateDiff(Date date1, Date date2) {
+	public static int dateDiff(Date date1, Date date2) {
 		int diff = (int) ((date1.getTime() - date2.getTime()) / DATE_DIVISOR);
 		return diff;
 	}
 
 	// 返回两个日期之间隔了多少天,只要date1>date2,则i>=1
-	public static Long DateDiffHold(Date date1, Date date2) {
+	public static Long dateDiffHold(Date date1, Date date2) {
 		Long diffMills = date1.getTime() - date2.getTime();
 		Long diff = (diffMills / DATE_DIVISOR);
 		if (diffMills > 0 && diff == 0) {
@@ -230,7 +231,7 @@ public class TimeUtils {
 	}
 
 	// 返回两个日期之间隔了多少小时
-	public static Long HourDiff(Date date1, Date date2) {
+	public static Long hourDiff(Date date1, Date date2) {
 		return (date1.getTime() - date2.getTime()) / HOUR_DIVISOR;
 	}
 
@@ -311,8 +312,8 @@ public class TimeUtils {
 		calendar.setTime(date2);
 		calendar.set(Calendar.DATE, 22);
 		calendar.set(Calendar.HOUR_OF_DAY, 23);
-		System.err.println(TimeUtils.DateDiff(date, calendar.getTime()));
-		System.err.println(TimeUtils.HourDiff(date, calendar.getTime()));
+		System.err.println(TimeUtils.dateDiff(date, calendar.getTime()));
+		System.err.println(TimeUtils.hourDiff(date, calendar.getTime()));
 
 		// System.err.println("季度" + getSeasonFirstDayStart(1));
 		// System.err.println("季度" + getSeasonLastDayEnd(1));

@@ -14,15 +14,15 @@ import org.springframework.web.bind.annotation.RequestMethod;
  *
  */
 @Controller
-@RequestMapping(value = "/login")
+@RequestMapping(value = "/login", method = RequestMethod.GET)
 public class LoginController {
 
-	@RequestMapping(value = "/signin", method = RequestMethod.GET)
+	@RequestMapping(value = "/signin")
 	public String loginPage() {
 		return "/member/signin";
 	}
-	
-	@RequestMapping(value = "/signup", method = RequestMethod.GET)
+
+	@RequestMapping(value = "/signup")
 	public String regPage() {
 		return "/member/signup";
 	}

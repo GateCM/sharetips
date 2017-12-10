@@ -20,10 +20,10 @@ import org.springframework.web.bind.annotation.RequestMethod;
  *
  */
 @Controller
-@RequestMapping("/tip")
+@RequestMapping(value = "/tip", method = RequestMethod.GET)
 public class TipController {
 
-	@RequestMapping(value = "/edit", method = RequestMethod.GET)
+	@RequestMapping(value = "/edit")
 	public String edit() {
 		return "tip/edit";
 	}
