@@ -1,13 +1,13 @@
 package com.gatecm.tip.constant;
 
 /**
- * @ClassName: ALISMSEnum
+ * @ClassName: ALiSMSEnum
  * @Description: TODO(阿里大于短信常量)
  * @author chenxiaohui
  * @date 2017年12月3日 下午3:18:45
  *
  */
-public enum ALISMSEnum {
+public enum ALiSMSEnum {
 
 	/**
 	 * 正式环境
@@ -31,7 +31,7 @@ public enum ALISMSEnum {
 	private Object value;
 	private String msg;
 
-	private ALISMSEnum(Object value, String msg) {
+	private ALiSMSEnum(Object value, String msg) {
 		this.value = value;
 		this.msg = msg;
 	}

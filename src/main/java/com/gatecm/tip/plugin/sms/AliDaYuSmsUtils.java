@@ -3,7 +3,7 @@ package com.gatecm.tip.plugin.sms;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.gatecm.tip.constant.ALISMSEnum;
+import com.gatecm.tip.constant.ALiSMSEnum;
 import com.taobao.api.ApiException;
 import com.taobao.api.DefaultTaobaoClient;
 import com.taobao.api.TaobaoClient;
@@ -32,12 +32,12 @@ public class AliDaYuSmsUtils {
 	 */
 	public static boolean sendVcode(String phoneNumber, String vcode) {
 		AlibabaAliqinFcSmsNumSendRequest req = new AlibabaAliqinFcSmsNumSendRequest();
-		req.setExtend(ALISMSEnum.EXTEND_DEFAULT.getValue().toString());
-		req.setSmsType(ALISMSEnum.TYPE.getValue().toString());
-		req.setSmsFreeSignName(ALISMSEnum.FREE_SIGN_NAME.getValue().toString());
-		req.setSmsParamString(ALISMSEnum.PARAM_VCODE.getVcode(vcode));
+		req.setExtend(ALiSMSEnum.EXTEND_DEFAULT.getValue().toString());
+		req.setSmsType(ALiSMSEnum.TYPE.getValue().toString());
+		req.setSmsFreeSignName(ALiSMSEnum.FREE_SIGN_NAME.getValue().toString());
+		req.setSmsParamString(ALiSMSEnum.PARAM_VCODE.getVcode(vcode));
 		req.setRecNum(phoneNumber);
-		req.setSmsTemplateCode(ALISMSEnum.TEMPLATE_CODE_VCODE.getValue().toString());
+		req.setSmsTemplateCode(ALiSMSEnum.TEMPLATE_CODE_VCODE.getValue().toString());
 		return send(req);
 	}
 
@@ -48,8 +48,8 @@ public class AliDaYuSmsUtils {
 	 * @return
 	 */
 	private static boolean send(AlibabaAliqinFcSmsNumSendRequest req) {
-		TaobaoClient client = new DefaultTaobaoClient(ALISMSEnum.URL_HTTPS.getValue().toString(),
-				ALISMSEnum.APPKEY.getValue().toString(), ALISMSEnum.SECRET.getValue().toString());
+		TaobaoClient client = new DefaultTaobaoClient(ALiSMSEnum.URL_HTTPS.getValue().toString(),
+				ALiSMSEnum.APPKEY.getValue().toString(), ALiSMSEnum.SECRET.getValue().toString());
 		AlibabaAliqinFcSmsNumSendResponse rsp;
 		try {
 			rsp = client.execute(req);
