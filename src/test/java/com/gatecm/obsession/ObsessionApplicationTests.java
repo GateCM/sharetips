@@ -47,7 +47,8 @@ public class ObsessionApplicationTests extends TestCase {
 		}
 		System.err.println(subject.isAuthenticated());
 		System.err.println(subject.getSession().getAttribute("nickname"));
-		Assert.assertEquals(true, subject.isAuthenticated()); // 断言用户已经登录
+		// 断言用户已经登录
+		Assert.assertEquals(true, subject.isAuthenticated()); 
 		// 6、退出
 		subject.logout();
 

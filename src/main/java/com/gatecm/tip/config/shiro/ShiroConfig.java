@@ -47,7 +47,8 @@ public class ShiroConfig {
 		//登录路由
 		filterChainDefinitionMap.put("/login/**", "anon");
 		filterChainDefinitionMap.put("/api/login", "anon");
-		filterChainDefinitionMap.put("/api/sms/reg", "anon");
+		filterChainDefinitionMap.put("/api/member/register", "anon");
+		filterChainDefinitionMap.put("/api/sms/*", "anon");
 		//静态文件
 		filterChainDefinitionMap.put("/custom/**", "anon");
 		filterChainDefinitionMap.put("/plugin/**", "anon");
@@ -79,8 +80,10 @@ public class ShiroConfig {
 	@Bean
 	public HashedCredentialsMatcher hashedCredentialsMatcher() {
 		HashedCredentialsMatcher hashedCredentialsMatcher = new HashedCredentialsMatcher();
-		hashedCredentialsMatcher.setHashAlgorithmName(ShiroConstant.ALGORITHM_NAME);// 散列算法:这里使用MD5算法;
-		hashedCredentialsMatcher.setHashIterations(ShiroConstant.HASH_ITERATIONS);// 散列的次数，比如散列两次，相当于md5(md5(""));
+		// 散列算法:这里使用MD5算法;
+		hashedCredentialsMatcher.setHashAlgorithmName(ShiroConstant.ALGORITHM_NAME);
+		// 散列的次数，比如散列两次，相当于md5(md5(""));
+		hashedCredentialsMatcher.setHashIterations(ShiroConstant.HASH_ITERATIONS);
 		return hashedCredentialsMatcher;
 	}
 

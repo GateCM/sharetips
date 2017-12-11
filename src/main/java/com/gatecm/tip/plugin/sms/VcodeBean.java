@@ -19,21 +19,30 @@ import com.gatecm.tip.util.TimeUtils;
  * @date 2017年12月3日 下午3:52:54
  *
  */
-public class VCodeBean {
+public class VcodeBean {
 
-	private String vCode;// 验证码
-	private int sendTimes;// 发送次数
-	private Date sendDate;// 发送时间
+	/**
+	 * 验证码
+	 */
+	private String vCode;
+	/**
+	 * 发送次数
+	 */
+	private int sendTimes;
+	/**
+	 * 发送时间
+	 */
+	private Date sendDate;
 
-	public VCodeBean() {
+	public VcodeBean() {
 	}
 
-	public VCodeBean(String code, Date sendDate) {
+	public VcodeBean(String code, Date sendDate) {
 		this.vCode = code;
 		this.sendDate = sendDate;
 	}
 
-	public VCodeBean(String code, Date sendDate, int sendTimes) {
+	public VcodeBean(String code, Date sendDate, int sendTimes) {
 		this.vCode = code;
 		this.sendDate = sendDate;
 		this.sendTimes = sendTimes;

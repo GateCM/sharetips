@@ -13,10 +13,22 @@ import com.gatecm.tip.constant.ErrorEnum;
  *
  */
 public class Rrs {
-	boolean result;// 操作结果，成功|失败，仅表示方法是否顺利执行
-	Object value;// 返回值
-	ErrorEnum error;// 错误
-	List<ErrorEnum> errors = null;// 多错误码
+	/**
+	 * 操作结果，成功|失败，仅表示方法是否顺利执行
+	 */
+	boolean result;
+	/**
+	 * 返回值
+	 */
+	Object value;
+	/**
+	 * 错误
+	 */
+	ErrorEnum error;
+	/**
+	 * 多错误码
+	 */
+	List<ErrorEnum> errors = null;
 
 	public Rrs() {
 

@@ -6,7 +6,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import com.gatecm.tip.service.Rrs;
-import com.gatecm.tip.service.SMSService;
+import com.gatecm.tip.service.SmsService;
 
 /**
  * @ClassName: SMSAPI
@@ -17,12 +17,12 @@ import com.gatecm.tip.service.SMSService;
  */
 @Controller
 @RequestMapping(value = "/api/sms/")
-public class SMSAPI {
+public class SmsApi {
 
 	@Autowired
-	private SMSService smsService;
+	private SmsService smsService;
 
-	@RequestMapping(value = "/reg", method = RequestMethod.POST)
+	@RequestMapping(value = "/register", method = RequestMethod.GET)
 	@ResponseBody
 	public Rrs reg(String phoneNumber) {
 		return smsService.sendRegVcode(phoneNumber);

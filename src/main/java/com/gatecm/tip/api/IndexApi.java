@@ -1,5 +1,5 @@
 package com.gatecm.tip.api;
 
-public class IndexAPI {
+public class IndexApi {
 
 }

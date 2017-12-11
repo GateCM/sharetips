@@ -22,7 +22,7 @@ import org.springframework.web.bind.annotation.RestController;
  */
 @RestController
 @RequestMapping(value = "/api/login")
-public class LoginAPI {
+public class LoginApi {
 
 	@RequestMapping(value = "", method = RequestMethod.POST)
 	public Map<String, Object> login(String userName, String password) {

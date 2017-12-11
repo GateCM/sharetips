@@ -43,9 +43,12 @@ public class MpGenerator {
 		gc.setOutputDir("E://project/generator/sharetips/src/test/java");
 		gc.setFileOverride(true);
 		gc.setActiveRecord(true);
-		gc.setEnableCache(false);// XML 二级缓存
-		gc.setBaseResultMap(true);// XML ResultMap
-		gc.setBaseColumnList(true);// XML columList
+		// XML 二级缓存
+		gc.setEnableCache(false);
+		// XML ResultMap
+		gc.setBaseResultMap(true);
+		// XML columList
+		gc.setBaseColumnList(true);
 		gc.setAuthor("chenxiaohui");
 
 		// 自定义文件命名，注意 %s 会自动填充表实体属性！
@@ -78,9 +81,11 @@ public class MpGenerator {
 		StrategyConfig strategy = new StrategyConfig();
 		// strategy.setCapitalMode(true);// 全局大写命名 ORACLE 注意
 //		strategy.setTablePrefix(new String[] { "member_"});// 此处可以修改为您的表前缀
-		strategy.setNaming(NamingStrategy.underline_to_camel);// 表名生成策略
+		// 表名生成策略
+		strategy.setNaming(NamingStrategy.underline_to_camel);
 		strategy.setEntityBooleanColumnRemoveIsPrefix(true);
-		strategy.setInclude(new String[] { "member_basic"}); // 需要生成的表
+		// 需要生成的表
+		strategy.setInclude(new String[] { "member_basic"}); 
 		// strategy.setExclude(new String[]{"test"}); // 排除生成的表
 		// 自定义实体父类
 		// strategy.setSuperEntityClass("com.gatecm.obsession.entity");

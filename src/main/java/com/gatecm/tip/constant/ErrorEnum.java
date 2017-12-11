@@ -1,5 +1,8 @@
 package com.gatecm.tip.constant;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import com.fasterxml.jackson.annotation.JsonValue;
 
 /**
@@ -40,7 +43,10 @@ public enum ErrorEnum {
 		this.msg = msg;
 	}
 
-	@JsonValue
+	/**
+	 * 生产使用
+	 */
+	// @JsonValue
 	public String getCode() {
 		return code;
 	}
@@ -51,6 +57,17 @@ public enum ErrorEnum {
 
 	public Integer getType() {
 		return type;
+	}
+
+	/**
+	 * 开发使用
+	 */
+	@JsonValue
+	public Map<String, Object> toMap() {
+		Map<String, Object> map = new HashMap<>();
+		map.put("msg", getMsg());
+		map.put("code", getCode());
+		return map;
 	}
 
 }

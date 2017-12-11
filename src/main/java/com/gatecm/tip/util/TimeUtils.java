@@ -14,7 +14,8 @@ import com.gatecm.tip.constant.BaseConstant;
  *
  */
 public class TimeUtils {
-	public static final String START_DATE = "2000-01-01";// 起始时间
+	// 起始时间
+	public static final String START_DATE = "2000-01-01";
 	private static final String START_TIME = " 00:00:00";
 	private static final String END_TIME = " 23:59:59";
 
@@ -88,7 +89,8 @@ public class TimeUtils {
 		SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
 		Calendar c = Calendar.getInstance();
 		// c.add(Calendar.MONTH, 0);//月份加
-		c.set(Calendar.DAY_OF_MONTH, 1);// 设置为1号,当前日期既为本月第一天
+		// 设置为1号,当前日期既为本月第一天
+		c.set(Calendar.DAY_OF_MONTH, 1);
 		return format.format(c.getTime());
 	}
 
@@ -204,7 +206,8 @@ public class TimeUtils {
 
 	private static String getfirstDateStartOfMonth(Calendar calendar) {
 		SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
-		calendar.set(Calendar.DAY_OF_MONTH, 1);// 设置为1号,当前日期既为本月第一天
+		// 设置为1号,当前日期既为本月第一天
+		calendar.set(Calendar.DAY_OF_MONTH, 1);
 		return format.format(calendar.getTime()) + START_TIME;
 	}
 

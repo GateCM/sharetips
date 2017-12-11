@@ -1,5 +1,6 @@
 package com.gatecm.tip.service;
 
+import com.gatecm.tip.dto.MemberRegisterDto;
 import com.gatecm.tip.entity.MemberBasic;
 import com.baomidou.mybatisplus.service.IService;
 
@@ -11,6 +12,14 @@ import com.baomidou.mybatisplus.service.IService;
  * @author chenxiaohui
  * @since 2017-12-02
  */
-public interface IMemberBasicService extends IService<MemberBasic> {
-	
+public interface MemberBasicService extends IService<MemberBasic> {
+
+	/**
+	 * 根据短信注册用户
+	 * 
+	 * @param registerDto
+	 * @return Rrs
+	 */
+	Rrs registByVcode(MemberRegisterDto registerDto);
+
 }

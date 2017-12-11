@@ -7,7 +7,7 @@ package com.gatecm.tip.service;
  * @date 2017年12月3日 下午4:08:49
  *
  */
-public interface SMSService {
+public interface SmsService {
 
 	/**
 	 * 发送注册短信

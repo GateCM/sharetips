@@ -1,5 +1,8 @@
+var CONTENT_TYPE_DEFAULT = "application/x-www-form-urlencoded;charset=UTF-8";
+var CONTENT_TYPE_JSON = "application/json; charset=utf-8";
+
 // 获取GET数据
-function ajaxGetData(requestData, getUrl) {
+function ajaxGetData(getUrl, requestData) {
 	var resultData;
 	$.ajax({
 		type : "GET",
@@ -14,15 +17,43 @@ function ajaxGetData(requestData, getUrl) {
 	return resultData;
 }
 
-/* ajax post 表单 */
-function ajaxPost(postUrl, postData) {
+/**
+ * 快捷ajax
+ * 
+ * @param buttonNode
+ * @param url
+ * @returns
+ */
+function dajax(buttonNode,isJson) {
+	var formNode = buttonNode.parents("form");
+	if (formNode.valid()) {
+		var aurl = formNode.attr("action");
+		var atype = formNode.attr("method");
+		var adata;
+		var acontentType;
+		if (isJson) {
+			acontentType = CONTENT_TYPE_JSON;
+			adata = JSON.stringify(formNode.serializeObject());
+		} else {
+			acontentType = CONTENT_TYPE_DEFAULT;
+			adata = formNode.serialize();
+		}
+		return ajax(aurl, adata, atype,acontentType);
+	} else {
+		return false;
+	}
+}
+
+/* ajax 表单 */
+function ajax(aurl, adata, atype,acontentType) {
 	var resultData;
 	$.ajax({
-		type : "POST",
-		url : postUrl,
+		type : atype,
+		url : aurl,
 		dataType : "JSON",
-		data : postData,
+		data : adata,
 		async : false,
+		contentType : acontentType,
 		success : function(data) {
 			resultData = data;
 		}
@@ -30,16 +61,21 @@ function ajaxPost(postUrl, postData) {
 	return resultData;
 }
 
-/* ajax post json */
-function ajaxPostJson(postUrl, postData) {
-	$.ajax({
-		type : "POST",
-		url : postUrl,
-		dataType : "JSON",
-		contentType : "application/json; charset=utf-8",
-		data : JSON.stringify(postData),
-		success : function(data) {
-			return data.result;
-		}
-	});
-}
+$(function() {
+	$.fn.serializeObject = function() {
+		var o = {};
+		var a = this.serializeArray();
+		$.each(a, function() {
+			if (o[this.name]) {
+				if (!o[this.name].push) {
+					o[this.name] = [ o[this.name] ];
+				}
+				o[this.name].push(this.value || '');
+			} else {
+				o[this.name] = this.value || '';
+			}
+		});
+		return o;
+	};
+
+});

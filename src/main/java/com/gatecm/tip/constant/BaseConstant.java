@@ -8,6 +8,11 @@ package com.gatecm.tip.constant;
  *
  */
 public interface BaseConstant {
+	
+	/**
+	 * 正则
+	 */
+	String PHONE_NUMBER_PATTERN="^((1[3,5,8][0-9])|(14[5,7])|(17[0,6,7,8])|(19[7]))\\d{8}$";
 
 	/**
 	 * jackson
