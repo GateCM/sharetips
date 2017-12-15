@@ -2,9 +2,9 @@ server:
   port: 8787
 spring:
   datasource:
-    url: jdbc:mysql://localhost:3306/tip_share?useUnicode=true&characterEncoding=utf-8
+    url: jdbc:mysql://rm-uf60446vx71hkx76so.mysql.rds.aliyuncs.com:3306/tip_share?useUnicode=true&characterEncoding=utf-8
     username: root
-    password: root
+    password: HuiMei1314
     driver-class-name: com.mysql.jdbc.Driver
     type: com.alibaba.druid.pool.DruidDataSource
     initialSize: 5
@@ -42,8 +42,13 @@ spring:
       max-request-size: 1000Mb
   mvc:
     date-format: dd/MM/yyyy
-       
-      
+
+ali:
+  oss:
+    endpoint: oss-cn-hangzhou.aliyuncs.com
+    access-key-id: LTAIU18m4EJ0CquH
+    access-key-secret: FjBHn67VIrk8GB03jZcJMNC6QUYd0c
+    bucket-name: sharetip
             
     
 #mybatis

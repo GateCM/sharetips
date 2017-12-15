@@ -18,9 +18,9 @@ public class Rrs {
 	 */
 	boolean result;
 	/**
-	 * 返回值
+	 * 返回数据主体
 	 */
-	Object value;
+	Object data;
 	/**
 	 * 错误
 	 */
@@ -51,12 +51,12 @@ public class Rrs {
 		this.result = result;
 	}
 
-	public Object getValue() {
-		return value;
+	public Object getData() {
+		return data;
 	}
 
-	public void setValue(Object value) {
-		this.value = value;
+	public void setData(Object data) {
+		this.data = data;
 	}
 
 	public ErrorEnum getError() {
