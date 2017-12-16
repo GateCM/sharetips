@@ -1,4 +1,4 @@
-package com.gatecm.tip.api;
+package com.gatecm.tip.controller.api;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;

@@ -5,6 +5,8 @@ package com.gatecm.tip.exception;
 
 import javax.servlet.http.HttpServletRequest;
 
+import org.springframework.core.MethodParameter;
+import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -21,6 +23,18 @@ import com.gatecm.tip.constant.ErrorEnum;
 @ControllerAdvice
 @ResponseBody
 public class GlobalExceptionHandler {
+
+	/**
+	 * bean校验未通过异常
+	 *
+	 * @see javax.validation.Valid
+	 * @see org.springframework.validation.Validator
+	 * @see org.springframework.validation.DataBinder
+	 */
+	@ExceptionHandler(MethodArgumentNotValidException.class)
+	public MethodParameter validExceptionHandler(MethodArgumentNotValidException e) {
+		return e.getParameter();
+	}
 
 	/**
 	 * 所有异常报错

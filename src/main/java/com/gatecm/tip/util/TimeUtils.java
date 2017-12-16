@@ -23,6 +23,7 @@ public class TimeUtils {
 	private static final long HOUR_DIVISOR = 3600 * 1000;
 	private static final long MINUTE_DIVISOR = 60 * 1000;
 	private static final long SECOND_DIVISOR = 1000;
+	
 
 	/**
 	 * 获取当前日期

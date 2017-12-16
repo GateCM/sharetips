@@ -1,12 +1,10 @@
-package com.gatecm.tip.api;
+package com.gatecm.tip.controller.api;
 
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.gatecm.tip.dto.MemberRegisterDto;
@@ -28,7 +26,6 @@ public class MemberApi {
 	private MemberBasicService memberBasicService;
 
 	@RequestMapping(value = "/register", method = RequestMethod.POST)
-	@ResponseBody
 	public Rrs reg(@Valid MemberRegisterDto registerDto) {
 		return memberBasicService.registByVcode(registerDto);
 	}

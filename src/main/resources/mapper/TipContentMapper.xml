@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.gatecm.tip.mapper.TipContentDao">
+
+	<!-- 通用查询映射结果 -->
+	<resultMap id="BaseResultMap" type="com.gatecm.tip.entity.TipContent">
+		<id column="id" property="id" />
+		<result column="gmt_create" property="gmtCreate" />
+		<result column="gmt_update" property="gmtUpdate" />
+		<result column="title" property="title" />
+		<result column="head_img" property="headImg" />
+		<result column="content" property="content" />
+		<result column="status" property="status" />
+		<result column="belong_member_id" property="belongMemberId" />
+		<result column="is_del" property="isDel" />
+	</resultMap>
+
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+        id, gmt_create AS gmtCreate, gmt_update AS gmtUpdate, title, head_img AS headImg, content, status, belong_member_id AS belongMemberId, is_del AS isDel
+    </sql>
+
+</mapper>
