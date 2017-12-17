@@ -6,6 +6,15 @@ var AJAX_TYPE_GET = "GET";
 
 var AJAX_DATA_TYPE_JSON = "JSON";
 
+$(document).ajaxSuccess(function(){
+    alert("请求成功!");
+}); 
+
+$(document).ajaxError(function(){
+	alert("请求失败!");
+}); 
+
+
 // 获取GET数据
 function ajaxGetData(getUrl, requestData) {
 	var resultData;
@@ -65,12 +74,8 @@ function ajax(aurl, adata, atype, acontentType) {
 		contentType : acontentType,
 		success : function(data) {
 			resultData = data;
-			if(data.result){
-				alert("操作成功");
-			}else{
-				alert("操作失败");
-			}
-		}
+		},
+		
 	});
 	return resultData;
 }

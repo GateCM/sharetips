@@ -3,6 +3,7 @@
 <head>
 <meta charset="UTF-8" />
 <title>技巧编辑</title>
+<!-- css -->
 <link rel="stylesheet" type="text/css" media="all"
 	th:href="@{/custom/common/css/common.css}" />
 <link rel="stylesheet" type="text/css" media="all"
@@ -10,214 +11,80 @@
 	th:href="@{/plugin/bootstrap/bootstrap.min.css}" />
 <link rel="stylesheet"
 	href="https://cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.css">
-
+<link rel="stylesheet" type="text/css" media="all"
+	th:href="@{/custom/tip/tip-write.css}" />
+<!-- js -->
 <script th:src="@{/plugin/jquery/jquery.min.js}"></script>
 <script th:src="@{/plugin/bootstrap/bootstrap.min.js}"></script>
 <script th:src="@{/plugin/editor/wangEditor.min.js}"></script>
 <script th:src="@{/plugin/upload/ajaxfileupload.js}"></script>
 <script th:src="@{/custom/common/js/ajaxCustome.js}"></script>
-
-
-<script type="text/javascript">
-	$(function() {
-		
-		$('a[data-type="save-draft"]').click(function(){
-			var aurl="/api/tip/draft";
-			var adata={};
-			adata.headImg=$(".img-big-upload img").attr("src");
-			adata.title=$("input[name='title']").val();
-			adata.content=editor.txt.html();
-			var result = ajaxPostJson(aurl, adata);
-			
-		});
-
-		$(".img-big-upload")
-				.click(
-						function() {
-							var divNode = $(this);
-							var fileInput = $("#file-input");
-							// 模拟点击input
-							fileInput.trigger('click');
-							fileInput
-									.change(function() {
-										$
-												.ajaxFileUpload({
-													url : '/api/img/upload/tip',
-													secureuri : false,
-													dataType : 'json',
-													fileElementId : 'file-input',
-													success : function(data) {
-														if (data.result == true) {
-															var imgUrl = data.data;
-															divNode.empty();
-															divNode
-																	.addClass("show-img");
-															divNode
-																	.append('<img class="img-thumbnail" src="'+imgUrl+'"/>');
-														} else {
-															alert("上传失败");
-														}
-													}
-												});
-									});
-						});
-
-		var E = window.wangEditor
-		var editor = new E('#editBox'); // 两个参数也可以传入 elem 对象，class 选择器
-		editor.customConfig.uploadFileName = 'file';
-		editor.customConfig.uploadImgServer = '/api/img/wang/upload/tip';
-		editor.create();
-
-	});
-</script>
-
-
-<style type="text/css">
-.img-big-upload {
-margin: 0 auto;
-cursor: pointer;
-text-align: center;
-background: #fbfbfb;
-}
-
-.show-img {
-	border: none;
-	width: 100%;
-	background: #fff;
-}
-
-.img-big-upload i {
-	font-size: 50px;
-	color: #cfcfcf;
-	width: 100px;
-	height: 100px;
-	padding-top: 30px;
-}
-
-.img-big-upload img {
-	height: 100%;
-}
-
-.tip-page{
-position: relative;
-height: auto;
-min-height: 100%;
-}
-
-.tip-navbar {
-	background-color: white;
-	border-color: #e7e7e7;
-	padding: 0px 10px 0px 10px;
-	font-size: 20px;
-	z-index: 10000000;
-}
-
-.tip-navbar a, .tip-navbar a:hover {
-	color: #8d8d8d;
-	font-weight: normal;
-}
-
-.tip-footer{
-font-size: 12px;
-color: #ababab;
-text-align: center;
-}
-
-div.container {
-	margin-top: 100px;
-}
-</style>
+<script th:src="@{/custom/tip/tip-write.js}"></script>
 </head>
-<body>
+<body style="overflow-y: scroll;">
 
-<div class="tip-page">
-	<nav class="navbar tip-navbar navbar-fixed-top" role="navigation">
-		<div class="container-fluid">
-			<div class="navbar-header">
-				<img width="50px" height="50px" alt=""
-					th:src="@{/custom/common/image/logo.jpg}">
+	<div class="tip-page">
+		<nav class="navbar tip-navbar navbar-fixed-top" role="navigation">
+			<div class="container-fluid">
+				<div class="navbar-header">
+					<img width="50px" height="50px" alt=""
+						th:src="@{/custom/common/image/logo.jpg}">
+				</div>
+				<div>
+					<ul class="nav navbar-nav  navbar-right">
+						<li class="active"><a href="#">发布</a></li>
+						<li><a href="#">个人中心</a></li>
+						<li class="dropdown"><a href="#" class="dropdown-toggle"
+							data-toggle="dropdown"> 保存 <b class="caret"></b>
+						</a>
+							<ul class="dropdown-menu">
+								<li><a href="#">我的技巧</a></li>
+								<li class="divider"></li>
+								<li><a data-type="save-draft" href="javascript:void(0);">草稿</a></li>
+							</ul></li>
+					</ul>
+				</div>
 			</div>
-			<div>
-				<ul class="nav navbar-nav  navbar-right">
-					<li class="active"><a href="#">发布</a></li>
-					<li><a href="#">个人中心</a></li>
-					<li class="dropdown"><a href="#" class="dropdown-toggle"
-						data-toggle="dropdown"> 保存 <b class="caret"></b>
-					</a>
-						<ul class="dropdown-menu">
-							<li><a href="#">我的技巧</a></li>
-							<li class="divider"></li>
-							<li><a data-type="save-draft" href="javascript:void(0);">草稿</a></li>
-						</ul></li>
-				</ul>
+		</nav>
+
+		<div class="container">
+			<div class="row">
+				<div class="col-md-12">
+					<form class="form-horizontal" action="" role="form">
+						<div>
+							<div class="col-sm-12 img-big-upload">
+								<i class="fa fa-image fa-3x"></i>
+							</div>
+							<input id="file-input" class="hide" type="file" name="file" />
+						</div>
+						<div class="form-group"></div>
+						<div class="form-group">
+							<div class="col-sm-12">
+								<input type="text" class="tip-e-title form-control" name="title"
+									placeholder="请输入标题">
+							</div>
+						</div>
+					</form>
+					<!-- 文本 -->
+					<div id="editBox"></div>
+				</div>
 			</div>
 		</div>
-	</nav>
 
-
-
-	<div class="container">
-		<div class="row">
-			<div class="col-md-12">
-				<form class="form-horizontal" action="" role="form">
-					<div>
-						<div class="col-sm-12 img-big-upload">
-							<i class="fa fa-image fa-3x"></i> 
-						</div>
-						<input id="file-input" class="hide" type="file" name="file" />
-					</div>
-					<div class="form-group"></div>
-					<div class="form-group">
-						<div class="col-sm-12">
-							<input type="text" class="form-control" name="title"
-								placeholder="请输入标题">
-						</div>
-					</div>
-				</form>
-				
-				<div id="editBox">
-					<!--可使用 min-height 实现编辑区域自动增加高度-->
-					<p>请输入内容</p>
+		<div class="tip-footer">
+			<div class="container">
+				<div class="col-md-4 col-md-offset-4">
+					<footer>
+						<p>
+							<span>© 2018－2024 tips.com, all rights reserved </span>
+						</p>
+						<p>
+							<span>Email：gatecm@163.com&nbsp; &nbsp; Phone：15968183204</span>
+						</p>
+					</footer>
 				</div>
 			</div>
 		</div>
 	</div>
-	
-	
-	<div class="tip-footer">
-		<nav class="navbar navbar-fixed-bottom">
-		  <div class="container">
-		    <div class="col-md-4 col-md-offset-4">
-				<footer>
-				  <p><span>© 2018－2024 tips.com, all rights reserved </span></p>
-				  <p><span>Email：gatecm@163.com&nbsp; &nbsp; Phone：15968183204</span></p>
-				</footer>
-			</div>
-		  </div>
-		</nav>
-	</div>
-</div>
-	<script type="text/javascript" th:inline="javascript">
-		/*<![CDATA[*/
-		//图片上传示例
-		function imgUpload() {
-			$.ajaxFileUpload({
-				url : /*[[@{/api/img/upload/head}]]*/"url",
-				secureuri : false,
-				dataType : 'json',
-				fileElementId : 'fupPhoto',
-				success : function(data) {
-					if (data.result == true) {
-						var imgUrl = data.data;
-						alert("图片上传成功");
-						$("#returnUrl").val(imgUrl);
-					} else {
-						alert("上传失败");
-					}
-				}
-			});
-		}
-		/*]]>*/
-	</script>
 </body>
 </html>
