@@ -73,8 +73,8 @@ public class MpGenerator {
 		});
 		dsc.setDriverName("com.mysql.jdbc.Driver");
 		dsc.setUsername("root");
-		dsc.setPassword("root");
-		dsc.setUrl("jdbc:mysql://localhost:3306/tip_share?characterEncoding=utf8");
+		dsc.setPassword("HuiMei1314");
+		dsc.setUrl("jdbc:mysql://rm-uf60446vx71hkx76so.mysql.rds.aliyuncs.com:3306/tip_share?characterEncoding=utf8");
 		mpg.setDataSource(dsc);
 
 		// 策略配置
@@ -85,7 +85,7 @@ public class MpGenerator {
 		strategy.setNaming(NamingStrategy.underline_to_camel);
 		strategy.setEntityBooleanColumnRemoveIsPrefix(true);
 		// 需要生成的表
-		strategy.setInclude(new String[] { "member_basic"}); 
+		strategy.setInclude(new String[] { "tip_content"}); 
 		// strategy.setExclude(new String[]{"test"}); // 排除生成的表
 		// 自定义实体父类
 		// strategy.setSuperEntityClass("com.gatecm.obsession.entity");

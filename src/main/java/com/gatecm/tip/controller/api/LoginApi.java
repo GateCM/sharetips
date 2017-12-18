@@ -1,7 +1,7 @@
 /**
  * 
  */
-package com.gatecm.tip.api;
+package com.gatecm.tip.controller.api;
 
 import java.util.HashMap;
 import java.util.Map;
