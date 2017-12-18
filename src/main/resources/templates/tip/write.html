@@ -41,7 +41,7 @@
 		
 		
 		var E = window.wangEditor
-		var editor = new E('#div1', '#div2'); // 两个参数也可以传入 elem 对象，class 选择器
+		var editor = new E('#dive'); // 两个参数也可以传入 elem 对象，class 选择器
 		editor.customConfig.uploadFileName = 'file';
 		editor.customConfig.uploadImgServer = '/api/img/upload/head';
 		editor.create();
@@ -151,11 +151,11 @@ color: #f0f0f0;
 				<button data="add" type="button" class="btn">替换内容</button>
 				<button data="clear" type="button" class="btn">清空内容</button>
 				<button data="add" type="button" class="btn">替换内容</button>
-				<div id="div1" class="toolbar"></div>
-				<div style="padding: 5px 0; color: #ccc">
-					<hr />
-				</div>
-				<div id="div2" class="text">
+<!-- 				<div id="div1" class="toolbar"></div> -->
+<!-- 				<div style="padding: 5px 0; color: #ccc"> -->
+<!-- 					<hr /> -->
+<!-- 				</div> -->
+				<div id="dive" class="text">
 					<!--可使用 min-height 实现编辑区域自动增加高度-->
 					<p>请输入内容</p>
 				</div>
