@@ -1,0 +1,147 @@
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+<body>
+	<div th:fragment="custom-pagination (pageUrl)">
+
+		<div th:if="${pageResult.size!=0}">
+			<div style="padding-top: 8px;" class="col-xs-6">
+				<div class="dataTables_info" >
+				显示 1 至 
+				<span th:text="${pageResult.size}"></span>
+				条 &nbsp;&nbsp;, 共 
+				<span th:text="${pageResult.total}"></span>
+				条
+				</div>
+			</div>
+			
+			<div class="col-xs-6">
+				<ul style="margin: 2px 0;float: right;" class="pagination"  data-th-if="${pageResult.pages le 7}">
+					<!-- 首页 -->
+					<li th:class="${pageResult.isFirstPage} ? 'disabled' : ''"><a name="pageJump"
+						th:if="${not pageResult.isFirstPage}"
+						th:href="@{${pageUrl}(currentPage=${pageResult.firstPage},size=${pageResult.pageSize})}">首页</a>
+						<a name="pageJump" th:if="${pageResult.isFirstPage}" href="javascript:void(0);">首页</a>
+					</li>
+		
+					<!-- 上一页 -->
+					<li th:class="${pageResult.hasPreviousPage} ? '' : 'disabled'">
+						<a name="pageJump" th:if="${not pageResult.isFirstPage}" th:href="@{${pageUrl}(currentPage=${pageResult.prePage},size=${pageResult.pageSize})}">前一页</a>
+						<a name="pageJump" th:if="${pageResult.isFirstPage}" href="javascript:void(0);">前一页</a>
+					</li>
+		
+					<!-- 页码集 -->
+					<li th:each="pageNo : ${pageResult.navigatepageNums}" th:class="${pageResult.pageNum eq pageNo}? 'active' : ''">
+						<a name="pageJump" th:if="${pageResult.pageNum  eq pageNo}" href="javascript:void(0);">
+							<span th:text="${pageNo}"></span>
+						</a>
+						<a name="pageJump" th:if="${not (pageResult.pageNum  eq pageNo)}" th:href="@{${pageUrl}(currentPage=${pageNo},size=${pageResult.pageSize})}">
+							<span th:text="${pageNo}"></span>
+						</a>
+					</li>
+		
+					<!-- 下一页 -->
+					<li
+						th:class="${pageResult.hasNextPage} ? '' : 'disabled'">
+						<a name="pageJump" th:if="${pageResult.hasNextPage}"
+						th:href="@{${pageUrl}(currentPage=${pageResult.nextPage},size=${pageResult.pageSize})}">下一页</a>
+						<a name="pageJump" th:if="${pageResult.isLastPage}" href="javascript:void(0);">下一页</a>
+					</li>
+		
+					<!-- 尾页 -->
+					<li th:class="${pageResult.isLastPage} ? 'disabled' : ''"><a name="pageJump"
+						th:if="${not pageResult.isLastPage}"
+						th:href="@{${pageUrl}(currentPage=${pageResult.lastPage},size=${pageResult.pageSize})}">尾页</a>
+						<a name="pageJump" th:if="${pageResult.isLastPage}" href="javascript:void(0);">尾页</a>
+					</li>
+		
+				</ul>	
+				<ul style="margin: 2px 0;float: right;" class="pagination"  data-th-if="${pageResult.pages gt 7}">
+					<!-- 首页 -->
+					<li th:class="${pageResult.isFirstPage} ? 'disabled' : ''"><a name="pageJump"
+						th:if="${not pageResult.isFirstPage}"
+						th:href="@{${pageUrl}(currentPage=1,size=${pageResult.pageSize})}">首页</a>
+						<a name="pageJump" th:if="${pageResult.isFirstPage}" href="javascript:void(0);">首页</a>
+					</li>
+		
+					<!-- 上一页 -->
+					<li th:class="${pageResult.prePage eq 0} ? 'disabled' : ''"><a name="pageJump"
+						th:if="${not pageResult.isFirstPage}"
+						th:href="@{${pageUrl}(currentPage=${pageResult.pageNum-1},size=${pageResult.pageSize})}">前一页</a>
+						<a name="pageJump" th:if="${pageResult.isFirstPage}" href="javascript:void(0);">前一页</a>
+					</li>
+				    <!-- 当前页面小于等于4 -->
+			        <li class="page-item" data-th-if="${(pageResult.pageNum) le 4}" data-th-each="i : ${#numbers.sequence(2,5)}" 
+			            data-th-classappend="${(pageResult.pageNum) eq i} ? 'active' : ''" >
+			            <a name="pageJump" class="page-link"  th:href="@{${pageUrl}(currentPage=${i},size=${pageResult.pageSize})}"   data-th-attr="pageIndex=${i}">
+			                <span data-th-text="${i}"></span>
+			            </a>
+			        </li>
+			
+			        <li class="page-item disabled" data-th-if="${(pageResult.pageNum + 1) le 4}">
+			            <a name="pageJump" href="javascript:void(0);" class="page-link">
+			                <span aria-hidden="true">...</span>
+			            </a>
+			        </li>
+	
+			       <!-- 最后一页与当前页面之差，小于等于3 -->
+			       <li class="page-item disabled" data-th-if="${(pageResult.pages-(pageResult.pageNum)) le 3}">
+			           <a name="pageJump" href="javascript:void(0);" class="page-link">
+			               <span aria-hidden="true">...</span>
+			           </a>
+			       </li>  
+			       <li class="page-item" data-th-if="${(pageResult.pages-(pageResult.pageNum + 1)) le 3}" data-th-each="i : ${#numbers.sequence(pageResult.pages-4, pageResult.pages-1)}" 
+			           data-th-classappend="${(pageResult.pageNum) eq i} ? 'active' : ''" >
+			           <a name="pageJump" class="page-link" th:href="@{${pageUrl}(currentPage=${i},size=${pageResult.pageSize})}"  data-th-attr="pageIndex=${i}">
+			               <span data-th-text="${i}"></span>
+			          </a>
+			       </li>
+			       <!-- 最后一页与当前页面之差大于3，且  当前页面大于4-->
+			
+			       <li class="page-item disabled" data-th-if="${((pageResult.pageNum) gt 4) &amp;&amp; ((pageResult.pages-(pageResult.pageNum)) gt 3 )}">
+			           <a name="pageJump" href="javascript:void(0);" class="page-link">
+			               <span aria-hidden="true">...</span>
+			           </a>
+			       </li> 
+			       <li class="page-item" data-th-if="${((pageResult.pageNum) gt 4) &amp;&amp; ((pageResult.pages-(pageResult.pageNum)) gt 3 )}" >
+			           <a name="pageJump"  th:href="@{${pageUrl}(currentPage=${pageResult.pageNum-1},size=${pageResult.pageSize})}"   class="page-link" data-th-attr="pageIndex=${pageResult.pageNum-1}">
+			           	<span data-th-text="${pageResult.pageNum-1}"></span>
+			           </a>
+			       </li>
+			       <li class="page-item active" data-th-if="${((pageResult.pageNum) gt 4) &amp;&amp; ((pageResult.pages-(pageResult.pageNum)) gt 3 )}">
+			           <a name="pageJump"  th:href="@{${pageUrl}(currentPage=${pageResult.pageNum},size=${pageResult.pageSize})}"   class="page-link" data-th-attr="pageIndex=${pageResult.pageNum}">
+			          		<span data-th-text="${pageResult.pageNum}"></span>
+			           </a>
+			       </li>
+			       <li class="page-item" data-th-if="${((pageResult.pageNum) gt 4) &amp;&amp; ((pageResult.pages-(pageResult.pageNum)) gt 3 )}">
+			           <a name="pageJump"  th:href="@{${pageUrl}(currentPage=${pageResult.pageNum+1},size=${pageResult.pageSize})}"   class="page-link" data-th-attr="pageIndex=${pageResult.pageNum+1}">
+			           		<span data-th-text="${pageResult.pageNum + 1}"></span>
+			           </a>
+			       </li>
+			
+			       <li class="page-item disabled"  data-th-if="${((pageResult.pageNum) gt 4) &amp;&amp; ((pageResult.pages-(pageResult.pageNum)) gt 3 )}">
+			           <a name="pageJump" href="javascript:void(0);" class="page-link">
+			               <span aria-hidden="true">...</span>
+			           </a>
+			       </li>
+			       
+					<!-- 下一页 -->
+					<li
+						th:class="${pageResult.pageNum ge pageResult.pages} ? 'disabled' : ''">
+						<a name="pageJump" th:if="${not pageResult.isLastPage}"
+						th:href="@{${pageUrl}(currentPage=${pageResult.pageNum+1},size=${pageResult.pageSize})}">下一页</a>
+						<a name="pageJump" th:if="${pageResult.isLastPage}" href="javascript:void(0);">下一页</a>
+					</li>
+		
+					<!-- 尾页 -->
+					<li th:class="${pageResult.isLastPage} ? 'disabled' : ''"><a name="pageJump"
+						th:if="${not pageResult.isLastPage}"
+						th:href="@{${pageUrl}(currentPage=${pageResult.pages},size=${pageResult.pageSize})}">尾页</a>
+						<a name="pageJump" th:if="${pageResult.isLastPage}" href="javascript:void(0);">尾页</a>
+					</li>
+		
+				</ul>	
+			</div>
+		</div>
+	</div>
+</body>
+</html>

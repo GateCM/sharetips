@@ -11,7 +11,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.gatecm.tip.dto.TipContentDTO;
+import com.gatecm.tip.dto.PaginationDto;
+import com.gatecm.tip.dto.TipContentDto;
 import com.gatecm.tip.service.Rrs;
 import com.gatecm.tip.service.TipContentService;
 
@@ -29,7 +30,12 @@ public class TipApi {
 	private TipContentService tipContentService;
 
 	@RequestMapping(value = "/draft", method = RequestMethod.POST)
-	public Rrs draft(@RequestBody @Valid TipContentDTO tip) {
+	public Rrs draft(@RequestBody @Valid TipContentDto tip) {
 		return tipContentService.saveDraft(tip);
+	}
+
+	@RequestMapping(value = "/draft/list", method = RequestMethod.GET)
+	public Rrs draftList(PaginationDto pagination) {
+		return tipContentService.draftList(pagination);
 	}
 }

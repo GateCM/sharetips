@@ -28,7 +28,7 @@
 		<mybatis-plus.version>2.1.2</mybatis-plus.version>
 		<druid.version>1.0.19</druid.version>
 		<velocity.version>2.0</velocity.version>
-		<pagehelper-spring.version>1.1.1</pagehelper-spring.version>
+		<pagehelper-spring.version>4.2.1</pagehelper-spring.version>
 		<mybatisplus-spring-boot-starter.version>1.0.4</mybatisplus-spring-boot-starter.version>
 		<shiro.version>1.3.2</shiro.version>
 	</properties>
@@ -124,6 +124,13 @@
 			<version>${velocity.version}</version>
 		</dependency>
 		<!-- mybatis-plus end -->
+		
+		<!-- mybatis分页 pagehelper-->
+		<dependency>
+			<groupId>com.github.pagehelper</groupId>
+			<artifactId>pagehelper</artifactId>
+			<version>${pagehelper-spring.version}</version>
+		</dependency>
 
 		<!-- 热部署 -->
 		<dependency>

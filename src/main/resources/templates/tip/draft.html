@@ -20,11 +20,6 @@
 <script th:src="@{/plugin/upload/ajaxfileupload.js}"></script>
 <script th:src="@{/custom/common/js/ajaxCustome.js}"></script>
 <script th:src="@{/custom/tip/tip-write.js}"></script>
-<script type="text/javascript">
-
-</script>
-
-
 </head>
 <body>
 
@@ -33,32 +28,24 @@
 
 	<div class="container">
 		<div class="row">
-			<div class="col-md-12" th:with="isEdit=${rd ne null && rd.result}">
+			<div class="col-md-12">
 				<form class="form-horizontal" action="" role="form">
-					<input th:if="${isEdit}" class="hide" name="tipId" th:value="${rd.data.id}">
 					<div>
-						<div th:unless="${isEdit}" class="col-sm-12 img-big-upload">
+						<div class="col-sm-12 img-big-upload">
 							<i class="fa fa-image fa-3x"></i>
-						</div>
-						
-						<div th:if="${isEdit}" class="col-sm-12 img-big-upload show-img">
-								<img class="img-thumbnail" th:src="${rd.data.headImg}" />
 						</div>
 						<input id="file-input" class="hide" type="file" name="file" />
 					</div>
 					<div class="form-group"></div>
 					<div class="form-group">
 						<div class="col-sm-12">
-							<input th:if="${isEdit}" th:value="${rd.data.title}" type="text" class="tip-e-title form-control" name="title"
-								placeholder="请输入标题">
-							<input th:unless="${isEdit}" type="text" class="tip-e-title form-control" name="title"
+							<input type="text" class="tip-e-title form-control" name="title"
 								placeholder="请输入标题">
 						</div>
 					</div>
 				</form>
 				<!-- 文本 -->
-				<div th:unless="${isEdit}"id="editBox"></div>
-				<div th:if="${isEdit}" id="editBox" th:utext="${rd.data.content}"></div>
+				<div id="editBox"></div>
 			</div>
 		</div>
 	</div>

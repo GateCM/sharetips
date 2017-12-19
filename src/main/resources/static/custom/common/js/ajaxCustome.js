@@ -7,11 +7,11 @@ var AJAX_TYPE_GET = "GET";
 var AJAX_DATA_TYPE_JSON = "JSON";
 
 $(document).ajaxSuccess(function(){
-    alert("请求成功!");
+//    alert("请求成功!");
 }); 
 
 $(document).ajaxError(function(){
-	alert("请求失败!");
+//	alert("请求失败!");
 }); 
 
 

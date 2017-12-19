@@ -29,12 +29,15 @@ import com.gatecm.tip.service.Rrs;
 public class ImgAPI {
 
 	@Autowired
+	private ShiroSessionUtils shiroSessionUtils;
+
+	@Autowired
 	private ImgService imgService;
 
 	@RequestMapping(value = "/wang/upload/{fileDir}", method = RequestMethod.POST)
 	public Map<String, Object> pluginUploadWithFileDir(@PathVariable String fileDir, MultipartFile file) {
 		Map<String, Object> map = new HashMap<>();
-		Long memberId = ShiroSessionUtils.getMemberId();
+		Long memberId = shiroSessionUtils.getMemberId();
 		Rrs rrs = imgService.upload(file, fileDir, memberId);
 		if (rrs.getResult()) {
 			map.put(BaseConstant.WANG_EDITER_UPLOAD_ERRNO, BaseConstant.WANG_EDITER_UPLOAD_SUCCESS);

@@ -43,6 +43,11 @@ public class Rrs {
 		this.error = error;
 	}
 
+	public Rrs(boolean result, Object data) {
+		this.result = result;
+		this.data = data;
+	}
+
 	public boolean getResult() {
 		return result;
 	}

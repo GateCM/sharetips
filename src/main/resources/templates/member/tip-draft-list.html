@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8" />
+<title>我的草稿</title>
+<!-- css -->
+<link rel="stylesheet" type="text/css" media="all"
+	href="/plugin/bootstrap/bootstrap.min.css"
+	th:href="@{/plugin/bootstrap/bootstrap.min.css}" />
+<link rel="stylesheet"
+	href="https://cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.css">
+<link rel="stylesheet" type="text/css" media="all"
+	th:href="@{/custom/common/css/common.css}" />
+<!-- js -->
+<script th:src="@{/plugin/jquery/jquery.min.js}"></script>
+<script th:src="@{/plugin/bootstrap/bootstrap.min.js}"></script>
+<script th:src="@{/custom/common/js/ajaxCustome.js}"></script>
+<script th:src="@{/custom/common/js/time.js}"></script>
+<script type="text/javascript">
+	$(function() {
+
+		var tipShowBox = $("#tip-list-box");
+		var getUrl = "/api/tip/draft/list";
+		var requestData = "";
+		var result = ajaxGetData(getUrl, requestData);
+		$.each(result.data.list, function(n, value) {
+			tipShowBox.append('<li class="tip-box">'
+					+ '<h2><a data-type="draft-info" data="' + value.id
+					+ '" href="javascript:void(0);">' + value.title + '</a>'
+					+ '<p>' + getDateDiff(value.gmtCreate) + '</p>' + '</li>');
+		});
+		
+		
+		var tipPaginationNode  =$("#tip-pagination");
+		alert(JSON.stringify(result.data.navigatepageNums));
+		$.each(result.data.navigatepageNums,function(index,value){
+			alert(0);
+			tipPaginationNode.append('<li><a href="#">'+value+'</a></li>');
+		})
+		
+// 		$("#tip-pagination").append('
+				
+				
+// 				');
+		
+		
+		
+		
+
+		$("a[data-type='draft-info']").click(function() {
+			var tipId = $(this).attr("data");
+			location.href = "/tip/" + tipId + "/edit";
+		});
+	});
+</script>
+
+
+</head>
+<body>
+	<!-- tip-nav -->
+	<div th:include="/_model/_tip-nav :: tip-nav"></div>
+
+	<div class="container">
+		<div class="row">
+			<div class="col-md-12">
+				<ul id="tip-list-box" class="tip-list-box">
+				</ul>
+			</div>
+
+			<div class="col-md-12">
+				<div class="col-md-6 pull-right">
+					<ul id="tip-pagination" class="pagination pagination-sm">
+					</ul>
+				</div>
+			</div>
+
+		</div>
+	</div>
+
+	<!-- footer -->
+	<div th:include="/_model/_footer :: tip-footer"></div>
+</body>
+</html>

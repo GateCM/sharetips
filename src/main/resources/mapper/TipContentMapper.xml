@@ -15,9 +15,40 @@
 		<result column="is_del" property="isDel" />
 	</resultMap>
 
-    <!-- 通用查询结果列 -->
-    <sql id="Base_Column_List">
-        id, gmt_create AS gmtCreate, gmt_update AS gmtUpdate, title, head_img AS headImg, content, status, belong_member_id AS belongMemberId, is_del AS isDel
-    </sql>
+	<!-- 通用查询结果列 -->
+	<sql id="Base_Column_List">
+		id, gmt_create AS gmtCreate, gmt_update AS gmtUpdate,
+		title, head_img AS
+		headImg, content, status, belong_member_id AS
+		belongMemberId, is_del
+		AS isDel
+	</sql>
+
+
+	<!-- TipVo查询映射结果 -->
+	<resultMap id="TipVoResultMap" type="com.gatecm.tip.dto.vo.TipVo"></resultMap>
+
+	<select id="selectVoByParam" resultMap="TipVoResultMap">
+		SELECT
+		<include refid="Base_Column_List"></include>
+		FROM tip_content
+		<trim prefix="WHERE" prefixOverrides="AND || OR">
+			<if test="title != null">
+				AND title=#{title}
+			</if>
+			<if test="headImg != null">
+				AND head_img=#{headImg}
+			</if>
+			<if test="status !=null ">
+				AND status=#{status}
+			</if>
+			<if test="belongMemberId !=null ">
+				AND belong_member_id=#{belongMemberId}
+			</if>
+			<if test="isDel !=null ">
+				AND is_del=#{isDel}
+			</if>
+		</trim>
+	</select>
 
 </mapper>

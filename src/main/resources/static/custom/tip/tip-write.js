@@ -3,6 +3,7 @@ $(function() {
 	$('a[data-type="save-draft"]').click(function() {
 		var aurl = "/api/tip/draft";
 		var adata = {};
+		adata.tipId = $("input[name='tipId']").val();
 		adata.headImg = $(".img-big-upload img").attr("src");
 		adata.title = $("input[name='title']").val();
 		adata.content = editor.txt.html();

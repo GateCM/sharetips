@@ -12,7 +12,12 @@ import javax.validation.constraints.NotBlank;
  * @date 2017年12月16日 下午10:01:08
  *
  */
-public class TipContentDTO {
+public class TipContentDto {
+
+	/**
+	 * 技巧ID
+	 */
+	private Long tipId;
 
 	/**
 	 * 题目
@@ -53,6 +58,14 @@ public class TipContentDTO {
 
 	public void setContent(String content) {
 		this.content = content;
+	}
+
+	public Long getTipId() {
+		return tipId;
+	}
+
+	public void setTipId(Long tipId) {
+		this.tipId = tipId;
 	}
 
 }

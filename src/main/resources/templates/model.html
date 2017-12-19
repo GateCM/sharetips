@@ -2,29 +2,32 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
 <meta charset="UTF-8" />
-<title>首页</title>
+<title>=====</title>
 <!-- css -->
 <link rel="stylesheet" type="text/css" media="all"
 	href="/plugin/bootstrap/bootstrap.min.css"
 	th:href="@{/plugin/bootstrap/bootstrap.min.css}" />
+<link rel="stylesheet"
+	href="https://cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.css">
 <link rel="stylesheet" type="text/css" media="all"
 	th:href="@{/custom/common/css/common.css}" />
+<!-- js -->
 <script th:src="@{/plugin/jquery/jquery.min.js}"></script>
 <script th:src="@{/plugin/bootstrap/bootstrap.min.js}"></script>
+<script th:src="@{/custom/common/js/ajaxCustome.js}"></script>
 </head>
 <body>
-	<div class="tip-page">
-		这是首页！！！！
-		<div class="container">
-			<div class="row">
-				<div class="col-md-12">
-					<a th:href="@{/tip/write}">编辑</a>
-				</div>
-			</div>
-		</div>
 
-		<!-- footer -->
-		<div th:include="/_model/_footer :: tip-footer"></div>
+	<!-- tip-nav -->
+	<div th:include="/_model/_tip-nav :: tip-nav"></div>
+
+	<div class="container">
+		<div class="row">
+			<div class="col-md-12"></div>
+		</div>
 	</div>
+
+	<!-- footer -->
+	<div th:include="/_model/_footer :: tip-footer"></div>
 </body>
 </html>
