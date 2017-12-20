@@ -17,7 +17,7 @@ package com.gatecm.tip.constant;
  */
 public enum TipEnum {
 	
-	PAG_NAV_PAGES_DRAFT(2,"技巧草稿分页导航显示页码"),
+	PAG_NAV_PAGES_DRAFT(5,"技巧草稿分页导航显示页码"),
 
 	/**
 	 * 技巧私人状态
