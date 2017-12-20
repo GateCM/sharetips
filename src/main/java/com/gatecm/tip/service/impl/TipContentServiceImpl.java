@@ -67,7 +67,7 @@ public class TipContentServiceImpl extends ServiceImpl<TipContentDao, TipContent
 		selectParam.setBelongMemberId(belongMemberId);
 		selectParam.setStatus((Integer) TipEnum.STATUS_DRAFT.getValue());
 		List<TipVo> draftVos = tipContentDao.selectVoByParam(selectParam);
-		PageInfo<TipVo> pageInfo = new PageInfo<>(draftVos);
+		PageInfo<TipVo> pageInfo = new PageInfo<>(draftVos, (Integer) TipEnum.PAG_NAV_PAGES_DRAFT.getValue());
 		return new Rrs(true, pageInfo);
 	}
 

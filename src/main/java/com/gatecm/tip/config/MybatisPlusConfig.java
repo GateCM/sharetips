@@ -1,5 +1,7 @@
 package com.gatecm.tip.config;
 
+import java.util.Properties;
+
 import javax.sql.DataSource;
 
 import org.apache.ibatis.mapping.DatabaseIdProvider;
@@ -18,6 +20,7 @@ import com.baomidou.mybatisplus.plugins.PaginationInterceptor;
 import com.baomidou.mybatisplus.spring.MybatisSqlSessionFactoryBean;
 import com.baomidou.mybatisplus.spring.boot.starter.MybatisPlusProperties;
 import com.baomidou.mybatisplus.spring.boot.starter.SpringBootVFS;
+import com.github.pagehelper.PageHelper;
 
 @Configuration
 public class MybatisPlusConfig {
@@ -38,13 +41,14 @@ public class MybatisPlusConfig {
 
 	/**
 	 * mybatis-plus分页插件
+	 * 此项目使用PageHelper
 	 */
-	@Bean
-	public PaginationInterceptor paginationInterceptor() {
-		PaginationInterceptor page = new PaginationInterceptor();
-		page.setDialectType("mysql");
-		return page;
-	}
+//	@Bean
+//	public PaginationInterceptor paginationInterceptor() {
+//		PaginationInterceptor page = new PaginationInterceptor();
+//		page.setDialectType("mysql");
+//		return page;
+//	}
 
 	/**
 	 * 这里全部使用mybatis-autoconfigure 已经自动加载的资源。不手动指定 配置文件和mybatis-boot的配置文件同步
@@ -54,6 +58,17 @@ public class MybatisPlusConfig {
 	@Bean
 	public MybatisSqlSessionFactoryBean mybatisSqlSessionFactoryBean() {
 		MybatisSqlSessionFactoryBean mybatisPlus = new MybatisSqlSessionFactoryBean();
+		// 分页插件
+		PageHelper pageHelper = new PageHelper();
+		Properties props = new Properties();
+		props.setProperty("reasonable", "true");
+		props.setProperty("supportMethodsArguments", "true");
+		props.setProperty("returnPageInfo", "check");
+		props.setProperty("params", "count=countSql");
+		pageHelper.setProperties(props);
+		// 添加插件
+		mybatisPlus.setPlugins(new Interceptor[] { pageHelper });
+
 		mybatisPlus.setDataSource(dataSource);
 		mybatisPlus.setVfs(SpringBootVFS.class);
 		if (StringUtils.hasText(this.properties.getConfigLocation())) {

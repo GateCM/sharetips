@@ -17,11 +17,12 @@
 <script th:src="@{/custom/common/js/ajaxCustome.js}"></script>
 <script th:src="@{/custom/common/js/time.js}"></script>
 <script type="text/javascript">
-	$(function() {
 
+	function loadList(pageNum,pageSize){
 		var tipShowBox = $("#tip-list-box");
+		tipShowBox.empty();
 		var getUrl = "/api/tip/draft/list";
-		var requestData = "";
+		var requestData = "pageNum="+pageNum+"&pageSize="+pageSize;
 		var result = ajaxGetData(getUrl, requestData);
 		$.each(result.data.list, function(n, value) {
 			tipShowBox.append('<li class="tip-box">'
@@ -30,22 +31,32 @@
 					+ '<p>' + getDateDiff(value.gmtCreate) + '</p>' + '</li>');
 		});
 		
+		iniPaginatoin(result);
+		return result;
+	}
+	
+	function iniPaginatoin(result){
+		var prePage = result.data.prePage;
+		var nextPage = result.data.nextPage;
+		var totalPages = result.data.pages;
 		
 		var tipPaginationNode  =$("#tip-pagination");
-		alert(JSON.stringify(result.data.navigatepageNums));
+		tipPaginationNode.empty();
+		tipPaginationNode.append('<li class="previous"><a data="'+prePage+'" href="javascript:void(0);">&larr;</a></li>');
 		$.each(result.data.navigatepageNums,function(index,value){
-			alert(0);
-			tipPaginationNode.append('<li><a href="#">'+value+'</a></li>');
-		})
+			tipPaginationNode.append('<li><a data="'+value+'" href="javascript:void(0);">'+value+'</a></li>');
+		});
+		tipPaginationNode.append('<li class="next"><a  data="'+nextPage+'" href="javascript:void(0);">&rarr;</a></li>');
+	}
+	
+	$(function() {
+		var pageSize = 5;
 		
-// 		$("#tip-pagination").append('
-				
-				
-// 				');
-		
-		
-		
-		
+		loadList(1,pageSize);
+		$("#tip-pagination").on("click","a",function(){
+			var currentPageNum = $(this).attr("data");
+			loadList(currentPageNum,pageSize);
+		});		
 
 		$("a[data-type='draft-info']").click(function() {
 			var tipId = $(this).attr("data");
