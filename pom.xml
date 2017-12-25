@@ -124,8 +124,8 @@
 			<version>${velocity.version}</version>
 		</dependency>
 		<!-- mybatis-plus end -->
-		
-		<!-- mybatis分页 pagehelper-->
+
+		<!-- mybatis分页 pagehelper -->
 		<dependency>
 			<groupId>com.github.pagehelper</groupId>
 			<artifactId>pagehelper</artifactId>
@@ -161,6 +161,17 @@
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-configuration-processor</artifactId>
 			<optional>true</optional>
+		</dependency>
+
+		<!--缓存 -->
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-cache</artifactId>
+		</dependency>
+
+		<dependency>
+			<groupId>net.sf.ehcache</groupId>
+			<artifactId>ehcache</artifactId>
 		</dependency>
 
 		<!-- jackson -->
