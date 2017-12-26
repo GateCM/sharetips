@@ -17,6 +17,8 @@ import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.CachePut;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 
 /**
@@ -36,6 +38,7 @@ public class TipContentServiceImpl extends ServiceImpl<TipContentDao, TipContent
 	@Autowired
 	private TipContentDao tipContentDao;
 
+	@CachePut(value = "tip", key = "#tip.tipId")
 	@Override
 	public Rrs saveDraft(TipContentDto tip) {
 		boolean isUpdate = tip.getTipId() != null;
@@ -56,7 +59,11 @@ public class TipContentServiceImpl extends ServiceImpl<TipContentDao, TipContent
 		iuParam.setContent(tip.getContent());
 		iuParam.setBelongMemberId(belongMemberId);
 		iuParam.setStatus((Integer) TipEnum.STATUS_DRAFT.getValue());
-		return new Rrs(tipContentDao.insert(iuParam) == 1);
+
+		System.out.println("为id、key为:" + tip.getTipId() + " 数据做了缓存");
+		Rrs rrs = new Rrs(tipContentDao.insert(iuParam) == 1);
+		rrs.setData(tipContentDao.selectById(iuParam.getId()));
+		return rrs;
 	}
 
 	@Override
@@ -71,6 +78,7 @@ public class TipContentServiceImpl extends ServiceImpl<TipContentDao, TipContent
 		return new Rrs(true, pageInfo);
 	}
 
+	@Cacheable(value = "tip", key = "#tipId")
 	@Override
 	public Rrs getDraftTip(Long tipId) {
 		TipContent draftTip = tipContentDao.selectById(tipId);

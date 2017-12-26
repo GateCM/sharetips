@@ -18,10 +18,14 @@ import com.baomidou.mybatisplus.enums.IdType;
  * @since 2017-12-02
  */
 @TableName("member_basic")
-public class MemberBasic extends Model<MemberBasic> {
+public class MemberBasic extends Model<MemberBasic> implements Serializable {
 
-	private static final long serialVersionUID = 1L;
+	// private static final long serialVersionUID = 1L;
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -8611394950130495601L;
 	/**
 	 * 统一主键
 	 */
