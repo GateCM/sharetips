@@ -23,7 +23,7 @@ public class LoginController {
 	}
 
 	@RequestMapping(value = "/signup")
-	public String signPage() {
+	public String signupPage() {
 		return "/member/signup";
 	}
 }

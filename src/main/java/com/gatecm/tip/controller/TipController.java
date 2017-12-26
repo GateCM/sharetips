@@ -7,7 +7,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.fasterxml.jackson.databind.deser.Deserializers.Base;
 import com.gatecm.tip.constant.BaseConstant;
 import com.gatecm.tip.service.Rrs;
 import com.gatecm.tip.service.TipContentService;
