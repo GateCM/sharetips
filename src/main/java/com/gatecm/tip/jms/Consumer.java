@@ -18,11 +18,11 @@ import com.gatecm.tip.entity.MemberBasic;
 @Component
 public class Consumer {
 
-	@JmsListener(destination = "mytest.queue")
-	@SendTo("out.queue")
-	public String receiveQueue(MemberBasic text) {
-		System.err.println("Consumer收到的报文为：" + text.getPassword());
-		return "return：" + text.getPassword();
-	}
+//	@JmsListener(destination = "mytest.queue")
+//	@SendTo("out.queue")
+//	public String receiveQueue(MemberBasic text) {
+//		System.err.println("Consumer收到的报文为：" + text.getPassword());
+//		return "return：" + text.getPassword();
+//	}
 
 }

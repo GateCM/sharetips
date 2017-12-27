@@ -3,6 +3,11 @@ input, button, a {
 	blr: expression(this.onFocus = this.blur ());
 }
 
+a:hover, a:visited, a:link, a:active {
+	color: #000;
+	text-decoration: none;
+}
+
 ul li {
 	list-style: none;
 }

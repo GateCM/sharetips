@@ -6,6 +6,7 @@ import com.gatecm.tip.dto.PaginationDto;
 import com.gatecm.tip.dto.TipContentDto;
 import com.gatecm.tip.dto.vo.TipVo;
 import com.gatecm.tip.entity.TipContent;
+import com.gatecm.tip.mapper.MemberBasicDao;
 import com.gatecm.tip.mapper.TipContentDao;
 import com.gatecm.tip.service.Rrs;
 import com.gatecm.tip.service.TipContentService;
@@ -37,6 +38,9 @@ public class TipContentServiceImpl extends ServiceImpl<TipContentDao, TipContent
 
 	@Autowired
 	private TipContentDao tipContentDao;
+
+	@Autowired
+	private MemberBasicDao memberBasicDao;
 
 	@CachePut(value = "tip", key = "#tip.tipId")
 	@Override
@@ -83,6 +87,21 @@ public class TipContentServiceImpl extends ServiceImpl<TipContentDao, TipContent
 	public Rrs getDraftTip(Long tipId) {
 		TipContent draftTip = tipContentDao.selectById(tipId);
 		return new Rrs(true, draftTip);
+	}
+
+	@Override
+	public Rrs releaseList(PaginationDto pagination) {
+		Long belongMemberId = shiroSessionUtils.getMemberId();
+		PageHelper.startPage(pagination.getPageNum(), pagination.getPageSize());
+		TipContent selectParam = new TipContent();
+		selectParam.setBelongMemberId(belongMemberId);
+		selectParam.setStatus((Integer) TipEnum.STATUS_RELEASE.getValue());
+		List<TipVo> draftVos = tipContentDao.selectVoByParam(selectParam);
+		for (TipVo tip : draftVos) {
+			tip.setBelongMember(memberBasicDao.selectVoById(tip.getBelongMemberId()));
+		}
+		PageInfo<TipVo> pageInfo = new PageInfo<>(draftVos);
+		return new Rrs(true, pageInfo);
 	}
 
 }

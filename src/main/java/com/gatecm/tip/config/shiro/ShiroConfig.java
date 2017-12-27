@@ -46,7 +46,7 @@ public class ShiroConfig {
 		// 配置不会被拦截的链接 顺序判断
 		//登录路由
 		filterChainDefinitionMap.put("/login/**", "anon");
-		filterChainDefinitionMap.put("/api/login", "anon");
+		filterChainDefinitionMap.put("/api/login/**", "anon");
 		filterChainDefinitionMap.put("/api/member/register", "anon");
 		filterChainDefinitionMap.put("/api/sms/*", "anon");
 		//静态文件

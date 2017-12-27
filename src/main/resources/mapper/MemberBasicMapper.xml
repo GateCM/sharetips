@@ -26,9 +26,50 @@
 		<result column="is_del" property="isDel" />
 	</resultMap>
 
-    <!-- 通用查询结果列 -->
-    <sql id="Base_Column_List">
-        id, gmt_create AS gmtCreate, gmt_update AS gmtUpdate, status, nickname, head_url AS headUrl, phone_number AS phoneNumber, qq, we_chat AS weChat, email, sex, password, salt, motto, birthday, age, occupation, total_point AS totalPoint, current_point AS currentPoint, is_del AS isDel
-    </sql>
+	<!-- 通用查询结果列 -->
+	<sql id="Base_Column_List">
+		id, gmt_create AS gmtCreate, gmt_update AS gmtUpdate,
+		status, nickname,
+		head_url AS headUrl, phone_number AS phoneNumber, qq,
+		we_chat AS
+		weChat, email, sex, password, salt, motto, birthday, age,
+		occupation,
+		total_point AS totalPoint, current_point AS currentPoint,
+		is_del AS
+		isDel
+	</sql>
+
+	<!-- MemberVo查询映射结果 -->
+	<resultMap id="MemberVoResultMap" type="com.gatecm.tip.dto.vo.MemberVo"></resultMap>
+
+	<select id="selectVoById" resultMap="MemberVoResultMap">
+		SELECT
+		<include refid="Base_Column_List"></include>
+		FROM member_basic
+		WHERE id=#{id}
+	</select>
+
+	<select id="selectVoByParam" resultMap="MemberVoResultMap">
+		SELECT
+		<include refid="Base_Column_List"></include>
+		FROM member_basic
+		<trim prefix="WHERE" prefixOverrides="AND || OR">
+			<if test="id != null">
+				AND id=#{id}
+			</if>
+			<if test="status != null">
+				AND status=#{status}
+			</if>
+			<if test="nickname != null">
+				AND nickname=#{nickname}
+			</if>
+			<if test="phoneNumber !=null ">
+				AND phone_number=#{phoneNumber}
+			</if>
+			<if test="isDel !=null ">
+				AND is_del=#{isDel}
+			</if>
+		</trim>
+	</select>
 
 </mapper>

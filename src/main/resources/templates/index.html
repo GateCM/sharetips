@@ -11,6 +11,99 @@
 	th:href="@{/custom/common/css/common.css}" />
 <script th:src="@{/plugin/jquery/jquery.min.js}"></script>
 <script th:src="@{/plugin/bootstrap/bootstrap.min.js}"></script>
+<script th:src="@{/custom/common/js/ajaxCustome.js}"></script>
+<script th:src="@{/custom/common/js/time.js}"></script>
+<style type="text/css">
+
+.list-title{
+height: 30px;
+line-height: 30px;
+font-size: 16px;
+margin-bottom: 10px;
+padding-left: 3px;
+font-weight: bold;
+border-bottom: 1px solid #f1f1f1;
+}
+.tip-entry{
+height: 70px;
+width: 100%;
+}
+
+.member{
+width: 60px;
+height: 60px;
+position: absolute;
+}
+
+.member img{
+height: 60px;
+width: 60px;
+}
+
+.tip-record{
+padding-left: 70px;
+}
+
+.tip-record span{
+    font-size: 12px !important;
+    color: #909090 !important;
+}
+
+.member-info{
+    font-size: 13px !important;
+    color: #909090 !important;
+}
+
+.tip-info{
+font-size: 15px;
+height: 20px;
+display: inline-block;
+overflow: hidden;
+text-overflow: ellipsis;
+white-space: nowrap;
+width: 100%;
+}
+
+.banner{
+	margin-bottom: 30px;
+}
+.search{
+	margin-bottom: 30px;
+}
+
+</style>
+<script type="text/javascript">
+$(function(){
+	loadList(1,3,"new-tip");
+	loadList(1,5,"hot-tip");
+	loadList(1,5,"audit-tip");
+});
+
+
+	function loadList(pageNum,pageSize,boxId){
+		var tipShowBox = $("#"+boxId);
+		tipShowBox.empty();
+		var getUrl = "/api/tip/release/list";
+		var requestData = "pageNum="+pageNum+"&pageSize="+pageSize;
+		var result = ajaxGetData(getUrl, requestData);
+		$.each(result.data.list, function(n, value) {
+			var memberId = value.belongMember.id;
+			tipShowBox.append('<div class="tip-entry">'
+					+'<div class="member" data="'+memberId+'">'
+					+'<img src="'+value.belongMember.headUrl+'" />'
+					+'</div>'
+					+ '<div class="tip-record">'
+					+'<a class="member-info" data="' + memberId
+					+ '" href="javascript:void(0);">' + value.belongMember.nickname + '</a>'
+					+'<br /><a class="tip-info" data="' + value.id
+					+ '" href="javascript:void(0);">' + value.title + '</a>'
+					+ '<br /><span>' + getDateDiff(value.gmtCreate) +'</span></div></div>');
+		});
+	}
+</script>
+
+
+
 </head>
 <body>
 	<div class="tip-page">
@@ -23,87 +116,104 @@
 				</div>
 				<div>
 					<ul class="nav navbar-nav  navbar-right">
+						<li class="active"><a href="#">首页</a></li>
+						<li><a th:href="@{/member/tip}">个人中心</a></li>
+						<li><a th:href="@{/tip/write}">发技巧</a></li>
+						<li><a href="#">论坛</a></li>
+						<li><a href="#">关于我们</a></li>
 						<li class="active"><a th:href="@{/login/signin}">登录</a></li>
 					</ul>
 				</div>
 			</div>
 		</nav>
 		<div class="container">
+			<!-- main -->
 			<div class="row">
-				<!-- 导航 -->
-				<div class="col-md-12">
-					<ul class="nav navbar-nav  navbar-right">
-						<li class="active"><a href="#">首页</a></li>
-						<li><a th:href="@{/member/tip}">个人中心</a></li>
-						<li><a th:href="@{/tip/write}">发技巧</a></li>
-						<li><a href="#">论坛</a></li>
-						<li><a href="#">关于我们</a></li>
-					</ul>
-				</div>
-
-				<!-- main -->
-				<div class="col-md-12">
+				<div class="col-md-12 search">
 					<div class="col-md-8 col-md-offset-2">
 						<form class="form-horizontal" role="form">
 							<div class="form-group">
 								<label class="sr-only" for="name">名称</label>
-								<div class="col-sm-10">
+								<div class="col-sm-8 col-md-offset-1">
 									<input type="text" class="form-control" id="name"
 										placeholder="请输入技巧名称">
 								</div>
-								<button type="submit" class="btn btn-default">搜索</button>
+								<button type="submit" class="btn btn-default col-sm-1">搜索</button>
 							</div>
 						</form>
 					</div>
 				</div>
 				<div class="row">
 					<div class="col-md-10">
-
 						<div class="row">
-							<div class="col-md-6">
-								<dl>
-									<dt>网站取名技巧</dt>
-									<dd>2017-12-23 12:23:40</dd>
-									<dt>网站取名技巧</dt>
-									<dd>2017-12-23 12:23:40</dd>
-									<dt>网站取名技巧</dt>
-									<dd>2017-12-23 12:23:40</dd>
-									<dt>网站取名技巧</dt>
-									<dd>2017-12-23 12:23:40</dd>
-									<dt>网站取名技巧</dt>
-									<dd>2017-12-23 12:23:40</dd>
-								</dl>
-
+							<div class="col-md-3">
+								<div class="list-title">最新技巧</div>
+								<div id="new-tip" class="tip-list">
+								</div>
 							</div>
-							<div class="col-md-6">Banner</div>
+							<div class="col-md-8 banner">
+								<div class="row clearfix">
+									<div class="col-md-12 column">
+										<div class="carousel slide" id="carousel-559266">
+											<ol class="carousel-indicators">
+												<li class="active" data-slide-to="0"
+													data-target="#carousel-559266"></li>
+												<li data-slide-to="1" data-target="#carousel-559266"></li>
+												<li data-slide-to="2" data-target="#carousel-559266"></li>
+											</ol>
+											<div class="carousel-inner">
+												<div class="item active">
+													<img alt=""
+														th:src="@{/custom/common/image/test-banner.jpg}" />
+													<div class="carousel-caption">
+														<h4>网站公告</h4>
+														<p>网站公告</p>
+													</div>
+												</div>
+												<div class="item">
+													<img alt=""
+														th:src="@{/custom/common/image/test-banner.jpg}" />
+													<div class="carousel-caption">
+														<h4>网站公告</h4>
+														<p>网站公告</p>
+													</div>
+												</div>
+												<div class="item">
+													<img alt=""
+														th:src="@{/custom/common/image/test-banner.jpg}" />
+													<div class="carousel-caption">
+														<h4>网站公告</h4>
+														<p>网站公告</p>
+													</div>
+												</div>
+											</div>
+											<a class="left carousel-control" href="#carousel-559266"
+												data-slide="prev"><span
+												class="glyphicon glyphicon-chevron-left"></span></a> <a
+												class="right carousel-control" href="#carousel-559266"
+												data-slide="next"><span
+												class="glyphicon glyphicon-chevron-right"></span></a>
+										</div>
+									</div>
+								</div>
+							</div>
+							<div class="col-md-1"></div>
+						</div>
+						
+						<div class="row">
+						<br/>
 						</div>
 
 						<div class="row">
 							<div class="col-md-6">
-								<dt>网站取名技巧</dt>
-								<dd>2017-12-23 12:23:40</dd>
-								<dt>网站取名技巧</dt>
-								<dd>2017-12-23 12:23:40</dd>
-								<dt>网站取名技巧</dt>
-								<dd>2017-12-23 12:23:40</dd>
-								<dt>网站取名技巧</dt>
-								<dd>2017-12-23 12:23:40</dd>
-								<dt>网站取名技巧</dt>
-								<dd>2017-12-23 12:23:40</dd>
+								<div class="list-title">最热技巧</div>
+								<div id="hot-tip" class="tip-list">
+								</div>
 							</div>
 							<div class="col-md-6">
-								<dt>网站取名技巧</dt>
-								<dd>2017-12-23 12:23:40</dd>
-								<dt>网站取名技巧</dt>
-								<dd>2017-12-23 12:23:40</dd>
-								<dt>网站取名技巧</dt>
-								<dd>2017-12-23 12:23:40</dd>
-								<dt>网站取名技巧</dt>
-								<dd>2017-12-23 12:23:40</dd>
-								<dt>网站取名技巧</dt>
-								<dd>2017-12-23 12:23:40</dd>
-
-
+								<div class="list-title">待评技巧</div>
+								<div id="audit-tip" class="tip-list">
+								</div>
 							</div>
 						</div>
 					</div>

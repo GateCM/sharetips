@@ -38,4 +38,9 @@ public class TipApi {
 	public Rrs draftList(PaginationDto pagination) {
 		return tipContentService.draftList(pagination);
 	}
+	
+	@RequestMapping(value = "/release/list", method = RequestMethod.GET)
+	public Rrs releaseList(PaginationDto pagination) {
+		return tipContentService.releaseList(pagination);
+	}
 }

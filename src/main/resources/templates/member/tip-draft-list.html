@@ -38,7 +38,7 @@
 		$.each(result.data.list, function(n, value) {
 			tipShowBox.append('<li class="tip-box">'
 					+ '<h2><a data-type="draft-info" data="' + value.id
-					+ '" href="javascript:void(0);">' + value.title + '</a>'
+					+ '" href="javascript:void(0);">' + value.title + '</a></h2>'
 					+ '<br/><span>' + getDateDiff(value.gmtCreate) + '</span>' + '</li>');
 		});
 		

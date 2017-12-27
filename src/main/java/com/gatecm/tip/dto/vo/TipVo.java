@@ -34,6 +34,13 @@ public class TipVo {
 	 */
 	private String headImg;
 
+	/**
+	 * 所属用户ID
+	 */
+	private Long belongMemberId;
+
+	private MemberVo belongMember;
+
 	public Long getId() {
 		return id;
 	}
@@ -72,5 +79,21 @@ public class TipVo {
 
 	public void setHeadImg(String headImg) {
 		this.headImg = headImg;
+	}
+
+	public Long getBelongMemberId() {
+		return belongMemberId;
+	}
+
+	public void setBelongMemberId(Long belongMemberId) {
+		this.belongMemberId = belongMemberId;
+	}
+
+	public MemberVo getBelongMember() {
+		return belongMember;
+	}
+
+	public void setBelongMember(MemberVo belongMember) {
+		this.belongMember = belongMember;
 	}
 }

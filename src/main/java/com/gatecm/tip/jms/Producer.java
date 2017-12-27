@@ -20,19 +20,19 @@ import com.gatecm.tip.entity.MemberBasic;
  */
 @Service("producer")
 public class Producer {
-	@Autowired
-	// 也可以注入JmsTemplate，JmsMessagingTemplate对JmsTemplate进行了封装
-	private JmsMessagingTemplate jmsMessagingTemplate;
-
-	// 发送消息，destination是发送到的队列，message是待发送的消息
-	public void sendMessage(Destination destination, MemberBasic message) {
-		jmsMessagingTemplate.convertAndSend(destination, message);
-	}
-
-	@JmsListener(destination = "out.queue")
-	public void receiveMessage(String text) throws InterruptedException {
-		Thread.sleep(100);
-		System.err.println("返回的报文：" + text);
-	}
+//	@Autowired
+//	// 也可以注入JmsTemplate，JmsMessagingTemplate对JmsTemplate进行了封装
+//	private JmsMessagingTemplate jmsMessagingTemplate;
+//
+//	// 发送消息，destination是发送到的队列，message是待发送的消息
+//	public void sendMessage(Destination destination, MemberBasic message) {
+//		jmsMessagingTemplate.convertAndSend(destination, message);
+//	}
+//
+//	@JmsListener(destination = "out.queue")
+//	public void receiveMessage(String text) throws InterruptedException {
+//		Thread.sleep(100);
+//		System.err.println("返回的报文：" + text);
+//	}
 
 }

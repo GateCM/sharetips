@@ -21,5 +21,10 @@ public class TestController {
 	public String test(@PathVariable String pageUrl) {
 		return pageUrl;
 	}
+	
+	@RequestMapping("/test")
+	public String test2(@PathVariable String pageUrl) {
+		return pageUrl;
+	}
 
 }
