@@ -81,9 +81,8 @@ public class BasicRealm extends AuthorizingRealm {
 	@Override
 	protected AuthenticationInfo doGetAuthenticationInfo(AuthenticationToken authcToken)
 			throws AuthenticationException {
-		System.out.println("身份认证方法：MyShiroRealm.doGetAuthenticationInfo()");
 		UsernamePasswordToken token = (UsernamePasswordToken) authcToken;
-		Map<String, Object> columnMap = new HashMap<String, Object>();
+		Map<String, Object> columnMap = new HashMap<>();
 		columnMap.put("phone_number", token.getUsername());
 		List<MemberBasic> users = memberBasicDao.selectByMap(columnMap);
 		MemberBasic user;
