@@ -10,6 +10,11 @@ package com.gatecm.tip.constant;
 public interface BaseConstant {
 
 	/**
+	 * table param
+	 */
+	Integer UN_DEL = 0;
+	Integer IS_DEL = 1;
+	/**
 	 * plugin
 	 */
 	String WANG_EDITER_UPLOAD_ERRNO = "errno";

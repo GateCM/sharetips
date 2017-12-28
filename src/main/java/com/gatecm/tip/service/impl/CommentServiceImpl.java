@@ -12,6 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.gatecm.tip.config.shiro.ShiroSessionUtils;
+import com.gatecm.tip.constant.BaseConstant;
 import com.gatecm.tip.dto.CommentDto;
 import com.gatecm.tip.dto.PaginationDto;
 import com.gatecm.tip.dto.vo.CommentVo;
@@ -63,12 +64,12 @@ public class CommentServiceImpl implements CommentService {
 		PageHelper.startPage(pagination.getPageNum(), pagination.getPageSize());
 		TipComment selectParam = new TipComment();
 		selectParam.setTipId(tipId);
-		selectParam.setIsDel(false);
+		selectParam.setIsDel(BaseConstant.UN_DEL);
 		List<CommentVo> commentVos = tipCommentDao.selectVoByParam(selectParam);
 		for (CommentVo commentVo : commentVos) {
 			bindMemberVo(commentVo);
 		}
-		PageInfo<CommentVo> pageInfo = new PageInfo<>(commentVos);
+		PageInfo<CommentVo> pageInfo = new PageInfo<>(commentVos, 5);
 		return new Rrs(true, pageInfo);
 	}
 

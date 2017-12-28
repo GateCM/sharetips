@@ -70,7 +70,7 @@ public class TipComment extends Model<TipComment> {
 	 * 0:未删除；1：删除
 	 */
 	@TableField("is_del")
-	private Boolean isDel;
+	private Integer isDel;
 
 	public Long getId() {
 		return id;
@@ -144,11 +144,11 @@ public class TipComment extends Model<TipComment> {
 		this.replyMemberId = replyMemberId;
 	}
 
-	public Boolean getIsDel() {
+	public Integer getIsDel() {
 		return isDel;
 	}
 
-	public void setIsDel(Boolean isDel) {
+	public void setIsDel(Integer isDel) {
 		this.isDel = isDel;
 	}
 

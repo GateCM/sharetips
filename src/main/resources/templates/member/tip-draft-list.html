@@ -16,18 +16,9 @@
 <!-- js -->
 <script th:src="@{/plugin/jquery/jquery.min.js}"></script>
 <script th:src="@{/plugin/bootstrap/bootstrap.min.js}"></script>
+<script th:src="@{/custom/common/js/common.js}"></script>
 <script th:src="@{/custom/common/js/ajaxCustome.js}"></script>
 <script th:src="@{/custom/common/js/time.js}"></script>
-<style type="text/css">
-#tip-list-box span{
-
-
-
-
-}
-
-
-</style>
 
 <script type="text/javascript">
 
@@ -43,56 +34,8 @@
 					+ '" href="javascript:void(0);">' + value.title + '</a></h2>'
 					+ '<br/><span>' + getDateDiff(value.gmtCreate) + '</span>' + '</li>');
 		});
-		
-		iniPaginatoin(result.data);
+		iniPaginatoin(result.data,"tip-pagination");
 		return result;
-	}
-	
-	function iniPaginatoin(pageInfo){
-		var prePage = pageInfo.prePage;
-		var nextPage = pageInfo.nextPage;
-		var totalPages = pageInfo.pages;
-		var hasPreviousPage = pageInfo.hasPreviousPage;
-		var hasNextPage = pageInfo.hasNextPage;
-		var pageNum = pageInfo.pageNum;
-		var isFirstPage = pageInfo.isFirstPage;
-		var isLastPage = pageInfo.isLastPage;
-		//加载页码
-		var tipPaginationNode  =$("#tip-pagination");
-		tipPaginationNode.empty();
-		//首页
-		if(isFirstPage){
-			tipPaginationNode.append('<li class="disabled"><a data="'+1+'" href="javascript:void(0);">首页</a></li>');	
-		}else{
-			tipPaginationNode.append('<li><a data="'+1+'" href="javascript:void(0);">首页</a></li>');
-		}
-		//上一页
-		if(hasPreviousPage){
-			tipPaginationNode.append('<li class="previous"><a data="'+prePage+'" href="javascript:void(0);"><i class="fa fa-chevron-left"></i></a></li>');
-		}else{
-			tipPaginationNode.append('<li class="disabled"><a href="javascript:void(0);"><i class="fa fa-chevron-left"></i></a></li>');
-		}
-		//页码
-		$.each(pageInfo.navigatepageNums,function(index,value){
-			//当前页判断
-			if(pageNum==value){
-				tipPaginationNode.append('<li class="active"><a data="'+value+'" href="javascript:void(0);">'+value+'</a></li>');	
-			}else{
-				tipPaginationNode.append('<li><a data="'+value+'" href="javascript:void(0);">'+value+'</a></li>');
-			}
-		});
-		//下一页
-		if(hasNextPage){
-			tipPaginationNode.append('<li class="next"><a data="'+nextPage+'" href="javascript:void(0);"><i class="fa fa-chevron-right"></i></a></li>');
-		}else{
-			tipPaginationNode.append('<li class="disabled"><a href="javascript:void(0);"><i class="fa fa-chevron-right"></i></a></li>');
-		}
-		//尾页
-		if(isLastPage){
-			tipPaginationNode.append('<li class="disabled"><a data="'+totalPages+'" href="javascript:void(0);">尾页</a></li>');
-		}else{
-			tipPaginationNode.append('<li><a data="'+totalPages+'" href="javascript:void(0);">尾页</a></li>');
-		}
 	}
 	
 	$(function() {

@@ -8,6 +8,8 @@
 <link rel="stylesheet" type="text/css" media="all"
 	href="/plugin/bootstrap/bootstrap.min.css"
 	th:href="@{/plugin/bootstrap/bootstrap.min.css}" />
+<link rel="stylesheet"
+	href="https://cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.css">
 <link rel="stylesheet" type="text/css" media="all"
 	th:href="@{/custom/common/css/common.css}" />
 <script th:src="@{/plugin/jquery/jquery.min.js}"></script>
@@ -48,9 +50,25 @@ margin: 0px 4px 0px 4px;
 	color: #a9a6a6;
 }
 
+.member-show .time{
+right: 20px;
+position: absolute;
+font-size: 14px;
+color: #a9a6a6;
+}
+
 .comment-content {
 	line-height: 30px;
 	padding: 4px 0px 0px 0px;
+}
+
+form span{
+line-height: 35px;
+display: inline-block;
+}
+
+form button{
+margin-left:20px;
 }
 </style>
 
@@ -63,19 +81,33 @@ margin: 0px 4px 0px 4px;
 		var tipId = $('input[name="tipId"]').val();
 		//ini comment
 		var commentShowBox = $("#comment-show-box");
-		//clear
-		commentShowBox.empty();
+		commentShowBox.empty();//clear
 		iniComment(commentShowBox,tipId,pageNum,pageSize);
-		$('button[data-type="submitComment"]').click(function() {
+		
+		//commit comment
+		$("body").on("click", 'button[data-type="submitComment"]', function() {
 			var url = "/api/tip/" + tipId + "/comment";
 			var data = $(this).parents("form").serializeObject();
-
-			alert(JSON.stringify(data));
 			var rd = ajaxPostJson(url, data);
-
-			alert(JSON.stringify(rd));
+			if(rd.result){
+				alert("操作成功");
+			}
 		});
+		//submitButton control
+		$('input[name="content"]').on('input propertychange',function(){
+			 var submitButton = $('#submitComment');
+			 if($(this).val()==""){
+				 submitButton.attr("data-type","");
+				 submitButton.removeClass("btn-success");
+			 }else{
+				 submitButton.attr("data-type","submitComment");
+				 submitButton.addClass("btn-success");
+			 }
+		});
+		
 	});
+	
+	//ini comment
 	function iniComment(showBox,tipId,pageNum,pageSize){
 		var url = "/api/tip/" + tipId + "/comment";
 		var requestData = "pageNum=" + pageNum + "&pageSize=" + pageSize;
@@ -87,6 +119,7 @@ margin: 0px 4px 0px 4px;
 						+'<span data="'+value.belongUser.id+'" class="member-link">'+value.belongUser.nickname+'</span>'
 						+'<span class="reply">回复</span>'
 						+'<span data="'+value.replyMember.id+'" class="member-link">'+value.replyMember.nickname+'</span>'
+						+'<span class="time" >'+getDateDiff(value.gmtCreate)+'</span>'
 						+'</div>'
 						+'<div class="comment-content">'
 						+'<span>'+value.content+'</span>'
@@ -96,12 +129,14 @@ margin: 0px 4px 0px 4px;
 			showBox.append('<div class="member-show">'
 					+'<img src="'+value.belongUser.headUrl+'">'
 					+'<span data="'+value.belongUser.id+'" class="member-link">'+value.belongUser.nickname+'</span>'
+					+'<span class="time" >'+getDateDiff(value.gmtCreate)+'</span>'
 					+'</div>'
 					+'<div class="comment-content">'
 					+'<span>'+value.content+'</span>'
 					+'</div>'
 					+'<hr />');
 			}
+			iniPaginatoin(rd.data,"tip-pagination");
 		});
 	}
 	
@@ -174,6 +209,13 @@ margin: 0px 4px 0px 4px;
 									</div>
 									<hr />
 								</div>
+								
+								<div class="col-md-12  pull-right">
+									<div class="col-md-4 pull-right">
+										<ul id="tip-pagination" class="pagination pagination-sm">
+										</ul>
+									</div>
+								</div>
 							</div>
 							<!-- write -->
 							<div class="row">
@@ -181,14 +223,14 @@ margin: 0px 4px 0px 4px;
 									<hr />
 									<form class="form-horizontal" role="form">
 										<div class="form-group col-md-1">
-											我认为：
+											<span>我认为：</span>
 										</div>
 										<div class="form-group col-md-8">
 											<input name="tfReply" class="hide" value="false" type="text" />
 											<input name="content" class="form-control" type="text" />
 										</div>
 										<div class="form-group col-md-3">
-											<button data-type="submitComment" type="button" class="btn ">评论</button>
+											<button id="submitComment" data-type="" type="button" class="btn">评论</button>
 										</div>
 									</form>
 								</div>
