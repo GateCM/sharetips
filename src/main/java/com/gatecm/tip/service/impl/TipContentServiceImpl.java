@@ -63,7 +63,6 @@ public class TipContentServiceImpl extends ServiceImpl<TipContentDao, TipContent
 		iuParam.setContent(tip.getContent());
 		iuParam.setBelongMemberId(belongMemberId);
 		iuParam.setStatus((Integer) TipEnum.STATUS_DRAFT.getValue());
-
 		System.out.println("为id、key为:" + tip.getTipId() + " 数据做了缓存");
 		Rrs rrs = new Rrs(tipContentDao.insert(iuParam) == 1);
 		rrs.setData(tipContentDao.selectById(iuParam.getId()));
@@ -89,19 +88,29 @@ public class TipContentServiceImpl extends ServiceImpl<TipContentDao, TipContent
 		return new Rrs(true, draftTip);
 	}
 
+	@Cacheable(value = "index",key="#pagination.pageSize")
 	@Override
 	public Rrs releaseList(PaginationDto pagination) {
-		Long belongMemberId = shiroSessionUtils.getMemberId();
 		PageHelper.startPage(pagination.getPageNum(), pagination.getPageSize());
 		TipContent selectParam = new TipContent();
-		selectParam.setBelongMemberId(belongMemberId);
 		selectParam.setStatus((Integer) TipEnum.STATUS_RELEASE.getValue());
-		List<TipVo> draftVos = tipContentDao.selectVoByParam(selectParam);
-		for (TipVo tip : draftVos) {
-			tip.setBelongMember(memberBasicDao.selectVoById(tip.getBelongMemberId()));
+		List<TipVo> releaseTips = tipContentDao.selectVoByParam(selectParam);
+		for (TipVo tv : releaseTips) {
+			addBelongMemberVo(tv);
 		}
-		PageInfo<TipVo> pageInfo = new PageInfo<>(draftVos);
+		PageInfo<TipVo> pageInfo = new PageInfo<>(releaseTips);
 		return new Rrs(true, pageInfo);
+	}
+
+	@Override
+	public Rrs getDetail(Long tipId) {
+		TipVo tv = tipContentDao.selectVoById(tipId);
+		addBelongMemberVo(tv);
+		return new Rrs(true, tv);
+	}
+
+	private void addBelongMemberVo(TipVo tv) {
+		tv.setBelongMember(memberBasicDao.selectVoById(tv.getBelongMemberId()));
 	}
 
 }

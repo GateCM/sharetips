@@ -19,4 +19,7 @@
 	<cache name="tip" eternal="false" maxElementsInMemory="100"
 		overflowToDisk="false" diskPersistent="false" timeToIdleSeconds="0"
 		timeToLiveSeconds="300" memoryStoreEvictionPolicy="LRU" />
+	<cache name="index" eternal="false" maxElementsInMemory="100"
+		overflowToDisk="false" diskPersistent="false" timeToIdleSeconds="0"
+		timeToLiveSeconds="300" memoryStoreEvictionPolicy="LRU" />
 </ehcache>

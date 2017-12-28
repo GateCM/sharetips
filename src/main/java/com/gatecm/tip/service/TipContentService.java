@@ -1,8 +1,12 @@
 package com.gatecm.tip.service;
 
+import com.gatecm.tip.dto.CommentDto;
 import com.gatecm.tip.dto.PaginationDto;
 import com.gatecm.tip.dto.TipContentDto;
 import com.gatecm.tip.entity.TipContent;
+
+import javax.validation.Valid;
+
 import com.baomidou.mybatisplus.service.IService;
 
 /**
@@ -47,4 +51,11 @@ public interface TipContentService extends IService<TipContent> {
 	 */
 	Rrs releaseList(PaginationDto pagination);
 
+	/**
+	 * 获取技巧详情
+	 * 
+	 * @param tipId
+	 * @return
+	 */
+	Rrs getDetail(Long tipId);
 }

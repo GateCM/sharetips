@@ -2,7 +2,7 @@ server:
   port: 8787
 spring:
   datasource:
-    url: jdbc:mysql://rm-uf60446vx71hkx76so.mysql.rds.aliyuncs.com:3306/tip_share?useUnicode=true&characterEncoding=utf-8
+    url: jdbc:mysql://rm-uf60446vx71hkx76so.mysql.rds.aliyuncs.com:3306/tip_share?useUnicode=true&characterEncoding=utf-8&useSSL=true
     username: root
     password: HuiMei1314
     driver-class-name: com.mysql.jdbc.Driver
@@ -88,9 +88,7 @@ mybatis-plus:
   configuration:
     map-underscore-to-camel-case: true
     cache-enabled: false
-    
-    
-    
+     
 logging:
   level:
     org.springframework: WARN

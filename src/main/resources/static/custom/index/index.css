@@ -1,0 +1,55 @@
+.list-title{
+height: 30px;
+line-height: 30px;
+font-size: 16px;
+margin-bottom: 10px;
+padding-left: 3px;
+font-weight: bold;
+border-bottom: 1px solid #f1f1f1;
+}
+.tip-entry{
+height: 70px;
+width: 100%;
+}
+
+.member{
+width: 60px;
+height: 60px;
+position: absolute;
+}
+
+.member img{
+height: 60px;
+width: 60px;
+}
+
+.tip-record{
+padding-left: 70px;
+}
+
+.tip-record span{
+    font-size: 12px !important;
+    color: #909090 !important;
+}
+
+.member-info{
+    font-size: 13px !important;
+    color: #909090 !important;
+}
+
+.tip-info{
+font-size: 15px;
+height: 20px;
+display: inline-block;
+overflow: hidden;
+text-overflow: ellipsis;
+white-space: nowrap;
+width: 100%;
+}
+
+.banner{
+	margin-bottom: 30px;
+}
+.search{
+	margin-bottom: 30px;
+}

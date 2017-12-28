@@ -5,6 +5,8 @@ import com.gatecm.tip.entity.TipContent;
 
 import java.util.List;
 
+import org.apache.ibatis.annotations.Param;
+
 import com.baomidou.mybatisplus.mapper.BaseMapper;
 
 /**
@@ -22,5 +24,11 @@ public interface TipContentDao extends BaseMapper<TipContent> {
 	 * @return
 	 */
 	List<TipVo> selectVoByParam(TipContent selectParam);
+
+	/**
+	 * @param id
+	 * @return
+	 */
+	TipVo selectVoById(@Param("id") Long id);
 
 }

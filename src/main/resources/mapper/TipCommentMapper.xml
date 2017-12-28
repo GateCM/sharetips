@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.gatecm.tip.mapper.TipCommentDao">
+
+	<!-- 通用查询映射结果 -->
+	<resultMap id="BaseResultMap" type="com.gatecm.tip.entity.TipComment">
+		<id column="id" property="id" />
+		<result column="gmt_create" property="gmtCreate" />
+		<result column="gmt_update" property="gmtUpdate" />
+		<result column="member_id" property="memberId" />
+		<result column="tip_id" property="tipId" />
+		<result column="content" property="content" />
+		<result column="tf_reply" property="tfReply" />
+		<result column="reply_comment_id" property="replyCommentId" />
+		<result column="reply_member_id" property="replyMemberId" />
+		<result column="is_del" property="isDel" />
+	</resultMap>
+
+	<!-- 通用查询结果列 -->
+	<sql id="Base_Column_List">
+		id, gmt_create AS gmtCreate, gmt_update AS gmtUpdate, member_id AS
+		memberId, tip_id AS tipId, content, tf_reply AS tfReply,
+		reply_comment_id AS replyCommentId, reply_member_id AS replyMemberId,
+		is_del AS isDel
+	</sql>
+
+	<resultMap type="com.gatecm.tip.dto.vo.CommentVo" id="BaseVoResultMap"></resultMap>
+
+	<select id="selectVoByParam" resultMap="BaseVoResultMap">
+		SELECT
+		<include refid="Base_Column_List"></include>
+		FROM tip_comment
+		<trim prefix="WHERE" prefixOverrides="AND || OR">
+			<if test="memberId != null">
+				AND member_id=#{member_id}
+			</if>
+			<if test="tipId !=null ">
+				AND tip_id=#{tipId}
+			</if>
+			<if test="tfReply !=null ">
+				AND tf_reply=#{tfReply}
+			</if>
+			<if test="replyCommentId !=null ">
+				AND reply_comment_id=#{replyCommentId}
+			</if>
+			<if test="replyMemberId !=null ">
+				AND reply_member_id=#{replyMemberId}
+			</if>
+			<if test="isDel !=null ">
+				AND is_del=#{isDel}
+			</if>
+		</trim>
+	</select>
+
+
+</mapper>

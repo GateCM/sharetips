@@ -42,3 +42,11 @@ ul li {
 div.container {
 	margin-top: 100px;
 }
+
+/**member**/
+.member-link{
+	cursor: pointer;
+}
+
+
+

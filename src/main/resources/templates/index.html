@@ -3,101 +3,50 @@
 <head>
 <meta charset="UTF-8" />
 <title>首页</title>
+<link rel="icon" th:href="@{/custom/common/image/logo.ico}" type="image/x-icon"/>  
+
 <!-- css -->
 <link rel="stylesheet" type="text/css" media="all"
 	href="/plugin/bootstrap/bootstrap.min.css"
 	th:href="@{/plugin/bootstrap/bootstrap.min.css}" />
 <link rel="stylesheet" type="text/css" media="all"
 	th:href="@{/custom/common/css/common.css}" />
+<link rel="stylesheet" type="text/css" media="all"
+	th:href="@{/custom/index/index.css}" />
 <script th:src="@{/plugin/jquery/jquery.min.js}"></script>
 <script th:src="@{/plugin/bootstrap/bootstrap.min.js}"></script>
 <script th:src="@{/custom/common/js/ajaxCustome.js}"></script>
 <script th:src="@{/custom/common/js/time.js}"></script>
-<style type="text/css">
-
-.list-title{
-height: 30px;
-line-height: 30px;
-font-size: 16px;
-margin-bottom: 10px;
-padding-left: 3px;
-font-weight: bold;
-border-bottom: 1px solid #f1f1f1;
-}
-.tip-entry{
-height: 70px;
-width: 100%;
-}
-
-.member{
-width: 60px;
-height: 60px;
-position: absolute;
-}
-
-.member img{
-height: 60px;
-width: 60px;
-}
-
-.tip-record{
-padding-left: 70px;
-}
-
-.tip-record span{
-    font-size: 12px !important;
-    color: #909090 !important;
-}
-
-.member-info{
-    font-size: 13px !important;
-    color: #909090 !important;
-}
-
-.tip-info{
-font-size: 15px;
-height: 20px;
-display: inline-block;
-overflow: hidden;
-text-overflow: ellipsis;
-white-space: nowrap;
-width: 100%;
-}
-
-.banner{
-	margin-bottom: 30px;
-}
-.search{
-	margin-bottom: 30px;
-}
-
-</style>
 <script type="text/javascript">
-$(function(){
-	loadList(1,3,"new-tip");
-	loadList(1,5,"hot-tip");
-	loadList(1,5,"audit-tip");
-});
-
-
-	function loadList(pageNum,pageSize,boxId){
-		var tipShowBox = $("#"+boxId);
+	$(function() {
+		loadList(1, 3, "new-tip");
+		loadList(1, 5, "hot-tip");
+		loadList(1, 5, "audit-tip");
+		//绑定技巧跳转链接
+		$('a[class="tip-info"]').click(function() {
+			var tipId = $(this).attr("data");
+			location.href = "/tip/" + tipId + "/detail";
+		});
+	});
+	function loadList(pageNum, pageSize, boxId) {
+		var tipShowBox = $("#" + boxId);
 		tipShowBox.empty();
 		var getUrl = "/api/tip/release/list";
-		var requestData = "pageNum="+pageNum+"&pageSize="+pageSize;
+		var requestData = "pageNum=" + pageNum + "&pageSize=" + pageSize;
 		var result = ajaxGetData(getUrl, requestData);
 		$.each(result.data.list, function(n, value) {
 			var memberId = value.belongMember.id;
 			tipShowBox.append('<div class="tip-entry">'
-					+'<div class="member" data="'+memberId+'">'
-					+'<img src="'+value.belongMember.headUrl+'" />'
-					+'</div>'
+					+ '<div class="member" data="'+memberId+'">'
+					+ '<img src="'+value.belongMember.headUrl+'" />' + '</div>'
 					+ '<div class="tip-record">'
-					+'<a class="member-info" data="' + memberId
-					+ '" href="javascript:void(0);">' + value.belongMember.nickname + '</a>'
-					+'<br /><a class="tip-info" data="' + value.id
+					+ '<a class="member-info" data="' + memberId
+					+ '" href="javascript:void(0);">'
+					+ value.belongMember.nickname + '</a>'
+					+ '<br /><a class="tip-info" data="' + value.id
 					+ '" href="javascript:void(0);">' + value.title + '</a>'
-					+ '<br /><span>' + getDateDiff(value.gmtCreate) +'</span></div></div>');
+					+ '<br /><span>' + getDateDiff(value.gmtCreate)
+					+ '</span></div></div>');
 		});
 	}
 </script>
@@ -107,25 +56,8 @@ $(function(){
 </head>
 <body>
 	<div class="tip-page">
-
-		<nav class="navbar tip-navbar navbar-fixed-top" role="navigation">
-			<div class="container-fluid">
-				<div class="navbar-header">
-					<a th:href="@{/index}"><img width="50px" height="50px" alt=""
-						th:src="@{/custom/common/image/logo.png}"></a>
-				</div>
-				<div>
-					<ul class="nav navbar-nav  navbar-right">
-						<li class="active"><a href="#">首页</a></li>
-						<li><a th:href="@{/member/tip}">个人中心</a></li>
-						<li><a th:href="@{/tip/write}">发技巧</a></li>
-						<li><a href="#">论坛</a></li>
-						<li><a href="#">关于我们</a></li>
-						<li class="active"><a th:href="@{/login/signin}">登录</a></li>
-					</ul>
-				</div>
-			</div>
-		</nav>
+		<!-- index-nav -->
+		<div th:include="/_model/_index-nav :: index-nav"></div>
 		<div class="container">
 			<!-- main -->
 			<div class="row">
@@ -148,8 +80,7 @@ $(function(){
 						<div class="row">
 							<div class="col-md-3">
 								<div class="list-title">最新技巧</div>
-								<div id="new-tip" class="tip-list">
-								</div>
+								<div id="new-tip" class="tip-list"></div>
 							</div>
 							<div class="col-md-8 banner">
 								<div class="row clearfix">
@@ -199,21 +130,19 @@ $(function(){
 							</div>
 							<div class="col-md-1"></div>
 						</div>
-						
+
 						<div class="row">
-						<br/>
+							<br />
 						</div>
 
 						<div class="row">
 							<div class="col-md-6">
 								<div class="list-title">最热技巧</div>
-								<div id="hot-tip" class="tip-list">
-								</div>
+								<div id="hot-tip" class="tip-list"></div>
 							</div>
 							<div class="col-md-6">
 								<div class="list-title">待评技巧</div>
-								<div id="audit-tip" class="tip-list">
-								</div>
+								<div id="audit-tip" class="tip-list"></div>
 							</div>
 						</div>
 					</div>

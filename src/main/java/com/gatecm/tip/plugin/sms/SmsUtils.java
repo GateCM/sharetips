@@ -29,7 +29,7 @@ public class SmsUtils {
 	private static final Logger LOGGER = LoggerFactory.getLogger(SmsUtils.class);
 
 	private Map<String, VcodeBean> phoneNumberVCodeMap = new HashMap<>();
-	
+
 	/**
 	 * 发送间隔，单位 min
 	 */
@@ -127,12 +127,12 @@ public class SmsUtils {
 	 * @return
 	 */
 	private static String createRandomVcode() {
-		String vcode = BaseConstant.BLANK_STRING;
+		StringBuilder vcode = new StringBuilder(BaseConstant.BLANK_STRING);
 		Random random = new Random(System.currentTimeMillis());
 		for (int i = 0; i < VCODE_LENGTH; i++) {
-			vcode = vcode + random.nextInt(10);
+			vcode.append(random.nextInt(10));
 		}
-		return vcode;
+		return vcode.toString();
 	}
 
 }

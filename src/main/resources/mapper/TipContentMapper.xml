@@ -51,4 +51,12 @@
 		</trim>
 	</select>
 
+	<select id="selectVoById" resultMap="TipVoResultMap">
+		SELECT
+		<include refid="Base_Column_List"></include>
+		FROM tip_content
+		WHERE id=#{id} AND is_del= 0
+	</select>
+
+
 </mapper>

@@ -1,7 +1,5 @@
 package com.gatecm.tip.plugin.oss;
 
-import java.io.File;
-import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
@@ -20,7 +18,6 @@ import com.aliyun.oss.model.ObjectMetadata;
 import com.aliyun.oss.model.PutObjectResult;
 import com.gatecm.tip.constant.BaseConstant;
 import com.gatecm.tip.exception.ImgException;
-import com.taobao.api.internal.toplink.embedded.websocket.util.StringUtil;
 
 /**
  * @Description: TODO(OSS图片处理管理类)
@@ -188,10 +185,10 @@ public class OSSImgManager {
 	}
 
 	public static void main(String[] args) throws FileNotFoundException {
-		String flilePathName = "C:/Users/xr/Desktop/IMG_8330.JPG";
-		File file = new File(flilePathName);
-		InputStream is = new FileInputStream(file);
-		String diskName = "work/ylyg/app/test/";
+//		String flilePathName = "C:/Users/xr/Desktop/IMG_8330.JPG";
+//		File file = new File(flilePathName);
+//		InputStream is = new FileInputStream(file);
+//		String diskName = "work/ylyg/app/test/";
 		// String md5key = OSSUnit.uploadObject2OSS(ossUnitTest.getClient(),
 		// file, ossUnitTest.getBucketName(), diskName);
 		// String name = OSSImgManager.getInstance().uploadFile2OSS(is,

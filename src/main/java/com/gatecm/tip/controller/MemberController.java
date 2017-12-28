@@ -1,6 +1,7 @@
 package com.gatecm.tip.controller;
 
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
@@ -23,5 +24,16 @@ public class MemberController {
 	@RequestMapping(value = "/tip")
 	public String tip() {
 		return "member/tip-draft-list";
+	}
+
+	/**
+	 * 个人空间
+	 * 
+	 * @param memberId
+	 * @return
+	 */
+	@RequestMapping(value = "/{memberId}/space")
+	public String space(@PathVariable Long memberId) {
+		return "member/space";
 	}
 }

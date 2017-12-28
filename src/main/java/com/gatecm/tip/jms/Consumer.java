@@ -3,11 +3,7 @@
  */
 package com.gatecm.tip.jms;
 
-import org.springframework.jms.annotation.JmsListener;
-import org.springframework.messaging.handler.annotation.SendTo;
 import org.springframework.stereotype.Component;
-
-import com.gatecm.tip.entity.MemberBasic;
 
 /**
  * @Description: TODO()

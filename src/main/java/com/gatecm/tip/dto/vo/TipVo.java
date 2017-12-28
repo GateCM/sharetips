@@ -39,7 +39,15 @@ public class TipVo {
 	 */
 	private Long belongMemberId;
 
+	/**
+	 * 所属用户实体
+	 */
 	private MemberVo belongMember;
+
+	/**
+	 * 内容（html格式）
+	 */
+	private String content;
 
 	public Long getId() {
 		return id;
@@ -95,5 +103,13 @@ public class TipVo {
 
 	public void setBelongMember(MemberVo belongMember) {
 		this.belongMember = belongMember;
+	}
+
+	public String getContent() {
+		return content;
+	}
+
+	public void setContent(String content) {
+		this.content = content;
 	}
 }

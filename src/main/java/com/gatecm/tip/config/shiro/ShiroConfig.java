@@ -63,7 +63,6 @@ public class ShiroConfig {
 //		filterChainDefinitionMap.put("/**", "anon");
 		filterChainDefinitionMap.put("/**", "authc");
 		shiroFilterFactoryBean.setFilterChainDefinitionMap(filterChainDefinitionMap);
-		System.out.println("Shiro拦截器工厂类注入成功");
 		return shiroFilterFactoryBean;
 
 	}

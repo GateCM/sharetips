@@ -1,7 +1,5 @@
 package com.gatecm.tip.service.impl;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -18,8 +16,6 @@ import com.gatecm.tip.service.SmsService;
  */
 @Service("smsService")
 public class SmsServiceImpl implements SmsService {
-
-	private static final Logger LOGGER = LoggerFactory.getLogger(SmsServiceImpl.class);
 
 	@Autowired
 	private SmsUtils smsUtils;
