@@ -5,6 +5,8 @@ package com.gatecm.tip.dto;
 
 import javax.validation.constraints.NotBlank;
 
+import com.gatecm.tip.entity.TipContent;
+
 /**
  * @ClassName: TipContentDTO
  * @Description: TODO(这里用一句话描述这个类的作用)
@@ -36,6 +38,11 @@ public class TipContentDto {
 	@NotBlank
 	private String content;
 
+	/**
+	 * 技巧状态
+	 */
+	private Integer status;
+
 	public String getTitle() {
 		return title;
 	}
@@ -66,6 +73,24 @@ public class TipContentDto {
 
 	public void setTipId(Long tipId) {
 		this.tipId = tipId;
+	}
+
+	public Integer getStatus() {
+		return status;
+	}
+
+	public void setStatus(Integer status) {
+		this.status = status;
+	}
+
+	public TipContent convert2TipContent() {
+		TipContent tipContent = new TipContent();
+		tipContent.setId(tipId);
+		tipContent.setHeadImg(headImg);
+		tipContent.setTitle(title);
+		tipContent.setContent(content);
+		tipContent.setStatus(status);
+		return tipContent;
 	}
 
 }

@@ -23,30 +23,31 @@
 		loadList(1, 5, "hot-tip");
 		loadList(1, 5, "audit-tip");
 		//绑定技巧跳转链接
-		$('a[class="tip-info"]').click(function() {
-			var tipId = $(this).attr("data");
-			location.href = "/tip/" + tipId + "/detail";
-		});
+// 		$('a[class="tip-info"]').click(function() {
+// 			var tipId = $(this).attr("data");
+// 			location.href = "/tip/" + tipId + "/detail";
+// 		});
 	});
 	function loadList(pageNum, pageSize, boxId) {
 		var tipShowBox = $("#" + boxId);
 		tipShowBox.empty();
 		var getUrl = "/api/tip/release/list";
 		var requestData = "pageNum=" + pageNum + "&pageSize=" + pageSize;
-		var result = ajaxGetData(getUrl, requestData);
-		$.each(result.data.list, function(n, value) {
-			var memberId = value.belongMember.id;
-			tipShowBox.append('<div class="tip-entry">'
-					+ '<div class="member" data="'+memberId+'">'
-					+ '<img src="'+value.belongMember.headUrl+'" />' + '</div>'
-					+ '<div class="tip-record">'
-					+ '<a class="member-info" data="' + memberId
-					+ '" href="javascript:void(0);">'
-					+ value.belongMember.nickname + '</a>'
-					+ '<br /><a class="tip-info" data="' + value.id
-					+ '" href="javascript:void(0);">' + value.title + '</a>'
-					+ '<br /><span>' + getDateDiff(value.gmtCreate)
-					+ '</span></div></div>');
+		$.get(getUrl,requestData,function(result){
+			$.each(result.data.list, function(n, value) {
+				var memberId = value.belongMember.id;
+				tipShowBox.append('<div class="tip-entry">'
+						+ '<div class="member" data="'+memberId+'">'
+						+ '<img src="'+value.belongMember.headUrl+'" />' + '</div>'
+						+ '<div class="tip-record">'
+						+ '<a class="member-info"'
+						+ 'href="/member/'+ memberId+'/space">'
+						+ value.belongMember.nickname + '</a>'
+						+ '<br /><a class="tip-info"'
+						+ 'href="/tip/'+value.id+'/detail">' + value.title + '</a>'
+						+ '<br /><span>' + getDateDiff(value.gmtCreate)
+						+ '</span></div></div>');
+			});
 		});
 	}
 </script>

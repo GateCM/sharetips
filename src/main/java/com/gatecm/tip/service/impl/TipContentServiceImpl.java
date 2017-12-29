@@ -1,6 +1,7 @@
 package com.gatecm.tip.service.impl;
 
 import com.gatecm.tip.config.shiro.ShiroSessionUtils;
+import com.gatecm.tip.constant.ErrorEnum;
 import com.gatecm.tip.constant.TipEnum;
 import com.gatecm.tip.dto.PaginationDto;
 import com.gatecm.tip.dto.TipContentDto;
@@ -18,7 +19,6 @@ import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.cache.annotation.CachePut;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 
@@ -42,31 +42,49 @@ public class TipContentServiceImpl extends ServiceImpl<TipContentDao, TipContent
 	@Autowired
 	private MemberBasicDao memberBasicDao;
 
-	@CachePut(value = "tip", key = "#tip.tipId")
+	// @CachePut(value = "tip", key = "#tip.tipId")
 	@Override
 	public Rrs saveDraft(TipContentDto tip) {
-		boolean isUpdate = tip.getTipId() != null;
-		TipContent iuParam = new TipContent();
-		Date current = new Date();
-		if (isUpdate) {
-			iuParam.setId(tip.getTipId());
-			iuParam.setGmtUpdate(current);
-			iuParam.setHeadImg(tip.getHeadImg());
-			iuParam.setTitle(tip.getTitle());
-			iuParam.setContent(tip.getContent());
-			return new Rrs(tipContentDao.updateById(iuParam) == 1);
-		}
-		Long belongMemberId = shiroSessionUtils.getMemberId();
-		iuParam.setGmtCreate(current);
-		iuParam.setHeadImg(tip.getHeadImg());
-		iuParam.setTitle(tip.getTitle());
-		iuParam.setContent(tip.getContent());
-		iuParam.setBelongMemberId(belongMemberId);
-		iuParam.setStatus((Integer) TipEnum.STATUS_DRAFT.getValue());
-		System.out.println("为id、key为:" + tip.getTipId() + " 数据做了缓存");
-		Rrs rrs = new Rrs(tipContentDao.insert(iuParam) == 1);
-		rrs.setData(tipContentDao.selectById(iuParam.getId()));
-		return rrs;
+		tip.setStatus((Integer) TipEnum.STATUS_DRAFT.getValue());
+		return createOrUpdateTipByDto(tip);
+	}
+
+	/**
+	 * 更新tip
+	 * 
+	 * @param tipContent
+	 * @return
+	 */
+	private Rrs updateTip(TipContent tipContent) {
+		tipContent.setGmtUpdate(new Date());
+		return new Rrs(tipContentDao.updateById(tipContent).equals(1), tipContent.getId());
+	}
+
+	/**
+	 * 创建新tip
+	 * 
+	 * @param tipContent
+	 * @return
+	 */
+	private Rrs createNewTip(TipContent tipContent) {
+		Long memberId = shiroSessionUtils.getMemberId();
+		tipContent.setId(null);
+		tipContent.setBelongMemberId(memberId);
+		tipContent.setGmtCreate(new Date());
+		tipContent.setGmtUpdate(tipContent.getGmtCreate());
+		return new Rrs(tipContentDao.insert(tipContent).equals(1), tipContent.getId());
+	}
+
+	/**
+	 * 判断用户是否为tip拥有者
+	 * 
+	 * @param tipId
+	 * @return
+	 */
+	private boolean validTipBelongMember(Long tipId) {
+		Long memberId = shiroSessionUtils.getMemberId();
+		TipContent currentTip = tipContentDao.selectById(tipId);
+		return currentTip.getBelongMemberId().equals(memberId);
 	}
 
 	@Override
@@ -81,14 +99,14 @@ public class TipContentServiceImpl extends ServiceImpl<TipContentDao, TipContent
 		return new Rrs(true, pageInfo);
 	}
 
-	@Cacheable(value = "tip", key = "#tipId")
+	// @Cacheable(value = "tip", key = "#tipId")
 	@Override
 	public Rrs getDraftTip(Long tipId) {
 		TipContent draftTip = tipContentDao.selectById(tipId);
 		return new Rrs(true, draftTip);
 	}
 
-	@Cacheable(value = "index",key="#pagination.pageSize")
+	@Cacheable(value = "index", key = "#pagination.pageSize")
 	@Override
 	public Rrs releaseList(PaginationDto pagination) {
 		PageHelper.startPage(pagination.getPageNum(), pagination.getPageSize());
@@ -111,6 +129,31 @@ public class TipContentServiceImpl extends ServiceImpl<TipContentDao, TipContent
 
 	private void addBelongMemberVo(TipVo tv) {
 		tv.setBelongMember(memberBasicDao.selectVoById(tv.getBelongMemberId()));
+	}
+
+	@Override
+	public Rrs releaseDraft(TipContentDto tip) {
+		tip.setStatus((Integer) TipEnum.STATUS_RELEASE.getValue());
+		return createOrUpdateTipByDto(tip);
+	}
+
+	/**
+	 * 新增或更新tip
+	 * 
+	 * @param tip
+	 * @return
+	 */
+	private Rrs createOrUpdateTipByDto(TipContentDto tip) {
+		if (tip.getTipId() != null) {
+			// 判断操作用户是否为tip拥有者
+			if (!validTipBelongMember(tip.getTipId())) {
+				return new Rrs(false, ErrorEnum.SYS_EXCEPTION);
+			}
+			// 更新tip
+			return updateTip(tip.convert2TipContent());
+		}
+		// 插入tip
+		return createNewTip(tip.convert2TipContent());
 	}
 
 }

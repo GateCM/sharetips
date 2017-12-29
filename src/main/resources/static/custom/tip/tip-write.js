@@ -1,15 +1,59 @@
-$(function() {
-	// 保存草稿
-	$('a[data-type="save-draft"]').click(function() {
-		var aurl = "/api/tip/draft";
-		var adata = {};
-		adata.tipId = $("input[name='tipId']").val();
-		adata.headImg = $(".img-big-upload img").attr("src");
-		adata.title = $("input[name='title']").val();
-		adata.content = editor.txt.html();
-		var result = ajaxPostJson(aurl, adata);
+var taskId;
+var hasSaved = true;
+var draftUrl = "/api/tip/draft";
+var releaseUrl = "/api/tip/release";
+// save tip draft task
+function saveTask() {
+	taskId = setInterval(saveDraft, 3000);
+}
+// ini editor
+var E = window.wangEditor;
+var editor = new E('#editBox');
 
+// save tip draft
+function saveDraft() {
+	if (!hasSaved) {
+		saveTip(draftUrl);
+	}
+}
+
+function saveTip(postUrl) {
+	var adata = {};
+	adata.tipId = $("input[name='tipId']").val();
+	adata.headImg = $(".img-big-upload img").attr("src");
+	adata.title = $("input[name='title']").val();
+	adata.content = editor.txt.html();
+	if (adata.title == "" || adata.content == "<p><br></p>") {
+		hasSaved = true;
+		return;
+	}
+	$.ajax({
+		type : "POST",
+		url : postUrl,
+		dataType : "JSON",
+		data : JSON.stringify(adata),
+		contentType : CTJ,
+		success : function(data) {
+			hasSaved = data.result;
+			alert(JSON.stringify(data));
+			alert($('input[name="tipId"]').val());
+			if(hasSaved){
+				$("input[name='tipId']").val(data.data);
+				alert($('input[name="tipId"]').val());
+				console.log("保存成功");
+			}else{
+				console.log("保存失败");
+			}
+		}
 	});
+}
+
+$(function() {
+	
+	$(document).on("click",'[data-type="release-tip"]',function(){
+		saveTip(releaseUrl);
+	});
+	
 	// 题图上传
 	$(".img-big-upload")
 			.click(
@@ -18,10 +62,8 @@ $(function() {
 						var fileInput = $("#file-input");
 						// 模拟点击input
 						fileInput.trigger('click');
-						fileInput
-								.change(function() {
-									$
-											.ajaxFileUpload({
+						fileInput.change(function() {
+									$.ajaxFileUpload({
 												url : '/api/img/upload/tip',
 												secureuri : false,
 												dataType : 'json',
@@ -43,11 +85,19 @@ $(function() {
 											});
 								});
 					});
-	// 初始化编辑框
-	var E = window.wangEditor
-	var editor = new E('#editBox');
+	// config editor
 	editor.customConfig.uploadFileName = 'file';
 	editor.customConfig.uploadImgServer = '/api/img/wang/upload/tip';
+	// check editor change
+	editor.customConfig.onchange = function(html) {
+		hasSaved = false;
+	}
 	editor.create();
+	// check input change
+	$(document).on("change",'input[data-type="auto-save"]',function() {
+		hasSaved = false;
+	});
 
+	// start task
+	saveTask();
 });

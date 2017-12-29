@@ -48,6 +48,8 @@
 			<if test="isDel !=null ">
 				AND is_del=#{isDel}
 			</if>
+			
+			ORDER BY gmt_update DESC
 		</trim>
 	</select>
 

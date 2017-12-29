@@ -39,6 +39,11 @@ public class TipApi {
 	public Rrs draft(@RequestBody @Valid TipContentDto tip) {
 		return tipContentService.saveDraft(tip);
 	}
+	
+	@RequestMapping(value = "/release", method = RequestMethod.POST)
+	public Rrs release(@RequestBody @Valid TipContentDto tip) {
+		return tipContentService.releaseDraft(tip);
+	}
 
 	@RequestMapping(value = "/{tipId}/comment", method = RequestMethod.POST)
 	public Rrs comment(@PathVariable Long tipId, @RequestBody @Valid CommentDto comment) {

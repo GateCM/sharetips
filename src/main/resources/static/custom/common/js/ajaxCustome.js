@@ -1,5 +1,5 @@
 var CONTENT_TYPE_DEFAULT = "application/x-www-form-urlencoded;charset=UTF-8";
-var CONTENT_TYPE_JSON = "application/json; charset=utf-8";
+var CTJ = "application/json; charset=utf-8";
 
 var AJAX_TYPE_POST = "POST";
 var AJAX_TYPE_GET = "GET";
@@ -46,7 +46,7 @@ function dajax(buttonNode, isJson) {
 		var adata;
 		var acontentType;
 		if (isJson) {
-			acontentType = CONTENT_TYPE_JSON;
+			acontentType = CTJ;
 			adata = JSON.stringify(formNode.serializeObject());
 		} else {
 			acontentType = CONTENT_TYPE_DEFAULT;
@@ -59,7 +59,7 @@ function dajax(buttonNode, isJson) {
 }
 
 function ajaxPostJson(aurl, adata) {
-	return ajax(aurl, JSON.stringify(adata), AJAX_TYPE_POST, CONTENT_TYPE_JSON);
+	return ajax(aurl, JSON.stringify(adata), AJAX_TYPE_POST, CTJ);
 }
 
 /* ajax 表单 */
@@ -74,8 +74,7 @@ function ajax(aurl, adata, atype, acontentType) {
 		contentType : acontentType,
 		success : function(data) {
 			resultData = data;
-		},
-		
+		}
 	});
 	return resultData;
 }
