@@ -51,7 +51,7 @@
 		<div class="row">
 			<div class="col-md-12" th:with="isEdit=${rd ne null && rd.result}">
 				<form class="form-horizontal" action="" role="form">
-					<input th:if="${isEdit}" class="hide" name="tipId" th:value="${rd.data.id}" value="" />
+					<input class="hide" name="tipId" th:value="${isEdit ? rd.data.id:''}" />
 					<div>
 						<div th:unless="${isEdit && rd.data.headImg ne null}" class="col-sm-12 img-big-upload">
 							<i class="fa fa-image fa-3x"></i>

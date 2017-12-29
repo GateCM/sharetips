@@ -35,11 +35,8 @@ function saveTip(postUrl) {
 		contentType : CTJ,
 		success : function(data) {
 			hasSaved = data.result;
-			alert(JSON.stringify(data));
-			alert($('input[name="tipId"]').val());
 			if(hasSaved){
 				$("input[name='tipId']").val(data.data);
-				alert($('input[name="tipId"]').val());
 				console.log("保存成功");
 			}else{
 				console.log("保存失败");
