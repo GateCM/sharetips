@@ -12,25 +12,23 @@
 				<ul class="layui-nav" lay-filter="main-nav">
 					<li data="index" class="layui-nav-item"><a th:href="@{/index}">首页</a></li>
 					<li data="center" class="layui-nav-item"><a
-						th:data="${@shiroSessionUtils.getMemberId()}"
 						th:href="@{/member/center}">个人中心</a></li>
 					<li data="write" class="layui-nav-item"><a th:href="@{/tip/write}">发技巧</a></li>
 					<li data="#"  class="layui-nav-item"><a href="#">论坛</a></li>
 					<li data="#" class="layui-nav-item"><a href="#">关于我们</a></li>
-					<!-- 				<li class="layui-nav-item"><a href="javascript:;">解决方案</a> -->
-					<!-- 					<dl class="layui-nav-child"> -->
-					<!-- 						二级菜单 -->
-					<!-- 						<dd> -->
-					<!-- 							<a href="">移动模块</a> -->
-					<!-- 						</dd> -->
-					<!-- 						<dd> -->
-					<!-- 							<a href="">后台模版</a> -->
-					<!-- 						</dd> -->
-					<!-- 						<dd> -->
-					<!-- 							<a href="">电商平台</a> -->
-					<!-- 						</dd> -->
-					<!-- 					</dl></li> -->
-					<!-- 				<li class="layui-nav-item"><a href="">社区</a></li> -->
+					  
+					  <li th:if="${@shiroSessionUtils.getMember() ne null}" th:object="${@shiroSessionUtils.getMember()}" class="layui-nav-item">
+					    <a href="javascript:void(0);"><img th:src="*{headUrl}" class="layui-nav-img">我</a>
+					    <dl class="layui-nav-child">
+					      <dd><a href="javascript:;">修改信息</a></dd>
+					      <dd><a href="javascript:;">安全管理</a></dd>
+					      <dd><a href="javascript:;">退了</a></dd>
+					    </dl>
+					  </li>
+					  
+					  <li th:unless="${@shiroSessionUtils.getMember() ne null}" class="layui-nav-item">
+					  	<a th:href="@{/login/signin}">登录</a>
+					  </li>
 				</ul>
 			</div>
 		</div>

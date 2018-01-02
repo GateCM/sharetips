@@ -54,6 +54,8 @@ public class ShiroConfig {
 		filterChainDefinitionMap.put("/plugin/**", "anon");
 		// 配置退出过滤器,其中的具体的退出代码Shiro已经替我们实现了
 		filterChainDefinitionMap.put("/logout", "logout");
+		//首页不拦截
+		filterChainDefinitionMap.put("/index", "anon");
 		//测试不拦截
 		filterChainDefinitionMap.put("/test/**", "anon");
 		

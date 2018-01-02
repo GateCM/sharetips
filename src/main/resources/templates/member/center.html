@@ -40,6 +40,11 @@ color: #a9a9a9;
 font-size: 14px;
 }
 
+#bottom-laypage{
+position: absolute;
+right:0px;
+}
+
 
 </style>
 <script type="text/javascript">
@@ -55,21 +60,37 @@ $(function(){
 		if(showBoxId=="tip-list"){
 			loadList(1, pageSize, "my-tip");
 		}
-
 	});
-	//tip list
-	$("#tip-pagination").on("click","a",function(){
-		var currentPageNum = $(this).attr("data");
-		if(currentPageNum!=null){
-			loadList(currentPageNum,pageSize,"my-tip");
-		}
-	});	
 	
 });
+
+layui.use('laypage', function(){
+  var laypage = layui.laypage;
+  var pageSize = 10;
+  //执行一个laypage实例
+  laypage.render({
+    elem: 'bottom-laypage', //注意，这里的 test1 是 ID，不用加 # 号
+    count: 12, //数据总数，从服务端得到
+    limit: pageSize, //每页显示的条数。laypage将会借助 count 和 limit 计算出分页数。
+    layout: ['count', 'prev', 'page', 'next', 'limit', 'skip'],
+    jump: function(obj, first){
+        //obj包含了当前分页的所有参数，比如：
+        console.log(obj.curr); //得到当前页，以便向服务端请求对应页的数据。
+        console.log(obj.limit); //得到每页显示的条数
+        loadList(obj.curr,obj.limit,"my-tip");
+        //首次不执行
+        if(!first){
+          //do something
+        }
+      }
+  });
+});
+
+
+
 function loadList(pageNum, pageSize, boxId) {
 	var tipShowBox = $("#" + boxId);
 	tipShowBox.empty();
-	var memberId  = $("#m-c").attr("data");
 	var getUrl = "/api/tip/member/release/list";
 	var requestData = "pageNum=" + pageNum + "&pageSize=" + pageSize;
 	$.get(getUrl,requestData,function(result){
@@ -81,12 +102,13 @@ function loadList(pageNum, pageSize, boxId) {
 					+ '<span>' + getDateDiff(value.gmtCreate)
 					+ '</span></div>');
 		});
-		iniPaginatoin(result.data,"tip-pagination");
 	});
 }
 
 
 </script>
+
+
 </head>
 <body>
 
@@ -117,10 +139,7 @@ function loadList(pageNum, pageSize, boxId) {
 						<div id="my-tip" class="tip-list"></div>
 					</div>
 					<div class="col-md-12">
-						<div class="col-md-6 pull-right">
-							<ul id="tip-pagination" class="pagination pagination-sm">
-							</ul>
-						</div>
+						<div id="bottom-laypage"></div>
 					</div>
 				</div>
 				
