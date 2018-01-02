@@ -3,6 +3,10 @@ input, button, a {
 	blr: expression(this.onFocus = this.blur ());
 }
 
+body{
+	overflow-y:scroll; 
+}
+
 a:hover, a:visited, a:link, a:active {
 	color: #000;
 	text-decoration: none;

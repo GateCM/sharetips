@@ -10,9 +10,13 @@ import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.UsernamePasswordToken;
 import org.apache.shiro.session.Session;
 import org.apache.shiro.subject.Subject;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
+
+import com.gatecm.tip.service.MemberBasicService;
+import com.gatecm.tip.service.Rrs;
 
 /**
  * @Description: TODO()
@@ -23,6 +27,9 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequestMapping(value = "/api/login")
 public class LoginApi {
+	
+	@Autowired
+	private MemberBasicService memberBasicService;
 
 	@RequestMapping(value = "", method = RequestMethod.POST)
 	public Map<String, Object> login(String userName, String password) {
@@ -48,5 +55,15 @@ public class LoginApi {
 			token.clear();
 		}
 		return map;
+	}
+
+	/**
+	 * 获取登录用户信息
+	 * 
+	 * @return
+	 */
+	@RequestMapping(value = "/member", method = RequestMethod.GET)
+	public Rrs member() {
+		return memberBasicService.getCurrentMemberInfo();
 	}
 }

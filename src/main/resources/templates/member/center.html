@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8" />
+<title>个人中心</title>
+<link rel="icon" th:href="@{/custom/common/image/logo.ico}" type="image/x-icon"/>  
+
+<!-- css -->
+<link rel="stylesheet" type="text/css" media="all"
+	href="/plugin/bootstrap/bootstrap.min.css"
+	th:href="@{/plugin/bootstrap/bootstrap.min.css}" />
+<link rel="stylesheet"
+	href="https://cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.css">
+<link rel="stylesheet" type="text/css" media="all"
+	th:href="@{/custom/common/css/common.css}" />
+<!-- js -->
+<script th:src="@{/plugin/jquery/jquery.min.js}"></script>
+<script th:src="@{/plugin/bootstrap/bootstrap.min.js}"></script>
+<script th:src="@{/custom/common/js/common.js}"></script>
+<script th:src="@{/custom/common/js/ajaxCustome.js}"></script>
+<script th:src="@{/custom/common/js/time.js}"></script>
+<style type="text/css">
+.tip-entry{
+font-size: 20px;
+height: 50px;
+}
+
+.tip-entry a{
+color: #282828;
+}
+
+.tip-entry span{
+right: 0px;
+position: absolute;
+color: #a9a9a9;
+font-size: 14px;
+}
+
+
+</style>
+<script type="text/javascript">
+$(function(){
+	var pageSize = 8;
+	//nav
+	$(document).on("click","#center-nav li a",function(){
+		$("#center-nav li").removeClass("active");
+		$(this).parent().addClass("active");
+		$("#main-container").children().addClass("hide");
+		var showBoxId = $(this).attr("data");
+		$("#"+showBoxId).removeClass("hide");
+		if(showBoxId=="tip-list"){
+			loadList(1, pageSize, "my-tip");
+		}
+
+	});
+	//tip list
+	$("#tip-pagination").on("click","a",function(){
+		var currentPageNum = $(this).attr("data");
+		if(currentPageNum!=null){
+			loadList(currentPageNum,pageSize,"my-tip");
+		}
+	});	
+	
+});
+function loadList(pageNum, pageSize, boxId) {
+	var tipShowBox = $("#" + boxId);
+	tipShowBox.empty();
+	var memberId  = $("#m-c").attr("data");
+	var getUrl = "/api/tip/member/release/list";
+	var requestData = "pageNum=" + pageNum + "&pageSize=" + pageSize;
+	$.get(getUrl,requestData,function(result){
+		$.each(result.data.list, function(n, value) {
+			tipShowBox.append('<div class="tip-entry">'
+					+(n+1)+'. '
+					+ '<a class="tip-info"'
+					+ 'href="/tip/'+value.id+'/detail">' + value.title + '</a>'
+					+ '<span>' + getDateDiff(value.gmtCreate)
+					+ '</span></div>');
+		});
+		iniPaginatoin(result.data,"tip-pagination");
+	});
+}
+
+
+</script>
+</head>
+<body>
+
+	<!-- tip-nav -->
+	<div th:include="/_model/_index-nav :: index-nav"></div>
+
+	<div class="container">
+		<div class="row">
+			<div class="col-md-3">
+			<ul id="center-nav" class="nav nav-pills nav-stacked">
+				<li class="active"><a data="member-info" href="javascript:void(0);">基本信息</a></li>
+				<li><a data="tip-list" href="javascript:void(0);">我的技巧</a></li>
+				<li><a href="#">我的勋章</a></li>
+				<li><a href="#">我的道具</a></li>
+				<li><a href="#">积分商城</a></li>
+			</ul>
+			
+			</div>
+			<div id="main-container" class="col-md-9">
+				<div id="member-info" class="row">
+						<div class="col-md-12">
+							用户信息
+						</div>
+				</div>
+				<div id="tip-list" class="hide row">
+					<div class="col-md-12">
+						<div id="my-tip" class="tip-list"></div>
+					</div>
+					<div class="col-md-12">
+						<div class="col-md-6 pull-right">
+							<ul id="tip-pagination" class="pagination pagination-sm">
+							</ul>
+						</div>
+					</div>
+				</div>
+				
+			</div>
+			
+			</div>
+		</div>
+	</div>
+
+	<!-- footer -->
+	<div th:include="/_model/_footer :: tip-footer"></div>
+</body>
+</html>

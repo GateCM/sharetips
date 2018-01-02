@@ -19,7 +19,6 @@ import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 
 /**
@@ -106,7 +105,7 @@ public class TipContentServiceImpl extends ServiceImpl<TipContentDao, TipContent
 		return new Rrs(true, draftTip);
 	}
 
-	@Cacheable(value = "index", key = "#pagination.pageSize")
+	// @Cacheable(value = "index", key = "#pagination.pageSize")
 	@Override
 	public Rrs releaseList(PaginationDto pagination) {
 		PageHelper.startPage(pagination.getPageNum(), pagination.getPageSize());
@@ -154,6 +153,20 @@ public class TipContentServiceImpl extends ServiceImpl<TipContentDao, TipContent
 		}
 		// 插入tip
 		return createNewTip(tip.convert2TipContent());
+	}
+
+	@Override
+	public Rrs findMemberReleaseTip(PaginationDto pagination) {
+		PageHelper.startPage(pagination.getPageNum(), pagination.getPageSize());
+		TipContent selectParam = new TipContent();
+		selectParam.setStatus((Integer) TipEnum.STATUS_RELEASE.getValue());
+		selectParam.setBelongMemberId(shiroSessionUtils.getMemberId());
+		List<TipVo> releaseTips = tipContentDao.selectVoByParam(selectParam);
+		for (TipVo tv : releaseTips) {
+			addBelongMemberVo(tv);
+		}
+		PageInfo<TipVo> pageInfo = new PageInfo<>(releaseTips);
+		return new Rrs(true, pageInfo);
 	}
 
 }

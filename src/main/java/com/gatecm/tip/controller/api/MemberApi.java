@@ -29,5 +29,4 @@ public class MemberApi {
 	public Rrs reg(@Valid MemberRegisterDto registerDto) {
 		return memberBasicService.registByVcode(registerDto);
 	}
-
 }

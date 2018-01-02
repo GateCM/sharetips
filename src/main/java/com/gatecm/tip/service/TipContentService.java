@@ -65,4 +65,12 @@ public interface TipContentService extends IService<TipContent> {
 	 * @return
 	 */
 	Rrs releaseDraft(@Valid TipContentDto tip);
+
+	/**
+	 * 获取指定会员技巧列表
+	 * 
+	 * @param pagination
+	 * @return
+	 */
+	Rrs findMemberReleaseTip(PaginationDto pagination);
 }

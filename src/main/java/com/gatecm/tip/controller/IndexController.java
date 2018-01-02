@@ -7,6 +7,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+import com.gatecm.tip.config.shiro.ShiroSessionUtils;
+
 /**
 * @ClassName: IndexController
 * @Description: TODO(首页控制器)

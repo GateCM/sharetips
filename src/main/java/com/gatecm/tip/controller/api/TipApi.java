@@ -39,7 +39,7 @@ public class TipApi {
 	public Rrs draft(@RequestBody @Valid TipContentDto tip) {
 		return tipContentService.saveDraft(tip);
 	}
-	
+
 	@RequestMapping(value = "/release", method = RequestMethod.POST)
 	public Rrs release(@RequestBody @Valid TipContentDto tip) {
 		return tipContentService.releaseDraft(tip);
@@ -64,5 +64,10 @@ public class TipApi {
 	@RequestMapping(value = "/release/list", method = RequestMethod.GET)
 	public Rrs releaseList(PaginationDto pagination) {
 		return tipContentService.releaseList(pagination);
+	}
+
+	@RequestMapping(value = "/member/release/list", method = RequestMethod.GET)
+	public Rrs memberReleaseList(PaginationDto pagination) {
+		return tipContentService.findMemberReleaseTip(pagination);
 	}
 }

@@ -36,4 +36,15 @@ public class MemberController {
 	public String space(@PathVariable Long memberId) {
 		return "member/space";
 	}
+	
+	/**
+	 * 个人中心
+	 * 
+	 * @param memberId
+	 * @return
+	 */
+	@RequestMapping(value = "/center")
+	public String center() {
+		return "member/center";
+	}
 }

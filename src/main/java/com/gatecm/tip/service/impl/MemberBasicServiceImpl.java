@@ -2,6 +2,7 @@ package com.gatecm.tip.service.impl;
 
 import com.gatecm.tip.config.shiro.PasswordEntity;
 import com.gatecm.tip.config.shiro.PasswordHelper;
+import com.gatecm.tip.config.shiro.ShiroSessionUtils;
 import com.gatecm.tip.constant.ErrorEnum;
 import com.gatecm.tip.constant.MemberEnum;
 import com.gatecm.tip.dto.MemberRegisterDto;
@@ -31,6 +32,9 @@ public class MemberBasicServiceImpl extends ServiceImpl<MemberBasicDao, MemberBa
 
 	@Autowired
 	private SmsUtils smsUtils;
+
+	@Autowired
+	private ShiroSessionUtils shiroSessionUtils;
 
 	@Override
 	public Rrs registByVcode(MemberRegisterDto registerDto) {
@@ -72,6 +76,18 @@ public class MemberBasicServiceImpl extends ServiceImpl<MemberBasicDao, MemberBa
 			rrs.setError(ErrorEnum.VCODE_ERROR);
 			break;
 		}
+		return rrs;
+	}
+
+	@Override
+	public Rrs getCurrentMemberInfo() {
+		Rrs rrs = new Rrs(true);
+		MemberBasic memberBasic = shiroSessionUtils.getMember();
+		if (memberBasic == null) {
+			rrs.setResult(false);
+			return rrs;
+		}
+		rrs.setData(memberBasic);
 		return rrs;
 	}
 
