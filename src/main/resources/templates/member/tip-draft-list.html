@@ -11,10 +11,13 @@
 <link rel="stylesheet"
 	href="https://cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.css">
 <link rel="stylesheet" type="text/css" media="all"
+	th:href="@{/plugin/layui/css/layui.css}" />
+<link rel="stylesheet" type="text/css" media="all"
 	th:href="@{/custom/common/css/common.css}" />
 <!-- js -->
 <script th:src="@{/plugin/jquery/jquery.min.js}"></script>
 <script th:src="@{/plugin/bootstrap/bootstrap.min.js}"></script>
+<script th:src="@{/plugin/layui/layui.js}"></script>
 <script th:src="@{/custom/common/js/common.js}"></script>
 <script th:src="@{/custom/common/js/ajaxCustome.js}"></script>
 <script th:src="@{/custom/common/js/time.js}"></script>
@@ -57,21 +60,20 @@
 </head>
 <body>
 	<!-- tip-nav -->
-	<nav class="navbar tip-navbar navbar-fixed-top" role="navigation">
-		<div class="container-fluid">
-			<div class="navbar-header">
-				<a th:href="@{/index}"><img width="50px" height="50px" alt=""
-					th:src="@{/custom/common/image/logo.png}"></a>
-			</div>
-			<div>
-				<ul class="nav navbar-nav  navbar-right">
-<!-- 					<li class="active"><a href="#">发布</a></li> -->
-<!-- 					<li><a th:href="@{/member/tip}">我的草稿</a></li> -->
-<!-- 					<li><a data-type="save-tip" href="javascript:void(0);">保存</a></li> -->
-				</ul>
-			</div>
+		<!-- tip-nav -->
+	<div class="index-nav">
+		<div class="index-nav-logo">
+			<a th:href="@{/index}"><img width="50px" height="50px" alt=""
+				th:src="@{/custom/common/image/logo.png}"></a>
+
 		</div>
-	</nav>
+		<div class="main-nav">
+			<ul class="layui-nav" lay-filter="">
+				<li data="write" class="layui-nav-item"><a th:href="@{/tip/write}">发技巧</a></li>
+				<li data="tip" class="layui-nav-item"><a th:href="@{/member/tip}">我的草稿</a></ul>
+			</ul>
+		</div>
+	</div>
 
 	<div class="container">
 		<div class="row">

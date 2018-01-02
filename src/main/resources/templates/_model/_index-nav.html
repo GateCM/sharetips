@@ -2,24 +2,38 @@
 	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
 <body>
 	<div th:fragment="index-nav">
-		<nav class="navbar tip-navbar navbar-fixed-top" role="navigation">
-			<div class="container-fluid">
-				<div class="navbar-header">
-					<a th:href="@{/index}"><img width="50px" height="50px" alt=""
-						th:src="@{/custom/common/image/logo.png}"></a>
-				</div>
-				<div>
-					<ul class="nav navbar-nav  navbar-right">
-						<li class="active"><a th:href="@{/index}">首页</a></li>
-						<li><a th:data="${@shiroSessionUtils.getMemberId()}" th:href="@{/member/center}">个人中心</a></li>
-						<li><a th:href="@{/tip/write}">发技巧</a></li>
-						<li><a href="#">论坛</a></li>
-						<li><a href="#">关于我们</a></li>
-						<li class="active"><a th:href="@{/login/signin}">登录</a></li>
-					</ul>
-				</div>
+		<div class="index-nav">
+			<div class="index-nav-logo">
+				<a th:href="@{/index}"><img width="50px" height="50px" alt=""
+					th:src="@{/custom/common/image/logo.png}"></a>
+
 			</div>
-		</nav>
+			<div class="main-nav">
+				<ul class="layui-nav" lay-filter="main-nav">
+					<li data="index" class="layui-nav-item"><a th:href="@{/index}">首页</a></li>
+					<li data="center" class="layui-nav-item"><a
+						th:data="${@shiroSessionUtils.getMemberId()}"
+						th:href="@{/member/center}">个人中心</a></li>
+					<li data="write" class="layui-nav-item"><a th:href="@{/tip/write}">发技巧</a></li>
+					<li data="#"  class="layui-nav-item"><a href="#">论坛</a></li>
+					<li data="#" class="layui-nav-item"><a href="#">关于我们</a></li>
+					<!-- 				<li class="layui-nav-item"><a href="javascript:;">解决方案</a> -->
+					<!-- 					<dl class="layui-nav-child"> -->
+					<!-- 						二级菜单 -->
+					<!-- 						<dd> -->
+					<!-- 							<a href="">移动模块</a> -->
+					<!-- 						</dd> -->
+					<!-- 						<dd> -->
+					<!-- 							<a href="">后台模版</a> -->
+					<!-- 						</dd> -->
+					<!-- 						<dd> -->
+					<!-- 							<a href="">电商平台</a> -->
+					<!-- 						</dd> -->
+					<!-- 					</dl></li> -->
+					<!-- 				<li class="layui-nav-item"><a href="">社区</a></li> -->
+				</ul>
+			</div>
+		</div>
 	</div>
 </body>
 </html>

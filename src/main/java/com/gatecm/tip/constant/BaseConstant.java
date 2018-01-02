@@ -37,6 +37,9 @@ public interface BaseConstant {
 	 */
 	String RESPONSE_DATA = "rd";
 
+	/**
+	 * 常用字符串
+	 */
 	String SEPARATOR_EN_COMMA = ",";
 	String BLANK_STRING = "";
 	String SPLIT = "-";

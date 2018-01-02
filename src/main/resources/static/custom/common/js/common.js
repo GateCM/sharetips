@@ -4,9 +4,23 @@ $(function() {
 		var memberId = $(this).attr("data");
 		location.href = "/member/" + memberId + "/space";
 	});
+
+	iniIndexNav();
 });
 
-/**paginatoin*/
+layui.use('element', function() {
+	var element = layui.element;
+
+	// …
+});
+
+/** ini index nav */
+function iniIndexNav() {
+	var currentNav = location.href.split("/").pop();
+	$('.main-nav li[data="' + currentNav + '"]').addClass("layui-this");
+}
+
+/** paginatoin */
 function iniPaginatoin(pageInfo, boxId) {
 	console.log(JSON.stringify(pageInfo));
 	var prePage = pageInfo.prePage;
