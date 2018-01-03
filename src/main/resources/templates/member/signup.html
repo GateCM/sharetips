@@ -18,16 +18,16 @@
 <script th:src="@{/plugin/validate/jquery.validate.min.js}"></script>
 <script th:src="@{/custom/common/js/ajaxCustome.js}"></script>
 <style type="text/css">
-.login-box {
+.signup-box {
 	top: 100px;
 }
 
-.login-box-form {
+.signup-box-form {
 	padding: 60px 70px 0px 0px;
 	background: #fefefe;
 }
 
-.login-box-form .layui-form-item {
+.signup-box-form .layui-form-item {
 	margin-bottom: 30px;
 }
 
@@ -112,9 +112,9 @@
 		<!-- index-nav -->
 		<div th:include="/_model/_index-nav :: index-nav"></div>
 
-		<div class="layui-container login-box">
+		<div class="layui-container signup-box">
 			<div class="layui-row">
-				<div class="login-box-form layui-col-md6 layui-col-md-offset3">
+				<div class="signup-box-form layui-col-md6 layui-col-md-offset3">
 					<form class="layui-form" th:action="@{/api/member/register}"
 						method="POST" novalidate="novalidate">
 						<div class="layui-form-item">
@@ -162,6 +162,9 @@
 				</div>
 			</div>
 		</div>
+		
+		<!-- footer -->
+		<div th:include="/_model/_footer :: tip-footer"></div>
 	</div>
 </body>
 </html>
