@@ -56,6 +56,7 @@ public class ShiroConfig {
 		filterChainDefinitionMap.put("/logout", "logout");
 		//首页不拦截
 		filterChainDefinitionMap.put("/index", "anon");
+		filterChainDefinitionMap.put("/api/tip/release/list", "anon");
 		//测试不拦截
 		filterChainDefinitionMap.put("/test/**", "anon");
 		

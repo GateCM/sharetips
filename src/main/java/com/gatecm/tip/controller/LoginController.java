@@ -3,6 +3,7 @@
  */
 package com.gatecm.tip.controller;
 
+import org.apache.shiro.SecurityUtils;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -25,5 +26,11 @@ public class LoginController {
 	@RequestMapping(value = "/signup")
 	public String signupPage() {
 		return "/member/signup";
+	}
+
+	@RequestMapping(value = "/signout")
+	public String signOut() {
+		SecurityUtils.getSubject().logout();
+		return "/member/signin";
 	}
 }

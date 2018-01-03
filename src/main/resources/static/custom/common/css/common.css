@@ -5,6 +5,7 @@ input, button, a {
 
 body {
 	overflow-y: scroll;
+	background-color: #f2f2f2;
 }
 
 a:hover, a:visited, a:link, a:active {
@@ -25,7 +26,7 @@ ul li {
 	height: 60px;
 }
 
-.index-nav-logo {
+.index-nav-logo img {
 	position: relative;
 	top: 5px;
 	left: 20px;
@@ -45,7 +46,9 @@ ul li {
 /** main nav end */
 .tip-page {
 	height: auto;
-	min-height: 100%;
+	min-height: 780px;
+	position: absolute;
+	width: 100%;
 }
 
 .tip-navbar {
@@ -61,14 +64,6 @@ ul li {
 	font-weight: normal;
 }
 
-.tip-footer {
-	font-size: 12px;
-	color: #ababab;
-	text-align: center;
-	bottom: 10px;
-	top: 20px;
-}
-
 div.container {
 	margin-top: 100px;
 }
@@ -76,4 +71,14 @@ div.container {
 /**member**/
 .member-link {
 	cursor: pointer;
+}
+
+/**底部导航*/
+.tip-footer {
+	font-size: 12px;
+	color: #ababab;
+	text-align: center;
+	position: absolute;
+	bottom: 30px;
+	width: 100%;
 }

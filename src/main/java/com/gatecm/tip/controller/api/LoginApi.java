@@ -27,7 +27,7 @@ import com.gatecm.tip.service.Rrs;
 @RestController
 @RequestMapping(value = "/api/login")
 public class LoginApi {
-	
+
 	@Autowired
 	private MemberBasicService memberBasicService;
 

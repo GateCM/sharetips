@@ -76,6 +76,7 @@ public class SmsUtils {
 		vCodeBean.addSendTimes();
 		LOGGER.info("==发送验证码成功," + phoneNumber + BaseConstant.SEPARATOR_EN_COMMA + vcode);
 		rrs.setResult(true);
+		rrs.setData(vCodeBean);
 		return rrs;
 	}
 
