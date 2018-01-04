@@ -21,12 +21,16 @@
 <script th:src="@{/custom/common/js/common.js}"></script>
 <script th:src="@{/custom/common/js/ajaxCustome.js}"></script>
 <script th:src="@{/custom/common/js/time.js}"></script>
-
+<style type="text/css">
+body{
+	background-color:#fff;
+}
+</style>
 <script type="text/javascript">
 	function loadList(pageNum,pageSize){
 		var tipShowBox = $("#tip-list-box");
 		tipShowBox.empty();
-		var getUrl = "/api/tip/draft/list";
+		var getUrl = "/api/tip/a/draft/list";
 		var requestData = "pageNum="+pageNum+"&pageSize="+pageSize;
 		$.get(getUrl,requestData,function(result){
 			$.each(result.data.list, function(n, value) {
@@ -69,13 +73,13 @@
 		</div>
 		<div class="main-nav">
 			<ul class="layui-nav" lay-filter="">
-				<li data="write" class="layui-nav-item"><a th:href="@{/tip/write}">发技巧</a></li>
-				<li data="tip" class="layui-nav-item"><a th:href="@{/member/tip}">我的草稿</a></ul>
+				<li data="write" class="layui-nav-item"><a th:href="@{/tip/a/write}">发技巧</a></li>
+				<li data="tip" class="layui-nav-item"><a th:href="@{/member/a/tip}">我的草稿</a></ul>
 			</ul>
 		</div>
 	</div>
 
-	<div class="container">
+	<div class="layui-container">
 		<div class="row">
 			<div class="col-md-12">
 				<ul id="tip-list-box" class="tip-list-box">

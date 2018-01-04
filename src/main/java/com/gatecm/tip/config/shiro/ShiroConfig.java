@@ -38,33 +38,29 @@ public class ShiroConfig {
 		// 如果不设置默认会自动寻找Web工程根目录下的"/login.jsp"页面
 		shiroFilterFactoryBean.setLoginUrl("/login/signin");
 		// 登录成功后要跳转的链接
-		shiroFilterFactoryBean.setSuccessUrl("/portals/ethereal");
+		shiroFilterFactoryBean.setSuccessUrl("/index");
 		// 未授权界面;
 		shiroFilterFactoryBean.setUnauthorizedUrl("/403");
 		// 拦截器.
 		Map<String, String> filterChainDefinitionMap = new LinkedHashMap<String, String>();
-		// 配置不会被拦截的链接 顺序判断
-		//登录路由
-		filterChainDefinitionMap.put("/login/**", "anon");
-		filterChainDefinitionMap.put("/api/login/**", "anon");
-		filterChainDefinitionMap.put("/api/member/register", "anon");
-		filterChainDefinitionMap.put("/api/sms/*", "anon");
-		//静态文件
-		filterChainDefinitionMap.put("/custom/**", "anon");
-		filterChainDefinitionMap.put("/plugin/**", "anon");
 		// 配置退出过滤器,其中的具体的退出代码Shiro已经替我们实现了
 		filterChainDefinitionMap.put("/logout", "logout");
-		//首页不拦截
-		filterChainDefinitionMap.put("/index", "anon");
-		filterChainDefinitionMap.put("/api/tip/release/list", "anon");
-		//测试不拦截
-		filterChainDefinitionMap.put("/test/**", "anon");
+		// 配置会被拦截的链接 顺序判断
+		filterChainDefinitionMap.put("/tip/a/**", "authc");
+		filterChainDefinitionMap.put("/login/a/**", "authc");
+		filterChainDefinitionMap.put("/member/a/**", "authc");
+		
+		filterChainDefinitionMap.put("/api/img/**", "authc");
+		filterChainDefinitionMap.put("/api/tip/a/**", "authc");
+		filterChainDefinitionMap.put("/api/login/a/**", "authc");
+		filterChainDefinitionMap.put("/api/member/a/**", "authc");
+		
+		filterChainDefinitionMap.put("/tip/write", "authc");
 		
 		// <!-- 过滤链定义，从上向下顺序执行，一般将 /**放在最为下边 -->:这是一个坑呢，一不小心代码就不好使了;
 		// <!-- authc:所有url都必须认证通过才可以访问; anon:所有url都都可以匿名访问-->
 		//全都不拦截
-//		filterChainDefinitionMap.put("/**", "anon");
-		filterChainDefinitionMap.put("/**", "authc");
+		filterChainDefinitionMap.put("/**", "anon");
 		shiroFilterFactoryBean.setFilterChainDefinitionMap(filterChainDefinitionMap);
 		return shiroFilterFactoryBean;
 

@@ -17,11 +17,18 @@ ul li {
 	list-style: none;
 }
 
+.hide {
+	display: none !important;
+}
+
+.show {
+	display: block !important;
+}
+
 /** main nav start */
 .index-nav {
 	background-color: #393d49;
-	position: absolute;
-	top: 0px;
+	position: relative;
 	width: 100%;
 	height: 60px;
 }
@@ -44,6 +51,16 @@ ul li {
 }
 
 /** main nav end */
+
+/**layui custom start*/
+.layui-container {
+	margin-top: 40px;
+}
+
+.layui-fixbar li {
+	background-color: #009688;
+}
+/**layui custom end*/
 .tip-page {
 	height: auto;
 	min-height: 780px;
@@ -64,10 +81,6 @@ ul li {
 	font-weight: normal;
 }
 
-div.container {
-	margin-top: 100px;
-}
-
 /**member**/
 .member-link {
 	cursor: pointer;
@@ -75,10 +88,11 @@ div.container {
 
 /**底部导航*/
 .tip-footer {
-	font-size: 12px;
-	color: #ababab;
+	font-size: 16px;
+	color: #cfcfcf;
 	text-align: center;
-	position: absolute;
-	bottom: 30px;
+	position: relative;
 	width: 100%;
+	margin: 80px 0px 30px 0px;
+	font-weight: lighter;
 }

@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.gatecm.tip.constant.ErrorEnum;
+import com.gatecm.tip.service.Rrs;
 
 /**
  * @ClassName: GlobalExceptionHandler
@@ -25,18 +26,6 @@ import com.gatecm.tip.constant.ErrorEnum;
 public class GlobalExceptionHandler {
 
 	/**
-	 * bean校验未通过异常
-	 *
-	 * @see javax.validation.Valid
-	 * @see org.springframework.validation.Validator
-	 * @see org.springframework.validation.DataBinder
-	 */
-	@ExceptionHandler(MethodArgumentNotValidException.class)
-	public MethodParameter validExceptionHandler(MethodArgumentNotValidException e) {
-		return e.getParameter();
-	}
-
-	/**
 	 * 所有异常报错
 	 * 
 	 * @param request
@@ -45,9 +34,9 @@ public class GlobalExceptionHandler {
 	 * @throws Exception
 	 */
 	@ExceptionHandler(value = Exception.class)
-	public ErrorEnum allExceptionHandler(HttpServletRequest request, Exception exception) throws Exception {
+	public Rrs allExceptionHandler(HttpServletRequest request, Exception exception) throws Exception {
 		exception.printStackTrace();
-		return ErrorEnum.SYS_EXCEPTION;
+		return new Rrs(false, ErrorEnum.SYS_EXCEPTION);
 	}
 
 }

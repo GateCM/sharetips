@@ -24,7 +24,7 @@ public class TipController {
 	@Autowired
 	private TipContentService tipContentService;
 
-	@RequestMapping(value = "/write")
+	@RequestMapping(value = "/a/write")
 	public String write() {
 		return "tip/write";
 	}

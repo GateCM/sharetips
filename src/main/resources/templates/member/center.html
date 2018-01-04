@@ -6,9 +6,6 @@
 <link rel="icon" th:href="@{/custom/common/image/logo.ico}" type="image/x-icon"/>  
 
 <!-- css -->
-<link rel="stylesheet" type="text/css" media="all"
-	href="/plugin/bootstrap/bootstrap.min.css"
-	th:href="@{/plugin/bootstrap/bootstrap.min.css}" />
 <link rel="stylesheet"
 	href="https://cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.css">
 <link rel="stylesheet" type="text/css" media="all"
@@ -18,12 +15,31 @@
 
 <!-- js -->
 <script th:src="@{/plugin/jquery/jquery.min.js}"></script>
-<script th:src="@{/plugin/bootstrap/bootstrap.min.js}"></script>
 <script th:src="@{/plugin/layui/layui.js}"></script>
 <script th:src="@{/custom/common/js/common.js}"></script>
 <script th:src="@{/custom/common/js/ajaxCustome.js}"></script>
 <script th:src="@{/custom/common/js/time.js}"></script>
 <style type="text/css">
+body{
+background-color:#fff;
+}
+
+.center-nav{
+min-height:600px;
+}
+
+.center-nav ul{
+min-height:600px;
+}
+
+.center-nav ul a,.center-nav ul i{
+font-size: 18px !important;
+}
+.center-nav ul i{
+width:20px;
+margin-right:10px;
+}
+
 .tip-entry{
 font-size: 20px;
 height: 50px;
@@ -67,12 +83,12 @@ layui.use(['laypage','upload'], function(){
   //每页记录数
   var pageSize = 10;
   //技巧列表数据接口
-  var tipListUrl = "/api/tip/member/release/list";
+  var tipListUrl = "/api/tip/a/member/release/list";
   $(function(){
 		//left nav
 		$(document).on("click","#center-nav li a",function(){
-			$("#center-nav li").removeClass("active");
-			$(this).parent().addClass("active");
+			$("#center-nav li").removeClass("layui-nav-itemed");
+			$(this).parent().addClass("layui-nav-itemed");
 			$("#main-container").children().addClass("hide");
 			var showBoxId = $(this).attr("data");
 			$("#"+showBoxId).removeClass("hide");
@@ -127,34 +143,30 @@ layui.use(['laypage','upload'], function(){
 	<!-- tip-nav -->
 	<div th:include="/_model/_index-nav :: index-nav"></div>
 
-	<div class="container">
-		<div class="row">
-			<div class="col-md-3">
-			<ul id="center-nav" class="nav nav-pills nav-stacked">
-				<li class="active"><a data="member-info" href="javascript:void(0);">基本信息</a></li>
-				<li><a data="tip-list" href="javascript:void(0);">我的技巧</a></li>
-				<li><a href="#">我的勋章</a></li>
-				<li><a href="#">我的道具</a></li>
-				<li><a href="#">积分商城</a></li>
-			</ul>
+	<div class="layui-container">
+		<div class="layui-row">
+			<div class="layui-col-md3 center-nav">
+				<ul id="center-nav" class="layui-nav layui-nav-tree" lay-filter="test">
+					<li class="layui-nav-item layui-nav-itemed"><a data="member-info" href="javascript:void(0);"><i class="layui-icon">&#xe612;</i> 基本信息</a></li>
+					<li class="layui-nav-item"><a data="tip-list" href="javascript:void(0);"><i class="layui-icon">&#xe705;</i> 我的技巧</a></li>
+					<li class="layui-nav-item"><a href="#"><i class="layui-icon">&#xe658;</i> 我的勋章</a></li>
+					<li class="layui-nav-item"><a href="#"><i class="layui-icon">&#xe639;</i> 我的道具</a></li>
+					<li class="layui-nav-item"><a href="#"><i class="layui-icon">&#xe698;</i> 积分商城</a></li>
+					
+				</ul>
 			
 			</div>
-			<div id="main-container" class="col-md-9">
-				<div id="member-info" class="row">
-						<div class="col-md-12">
-							用户信息
-							<i class="layui-icon" style="font-size: 30px; color: #1E9FFF;">&#xe60c;</i>  
-							<button type="button" class="layui-btn" id="test1">
-							  <i class="layui-icon">&#xe67c;</i>上传图片
-							</button>
-						
+			<div id="main-container" class="layui-col-md9">
+				<div id="member-info" class="layui-row">
+						<div class="layui-col-md12">
+							用户信息待完善
 						</div>
 				</div>
-				<div id="tip-list" class="hide row">
-					<div class="col-md-12">
+				<div id="tip-list" class="hide layui-row">
+					<div class="layui-col-md12">
 						<div id="my-tip" class="tip-list"></div>
 					</div>
-					<div class="col-md-12">
+					<div class="layui-col-md12">
 						<div id="bottom-laypage"></div>
 					</div>
 				</div>

@@ -35,17 +35,17 @@ public class TipApi {
 	@Autowired
 	private CommentService commentService;
 
-	@RequestMapping(value = "/draft", method = RequestMethod.POST)
+	@RequestMapping(value = "/a/draft", method = RequestMethod.POST)
 	public Rrs draft(@RequestBody @Valid TipContentDto tip) {
 		return tipContentService.saveDraft(tip);
 	}
 
-	@RequestMapping(value = "/release", method = RequestMethod.POST)
+	@RequestMapping(value = "/a/release", method = RequestMethod.POST)
 	public Rrs release(@RequestBody @Valid TipContentDto tip) {
 		return tipContentService.releaseDraft(tip);
 	}
 
-	@RequestMapping(value = "/{tipId}/comment", method = RequestMethod.POST)
+	@RequestMapping(value = "/a/{tipId}/comment", method = RequestMethod.POST)
 	public Rrs comment(@PathVariable Long tipId, @RequestBody @Valid CommentDto comment) {
 		comment.setTipId(tipId);
 		return commentService.addComment2Tip(comment);
@@ -56,7 +56,7 @@ public class TipApi {
 		return commentService.tipCommentList(pagination, tipId);
 	}
 
-	@RequestMapping(value = "/draft/list", method = RequestMethod.GET)
+	@RequestMapping(value = "/a/draft/list", method = RequestMethod.GET)
 	public Rrs draftList(PaginationDto pagination) {
 		return tipContentService.draftList(pagination);
 	}
@@ -66,7 +66,7 @@ public class TipApi {
 		return tipContentService.releaseList(pagination);
 	}
 
-	@RequestMapping(value = "/member/release/list", method = RequestMethod.GET)
+	@RequestMapping(value = "/a/member/release/list", method = RequestMethod.GET)
 	public Rrs memberReleaseList(PaginationDto pagination) {
 		return tipContentService.findMemberReleaseTip(pagination);
 	}

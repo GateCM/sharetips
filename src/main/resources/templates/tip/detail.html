@@ -89,7 +89,7 @@ margin-left:20px;
 		
 		//commit comment
 		$("body").on("click", 'button[data-type="submitComment"]', function() {
-			var url = "/api/tip/" + tipId + "/comment";
+			var url = "/api/tip/a/" + tipId + "/comment";
 			var data = $(this).parents("form").serializeObject();
 			var rd = ajaxPostJson(url, data);
 			if(rd.result){
@@ -153,7 +153,7 @@ margin-left:20px;
 		<!-- index-nav -->
 		<div th:include="/_model/_index-nav :: index-nav"></div>
 
-		<div class="container">
+		<div class="layui-container">
 			<!-- main -->
 			<div class="row">
 				<div class="col-md-12">

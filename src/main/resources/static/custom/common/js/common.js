@@ -1,84 +1,21 @@
-$(function() {
-	/** member space link */
-	$(document).on("click", ".member-link", function() {
-		var memberId = $(this).attr("data");
-		location.href = "/member/" + memberId + "/space";
-	});
-
-	iniIndexNav();
-});
-
 layui.use('element', function() {
 	var element = layui.element;
 
-	// …
-});
-
-/** ini index nav */
-function iniIndexNav() {
-	var currentNav = location.href.split("/").pop();
-	$('.main-nav li[data="' + currentNav + '"]').addClass("layui-this");
-}
-
-/** paginatoin */
-function iniPaginatoin(pageInfo, boxId) {
-	console.log(JSON.stringify(pageInfo));
-	var prePage = pageInfo.prePage;
-	var nextPage = pageInfo.nextPage;
-	var totalPages = pageInfo.pages;
-	var hasPreviousPage = pageInfo.hasPreviousPage;
-	var hasNextPage = pageInfo.hasNextPage;
-	var pageNum = pageInfo.pageNum;
-	var isFirstPage = pageInfo.isFirstPage;
-	var isLastPage = pageInfo.isLastPage;
-	// 加载页码
-	var tipPaginationNode = $("#" + boxId);
-	tipPaginationNode.empty();
-	// 首页
-	if (isFirstPage) {
-		tipPaginationNode.append('<li class="disabled"><a data="' + 1
-				+ '" href="javascript:void(0);">首页</a></li>');
-	} else {
-		tipPaginationNode.append('<li><a data="' + 1
-				+ '" href="javascript:void(0);">首页</a></li>');
-	}
-	// 上一页
-	if (hasPreviousPage) {
-		tipPaginationNode
-				.append('<li class="previous"><a data="'
-						+ prePage
-						+ '" href="javascript:void(0);"><i class="fa fa-chevron-left"></i></a></li>');
-	} else {
-		tipPaginationNode
-				.append('<li class="disabled"><a href="javascript:void(0);"><i class="fa fa-chevron-left"></i></a></li>');
-	}
-	// 页码
-	$.each(pageInfo.navigatepageNums, function(index, value) {
-		// 当前页判断
-		if (pageNum == value) {
-			tipPaginationNode.append('<li class="active"><a data="' + value
-					+ '" href="javascript:void(0);">' + value + '</a></li>');
-		} else {
-			tipPaginationNode.append('<li><a data="' + value
-					+ '" href="javascript:void(0);">' + value + '</a></li>');
-		}
+	$(function() {
+		/** member space link */
+		$(document).on("click", ".member-link", function() {
+			var memberId = $(this).attr("data");
+			location.href = "/member/" + memberId + "/space";
+		});
+		iniIndexNav();
 	});
-	// 下一页
-	if (hasNextPage) {
-		tipPaginationNode
-				.append('<li class="next"><a data="'
-						+ nextPage
-						+ '" href="javascript:void(0);"><i class="fa fa-chevron-right"></i></a></li>');
-	} else {
-		tipPaginationNode
-				.append('<li class="disabled"><a href="javascript:void(0);"><i class="fa fa-chevron-right"></i></a></li>');
+	/** ini index nav */
+	function iniIndexNav() {
+		var currentNav = location.href.split("/").pop();
+		$('.main-nav li[data="' + currentNav + '"]').addClass("layui-this");
 	}
-	// 尾页
-	if (isLastPage) {
-		tipPaginationNode.append('<li class="disabled"><a data="' + totalPages
-				+ '" href="javascript:void(0);">尾页</a></li>');
-	} else {
-		tipPaginationNode.append('<li><a data="' + totalPages
-				+ '" href="javascript:void(0);">尾页</a></li>');
+	
+	function tipMsg(msg){
+		layer.msg(msg);
 	}
-}
+});

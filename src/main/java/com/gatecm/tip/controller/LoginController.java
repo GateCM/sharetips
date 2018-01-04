@@ -28,7 +28,7 @@ public class LoginController {
 		return "/member/signup";
 	}
 
-	@RequestMapping(value = "/signout")
+	@RequestMapping(value = "/a/signout")
 	public String signOut() {
 		SecurityUtils.getSubject().logout();
 		return "/member/signin";

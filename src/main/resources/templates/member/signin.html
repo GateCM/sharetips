@@ -17,10 +17,6 @@
 <script th:src="@{/custom/common/js/ajaxCustome.js}"></script>
 <style type="text/css">
 
-.login-box {
-	top: 100px;
-}
-
 .login-box-form {
 	padding: 60px 70px 0px 0px;
 	background: #fefefe;
@@ -70,7 +66,7 @@
 	<div class="tip-page">
 		<!-- index-nav -->
 		<div th:include="/_model/_index-nav :: index-nav"></div>
-		<div class="layui-container login-box">
+		<div class="layui-container">
 			<div class="layui-row">
 				<div class="login-box-form layui-col-md6 layui-col-md-offset3">
 					<form class="layui-form" th:action="@{/api/login}" method="POST">

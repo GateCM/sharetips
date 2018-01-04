@@ -43,11 +43,11 @@
 		<div class="main-nav">
 			<ul class="layui-nav" lay-filter="">
 				<li class="layui-nav-item"><a data-type="release-tip" href="javascript:void(0);">发布</a></li>
-				<li data="tip" class="layui-nav-item"><a th:href="@{/member/tip}">我的草稿</a></ul>
+				<li data="tip" class="layui-nav-item"><a th:href="@{/member/a/tip}">我的草稿</a></ul>
 		</div>
 	</div>
 
-	<div class="container">
+	<div class="layui-container">
 		<div class="row">
 			<div class="col-md-12" th:with="isEdit=${rd ne null && rd.result}">
 				<form class="form-horizontal" action="" role="form">

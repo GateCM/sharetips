@@ -1,55 +1,130 @@
-.list-title{
-height: 30px;
-line-height: 30px;
-font-size: 16px;
-margin-bottom: 10px;
-padding-left: 3px;
-font-weight: bold;
-border-bottom: 1px solid #f1f1f1;
-}
-.tip-entry{
-height: 70px;
-width: 100%;
+.left-box .layui-row {
+	background: white;
+	padding: 10px;
+	margin-bottom: 15px;
 }
 
-.member{
-width: 60px;
-height: 60px;
-position: absolute;
+.search {
+	
 }
 
-.member img{
-height: 60px;
-width: 60px;
+.list-title {
+	height: 30px;
+	line-height: 30px;
+	font-size: 16px;
+	margin-bottom: 10px;
+	padding-left: 3px;
+	font-weight: bold;
+	border-bottom: 1px solid #f1f1f1;
 }
 
-.tip-record{
-padding-left: 70px;
+.tip-entry {
+	height: 100px;
+	width: 100%;
+	padding: 10px 0px 10px 0px;
+	border-bottom: 1px solid #f1f1f1;
+	margin-bottom: 10px;
 }
 
-.tip-record span{
-    font-size: 12px !important;
-    color: #909090 !important;
+.member {
+	/* 	width: 60px; */
+	/* 	height: 60px; */
+	/* 	position: absolute; */
+	
 }
 
-.member-info{
-    font-size: 13px !important;
-    color: #909090 !important;
+.member img {
+	height: 24px;
+	width: 24px;
 }
 
-.tip-info{
-font-size: 15px;
-height: 20px;
-display: inline-block;
-overflow: hidden;
-text-overflow: ellipsis;
-white-space: nowrap;
-width: 100%;
+.tip-record {
+	/* 	padding-left: 70px; */
+	
 }
 
-.banner{
-	margin-bottom: 30px;
+.member-info {
+	font-size: 13px !important;
+	color: #909090 !important;
+	padding: 0px 10px 0px 10px;
+	font-weight: bold;
 }
-.search{
-	margin-bottom: 30px;
+
+.motto {
+	font-size: 13px;
+	color: #c2c2c2;
+}
+
+.tip-info {
+	width: 100%;
+	margin: 5px 0px 5px 0px;
+}
+
+.tip-info a:hover {
+	color: #01AAED;
+	transition: color 0.3s linear;
+	-moz-transition: color 0.3s linear; /* Firefox 4 */
+	-webkit-transition: color 0.3s linear; /* Safari and Chrome */
+	-o-transition: color 0.3s linear; /* Opera */
+}
+
+.tip-title {
+	font-size: 18px;
+	height: 30px;
+	display: inline-block;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	white-space: nowrap;
+	font-weight: bold;
+	margin: 5px 5px 15px 0px;
+	line-height: 30px;
+}
+
+.tip-bottom {
+	height: 20px;
+}
+
+.tip-bottom span {
+	display: inline-block;
+	height: 20px;
+	line-height: 20px;
+	font-size: 15px !important;
+	color: #909090 !important;
+	width: 50px;
+}
+
+.tip-bottom span i {
+	font-size: 20px;
+	color: #909090;
+	position: absolute;
+	padding: 1px 0px 0px 3px;
+	cursor:pointer
+}
+
+.tip-bottom .time {
+	width: 40px;
+	right: 0px;
+	position: absolute;
+}
+
+/**right*/
+.right-box .layui-row {
+	background: white;
+	padding: 10px;
+	margin-bottom: 15px;
+}
+
+.right-box .sign {
+	text-align: center;
+	margin: 10px 0px 20px 0px;
+}
+
+.right-box .sign button {
+	width: 150px;
+}
+
+.right-box .status {
+	width: 150px;
+	text-align: center;
+	margin-left: 54px;
 }

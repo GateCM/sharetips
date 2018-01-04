@@ -21,7 +21,7 @@ public class MemberController {
 	 * @param memberId
 	 * @return
 	 */
-	@RequestMapping(value = "/tip")
+	@RequestMapping(value = "/a/tip")
 	public String tip() {
 		return "member/tip-draft-list";
 	}
@@ -43,7 +43,7 @@ public class MemberController {
 	 * @param memberId
 	 * @return
 	 */
-	@RequestMapping(value = "/center")
+	@RequestMapping(value = "/a/center")
 	public String center() {
 		return "member/center";
 	}
