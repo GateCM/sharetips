@@ -26,6 +26,11 @@ public class MemberVo {
 	 */
 	private String headUrl;
 
+	/**
+	 * 签名
+	 */
+	private String motto;
+
 	public Long getId() {
 		return id;
 	}
@@ -48,6 +53,14 @@ public class MemberVo {
 
 	public void setHeadUrl(String headUrl) {
 		this.headUrl = headUrl;
+	}
+
+	public String getMotto() {
+		return motto;
+	}
+
+	public void setMotto(String motto) {
+		this.motto = motto;
 	}
 
 }
