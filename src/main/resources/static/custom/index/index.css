@@ -103,9 +103,10 @@
 }
 
 .tip-bottom .time {
-	width: 40px;
-	right: 0px;
-	position: absolute;
+width: 100px;
+right: 0px;
+position: absolute;
+text-align: right;
 }
 
 /**right*/

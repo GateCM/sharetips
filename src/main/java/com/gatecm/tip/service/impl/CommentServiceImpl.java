@@ -48,6 +48,7 @@ public class CommentServiceImpl implements CommentService {
 		Long memberId = shiroSessionUtils.getMemberId();
 		TipComment insertParam = new TipComment();
 		insertParam.setGmtCreate(new Date());
+		insertParam.setGmtUpdate(insertParam.getGmtCreate());
 		insertParam.setTipId(comment.getTipId());
 		insertParam.setContent(comment.getContent());
 		insertParam.setMemberId(memberId);

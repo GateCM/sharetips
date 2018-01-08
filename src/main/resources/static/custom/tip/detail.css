@@ -106,6 +106,7 @@
 
 .member-show .member-link {
 	margin: 0px 4px 0px 4px;
+	color: #7f7d7d;
 }
 
 .member-show .reply {
@@ -119,17 +120,22 @@
 	font-size: 14px;
 	color: #a9a6a6;
 }
+/**comment start*/
+.comment-entity {
+	margin-bottom: 20px;
+}
 
 .comment-content {
 	line-height: 30px;
 	padding: 4px 0px 0px 0px;
 }
 
-form span {
-	line-height: 35px;
-	display: inline-block;
+#bottom-laypage div {
+	float: right;
+	margin-right: 20px;
 }
 
-form button {
-	margin-left: 20px;
+.write-box {
+	margin-top: 20px;
 }
+/**comment end*/

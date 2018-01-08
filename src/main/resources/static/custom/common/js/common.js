@@ -14,8 +14,12 @@ layui.use('element', function() {
 		var currentNav = location.href.split("/").pop();
 		$('.main-nav li[data="' + currentNav + '"]').addClass("layui-this");
 	}
-	
-	function tipMsg(msg){
-		layer.msg(msg);
-	}
 });
+
+function entryStatus() {
+	var memberId = $("#lmInfo").attr("data");
+	if (memberId !=undefined) {
+		return true;
+	}
+	return false;
+}
