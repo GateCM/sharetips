@@ -26,10 +26,4 @@ public class SmsApi {
 	public Rrs reg(String phoneNumber) {
 		 return smsService.sendRegVcode(phoneNumber);
 	}
-//		Rrs rrs = new Rrs(true);
-//		VcodeBean bean = new VcodeBean();
-//		bean.setSendDate(new Date());
-//		rrs.setData(bean);
-//		return rrs;
-//	}
 }
