@@ -20,6 +20,7 @@
 <script th:src="@{/custom/common/js/common.js}"></script>
 <script th:src="@{/custom/common/js/ajaxCustome.js}"></script>
 <script th:src="@{/custom/common/js/time.js}"></script>
+<script th:src="@{/custom/common/js/number.js}"></script>
 
 <script type="text/javascript">
 layui.use(['layer','util'], function() {
@@ -37,6 +38,7 @@ layui.use(['layer','util'], function() {
 		// 		});
 	
 		iniSignButton();
+		iniWebStatus();
 		
 		$('button[data-type="sign"]').on("click",function(){
 			$.post("/api/member/a/sign",function(rd){
@@ -76,9 +78,7 @@ layui.use(['layer','util'], function() {
 									+ '<span>'
 									+'&nbsp;<i class="layui-icon">&#xe65f;</i>'  
 									+ '</span>'
-									+ '<span>'
-									+'11<i class="fa fa-commenting-o"></i>'  
-									+ '</span>'
+									+ '<span>'+value.commentCount+'<i class="fa fa-commenting-o"></i></span>'
 									+ '<span>'
 									+'23<i class="fa fa-thumbs-o-up"></i>'  
 									+ '</span>'
@@ -111,6 +111,14 @@ layui.use(['layer','util'], function() {
 		}else{
 			signButton.parent().remove();
 		}
+	}
+	
+	function iniWebStatus(){
+		$.get("/api/m/index",function(rd){
+			if(rd.result){
+				autoIncrease(rd.data.actMemberNum, $("#actMemberNum"));
+			}
+		});
 	}
 
 
@@ -184,8 +192,7 @@ layui.use(['layer','util'], function() {
 							</div>
 							<div class="layui-col-md12">
 								<div class="status">
-									<p>活跃用户：2342</p>
-									<p>状态：正常</p>
+									<p>活跃用户：<span id="actMemberNum">0</span></p>
 								</div>
 							</div>
 						</div>

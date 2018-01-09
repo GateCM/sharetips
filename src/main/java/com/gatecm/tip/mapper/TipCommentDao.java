@@ -5,6 +5,9 @@ import com.gatecm.tip.entity.TipComment;
 
 import java.util.List;
 
+import org.apache.ibatis.annotations.Param;
+import org.apache.ibatis.annotations.Select;
+
 import com.baomidou.mybatisplus.mapper.BaseMapper;
 
 /**
@@ -22,5 +25,13 @@ public interface TipCommentDao extends BaseMapper<TipComment> {
 	 * @return
 	 */
 	List<CommentVo> selectVoByParam(TipComment selectParam);
+
+	/**
+	 * 获取技巧评论总数
+	 * 
+	 * @param id
+	 */
+	@Select("SELECT COUNT(*) AS commentCount FROM tip_comment WHERE del_f = 0 AND tip_id = #{tipId}")
+	Integer selectCountByTipId(@Param("tipId") Long tipId);
 
 }

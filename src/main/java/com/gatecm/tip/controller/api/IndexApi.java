@@ -1,5 +1,10 @@
 package com.gatecm.tip.controller.api;
 
-public class IndexApi {
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestMapping;
 
+@Controller
+@RequestMapping(value = "/api/index")
+public class IndexApi {
+	
 }

@@ -9,6 +9,7 @@ import com.gatecm.tip.dto.TipContentDto;
 import com.gatecm.tip.dto.vo.TipVo;
 import com.gatecm.tip.entity.TipContent;
 import com.gatecm.tip.mapper.MemberBasicDao;
+import com.gatecm.tip.mapper.TipCommentDao;
 import com.gatecm.tip.mapper.TipContentDao;
 import com.gatecm.tip.service.Rrs;
 import com.gatecm.tip.service.TipContentService;
@@ -40,6 +41,9 @@ public class TipContentServiceImpl extends ServiceImpl<TipContentDao, TipContent
 
 	@Autowired
 	private MemberBasicDao memberBasicDao;
+	
+	@Autowired
+	private TipCommentDao tipCommentDao;
 
 	// @CachePut(value = "tip", key = "#tip.tipId")
 	@Override
@@ -118,6 +122,7 @@ public class TipContentServiceImpl extends ServiceImpl<TipContentDao, TipContent
 		List<TipVo> releaseTips = tipContentDao.selectVoByParam(selectParam);
 		for (TipVo tv : releaseTips) {
 			addBelongMemberVo(tv);
+			tv.setCommentCount(tipCommentDao.selectCountByTipId(tv.getId()));
 		}
 		PageInfo<TipVo> pageInfo = new PageInfo<>(releaseTips);
 		return new Rrs(true, pageInfo);

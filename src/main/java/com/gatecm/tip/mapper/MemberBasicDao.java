@@ -5,6 +5,7 @@ import com.gatecm.tip.entity.MemberBasic;
 import java.util.List;
 
 import org.apache.ibatis.annotations.Param;
+import org.apache.ibatis.annotations.Select;
 
 import com.baomidou.mybatisplus.mapper.BaseMapper;
 
@@ -29,5 +30,11 @@ public interface MemberBasicDao extends BaseMapper<MemberBasic> {
 	 * @return
 	 */
 	MemberVo selectVoById(@Param("id") Long id);
+
+	/**
+	 * 临时方法
+	 */
+	@Select("SELECT COUNT(*) FROM member_basic WHERE del_f = 0")
+	Integer selectAllCount();
 
 }

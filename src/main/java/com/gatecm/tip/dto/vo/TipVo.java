@@ -49,6 +49,11 @@ public class TipVo {
 	 */
 	private String content;
 
+	/**
+	 * 评论个数
+	 */
+	private Integer commentCount;
+
 	public Long getId() {
 		return id;
 	}
@@ -111,5 +116,13 @@ public class TipVo {
 
 	public void setContent(String content) {
 		this.content = content;
+	}
+
+	public Integer getCommentCount() {
+		return commentCount;
+	}
+
+	public void setCommentCount(Integer commentCount) {
+		this.commentCount = commentCount;
 	}
 }

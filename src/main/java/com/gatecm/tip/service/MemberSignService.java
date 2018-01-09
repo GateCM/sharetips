@@ -21,5 +21,4 @@ public interface MemberSignService {
 	 * @return
 	 */
 	Rrs signToday();
-
 }
