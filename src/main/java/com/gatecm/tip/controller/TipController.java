@@ -29,7 +29,7 @@ public class TipController {
 		return "tip/write";
 	}
 
-	@RequestMapping(value = "/{tipId}/edit")
+	@RequestMapping(value = "/a/{tipId}/edit")
 	public ModelAndView write(@PathVariable Long tipId) {
 		ModelAndView modelAndView = new ModelAndView();
 		Rrs rrs = tipContentService.getDraftTip(tipId);

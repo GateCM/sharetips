@@ -3,8 +3,6 @@ layui.use('layer',function(){
 	
 	var taskId;
 	var hasSaved = true;
-	var draftUrl = "/api/tip/a/draft";
-	var releaseUrl = "/api/tip/a/release";
 	// save tip draft task
 	function saveTask() {
 		taskId = setInterval(saveDraft, 3000);
@@ -23,7 +21,7 @@ layui.use('layer',function(){
 			}
 			$.ajax({
 				type : "POST",
-				url : postUrl,
+				url : "/api/tip/a/draft",
 				dataType : "JSON",
 				data : JSON.stringify(adata),
 				contentType : CTJ,
@@ -62,7 +60,7 @@ layui.use('layer',function(){
 			}
 			$.ajax({
 				type : "POST",
-				url : releaseUrl,
+				url : "/api/tip/a/release",
 				dataType : "JSON",
 				data : JSON.stringify(adata),
 				contentType : CTJ,

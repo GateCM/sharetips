@@ -13,7 +13,7 @@
 		<result column="tf_reply" property="tfReply" />
 		<result column="reply_comment_id" property="replyCommentId" />
 		<result column="reply_member_id" property="replyMemberId" />
-		<result column="is_del" property="isDel" />
+		<result column="del_f" property="delF" />
 	</resultMap>
 
 	<!-- 通用查询结果列 -->
@@ -21,7 +21,7 @@
 		id, gmt_create AS gmtCreate, gmt_update AS gmtUpdate, member_id AS
 		memberId, tip_id AS tipId, content, tf_reply AS tfReply,
 		reply_comment_id AS replyCommentId, reply_member_id AS replyMemberId,
-		is_del AS isDel
+		del_f AS delF
 	</sql>
 
 	<resultMap type="com.gatecm.tip.dto.vo.CommentVo" id="BaseVoResultMap"></resultMap>
@@ -47,7 +47,7 @@
 				AND reply_member_id=#{replyMemberId}
 			</if>
 			<if test="isDel !=null ">
-				AND is_del=#{isDel}
+				AND del_f=#{delF}
 			</if>
 			ORDER BY gmt_update desc
 		</trim>

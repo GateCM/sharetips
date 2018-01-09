@@ -1,6 +1,7 @@
 package com.gatecm.tip.service.impl;
 
 import com.gatecm.tip.config.shiro.ShiroSessionUtils;
+import com.gatecm.tip.constant.BaseConstant;
 import com.gatecm.tip.constant.ErrorEnum;
 import com.gatecm.tip.constant.TipEnum;
 import com.gatecm.tip.dto.PaginationDto;
@@ -14,7 +15,6 @@ import com.gatecm.tip.service.TipContentService;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.baomidou.mybatisplus.service.impl.ServiceImpl;
-
 import java.util.Date;
 import java.util.List;
 
@@ -83,6 +83,9 @@ public class TipContentServiceImpl extends ServiceImpl<TipContentDao, TipContent
 	private boolean validTipBelongMember(Long tipId) {
 		Long memberId = shiroSessionUtils.getMemberId();
 		TipContent currentTip = tipContentDao.selectById(tipId);
+		if (currentTip == null) {
+			return false;
+		}
 		return currentTip.getBelongMemberId().equals(memberId);
 	}
 
@@ -93,6 +96,7 @@ public class TipContentServiceImpl extends ServiceImpl<TipContentDao, TipContent
 		TipContent selectParam = new TipContent();
 		selectParam.setBelongMemberId(belongMemberId);
 		selectParam.setStatus((Integer) TipEnum.STATUS_DRAFT.getValue());
+		selectParam.setDelF(BaseConstant.UN_DEL);
 		List<TipVo> draftVos = tipContentDao.selectVoByParam(selectParam);
 		PageInfo<TipVo> pageInfo = new PageInfo<>(draftVos, (Integer) TipEnum.PAG_NAV_PAGES_DRAFT.getValue());
 		return new Rrs(true, pageInfo);
@@ -167,6 +171,18 @@ public class TipContentServiceImpl extends ServiceImpl<TipContentDao, TipContent
 		}
 		PageInfo<TipVo> pageInfo = new PageInfo<>(releaseTips);
 		return new Rrs(true, pageInfo);
+	}
+
+	@Override
+	public Rrs deleteDraft(Long tipId) {
+		if (validTipBelongMember(tipId)) {
+			TipContent updateParam = new TipContent();
+			updateParam.setId(tipId);
+			updateParam.setDelF(BaseConstant.IS_DEL);
+			Integer result = tipContentDao.updateById(updateParam);
+			return new Rrs(result.equals(1));
+		}
+		return new Rrs(false);
 	}
 
 }

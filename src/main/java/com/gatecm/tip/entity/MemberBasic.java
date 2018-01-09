@@ -113,8 +113,8 @@ public class MemberBasic extends Model<MemberBasic> implements Serializable {
 	/**
 	 * 0:未删除；1：删除
 	 */
-	@TableField("is_del")
-	private Boolean isDel;
+	@TableField("del_f")
+	private Integer delF;
 
 	public Long getId() {
 		return id;
@@ -268,12 +268,12 @@ public class MemberBasic extends Model<MemberBasic> implements Serializable {
 		this.currentPoint = currentPoint;
 	}
 
-	public Boolean getDel() {
-		return isDel;
+	public Integer getDelF() {
+		return delF;
 	}
 
-	public void setDel(Boolean isDel) {
-		this.isDel = isDel;
+	public void setDelF(Integer delF) {
+		this.delF = delF;
 	}
 
 	@Override
@@ -287,6 +287,6 @@ public class MemberBasic extends Model<MemberBasic> implements Serializable {
 				+ status + ", nickname=" + nickname + ", headUrl=" + headUrl + ", phoneNumber=" + phoneNumber + ", qq="
 				+ qq + ", weChat=" + weChat + ", email=" + email + ", sex=" + sex + ", password=" + password + ", salt="
 				+ salt + ", motto=" + motto + ", birthday=" + birthday + ", age=" + age + ", occupation=" + occupation
-				+ ", totalPoint=" + totalPoint + ", currentPoint=" + currentPoint + ", isDel=" + isDel + "}";
+				+ ", totalPoint=" + totalPoint + ", currentPoint=" + currentPoint + ", delF=" + delF + "}";
 	}
 }

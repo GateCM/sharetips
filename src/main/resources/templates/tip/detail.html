@@ -21,7 +21,6 @@
 <script th:src="@{/custom/common/js/ajaxCustome.js}"></script>
 <script th:src="@{/custom/common/js/time.js}"></script>
 <script th:src="@{/custom/common/js/number.js}"></script>
-
 <script type="text/javascript">
 layui.use(['layer','util','laypage'],function() {
 		var layer = layui.layer;
@@ -86,33 +85,40 @@ layui.use(['layer','util','laypage'],function() {
 		var url = "/api/tip/" + tipId + "/comment";
 		$.get(url,{"pageNum":pageNum,"pageSize":pageSize},function(rd){
 			//list
-			iniCommentList(rd.data);
-			//page
-			laypage.render({
-			    elem: "bottom-laypage", //注意，这里的 是 id，不用加 # 号
-			    count: rd.data.total, //数据总数，从服务端得到
-			    limit: pageSize, //每页显示的条数。laypage将会借助 count 和 limit 计算出分页数。
-			    prev:'<i class="fa fa-chevron-left"></i>',
-			    next:'<i class="fa fa-chevron-right"></i>',
-			    layout: ['count','prev', 'next'],
-			    jump: function(obj, first){
-			        if(!first){
-			        	$.get(url,{"pageNum":obj.curr,"pageSize":obj.limit},function(rd){
-			    			iniCommentList(rd.data);
-			        	});
-			        }
-			      }
-		 	 });
+			if(iniCommentList(rd.data)){
+				//page
+				laypage.render({
+				    elem: "bottom-laypage", //注意，这里的 是 id，不用加 # 号
+				    count: rd.data.total, //数据总数，从服务端得到
+				    limit: pageSize, //每页显示的条数。laypage将会借助 count 和 limit 计算出分页数。
+				    prev:'<i class="fa fa-chevron-left"></i>',
+				    next:'<i class="fa fa-chevron-right"></i>',
+				    layout: ['count','prev', 'next'],
+				    jump: function(obj, first){
+				        if(!first){
+				        	$.get(url,{"pageNum":obj.curr,"pageSize":obj.limit},function(rd){
+				    			iniCommentList(rd.data);
+				        	});
+				        }
+				      }
+			 	 });
+			}
 		});
 	}
 		
 	//ini comment
 	function iniCommentList(pageInfo) {
+		var total  = pageInfo.total;
 		//update top
 		autoIncrease(pageInfo.total,$("#commentNumber"));
-		
+		//ini show box
 		var showBox = $("#comment-show-box");
 		showBox.empty();
+		if(total==0){
+			showBox.append('<div class="no-comment">抢沙发啦！</div>');
+			return false;
+		}
+		
 		$.each(pageInfo.list,function(n, value) {
 			console.log(JSON.stringify(value));
 			if (value.tfReply) {
@@ -151,6 +157,7 @@ layui.use(['layer','util','laypage'],function() {
 								+ '</div></div>');
 			}
 		});
+		return true;
 	}
 });
 </script>

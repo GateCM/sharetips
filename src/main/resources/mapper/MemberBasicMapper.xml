@@ -23,7 +23,7 @@
 		<result column="occupation" property="occupation" />
 		<result column="total_point" property="totalPoint" />
 		<result column="current_point" property="currentPoint" />
-		<result column="is_del" property="isDel" />
+		<result column="del_f" property="delF" />
 	</resultMap>
 
 	<!-- 通用查询结果列 -->
@@ -35,8 +35,8 @@
 		weChat, email, sex, password, salt, motto, birthday, age,
 		occupation,
 		total_point AS totalPoint, current_point AS currentPoint,
-		is_del AS
-		isDel
+		del_f AS
+		delF
 	</sql>
 
 	<!-- MemberVo查询映射结果 -->
@@ -66,8 +66,8 @@
 			<if test="phoneNumber !=null ">
 				AND phone_number=#{phoneNumber}
 			</if>
-			<if test="isDel !=null ">
-				AND is_del=#{isDel}
+			<if test="delF !=null ">
+				AND del_f=#{delF}
 			</if>
 		</trim>
 	</select>

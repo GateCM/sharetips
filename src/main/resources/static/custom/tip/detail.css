@@ -130,6 +130,11 @@
 	padding: 4px 0px 0px 0px;
 }
 
+.no-comment{
+	color: #cecece;
+	
+}
+
 #bottom-laypage div {
 	float: right;
 	margin-right: 20px;

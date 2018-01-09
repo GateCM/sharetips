@@ -65,7 +65,7 @@ public class CommentServiceImpl implements CommentService {
 		PageHelper.startPage(pagination.getPageNum(), pagination.getPageSize());
 		TipComment selectParam = new TipComment();
 		selectParam.setTipId(tipId);
-		selectParam.setIsDel(BaseConstant.UN_DEL);
+		selectParam.setDelF(BaseConstant.UN_DEL);
 		List<CommentVo> commentVos = tipCommentDao.selectVoByParam(selectParam);
 		for (CommentVo commentVo : commentVos) {
 			bindMemberVo(commentVo);

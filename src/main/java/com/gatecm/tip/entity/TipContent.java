@@ -20,51 +20,50 @@ import com.baomidou.mybatisplus.annotations.TableName;
 @TableName("tip_content")
 public class TipContent extends Model<TipContent> {
 
-    private static final long serialVersionUID = 1L;
+	private static final long serialVersionUID = 1L;
 
-    /**
-     * 统一主键
-     */
-	@TableId(value="id", type= IdType.AUTO)
+	/**
+	 * 统一主键
+	 */
+	@TableId(value = "id", type = IdType.AUTO)
 	private Long id;
-    /**
-     * 记录创建时间
-     */
+	/**
+	 * 记录创建时间
+	 */
 	@TableField("gmt_create")
 	private Date gmtCreate;
-    /**
-     * 记录最近更新时间
-     */
+	/**
+	 * 记录最近更新时间
+	 */
 	@TableField("gmt_update")
 	private Date gmtUpdate;
-    /**
-     * 技巧标题
-     */
+	/**
+	 * 技巧标题
+	 */
 	private String title;
-    /**
-     * 题图路径
-     */
+	/**
+	 * 题图路径
+	 */
 	@TableField("head_img")
 	private String headImg;
-    /**
-     * 内容（html格式）
-     */
+	/**
+	 * 内容（html格式）
+	 */
 	private String content;
-    /**
-     * 状态(0：草稿；1 :已发布)
-     */
+	/**
+	 * 状态(0：草稿；1 :已发布)
+	 */
 	private Integer status;
-    /**
-     * 所属用户ID
-     */
+	/**
+	 * 所属用户ID
+	 */
 	@TableField("belong_member_id")
 	private Long belongMemberId;
-    /**
-     * 0:未删除；1：删除
-     */
-	@TableField("is_del")
-	private Integer isDel;
-
+	/**
+	 * 0:未删除；1：删除
+	 */
+	@TableField("del_f")
+	private Integer delF;
 
 	public Long getId() {
 		return id;
@@ -130,12 +129,12 @@ public class TipContent extends Model<TipContent> {
 		this.belongMemberId = belongMemberId;
 	}
 
-	public Integer getIsDel() {
-		return isDel;
+	public Integer getDelF() {
+		return delF;
 	}
 
-	public void setIsDel(Integer isDel) {
-		this.isDel = isDel;
+	public void setDelF(Integer delF) {
+		this.delF = delF;
 	}
 
 	@Override
@@ -145,16 +144,8 @@ public class TipContent extends Model<TipContent> {
 
 	@Override
 	public String toString() {
-		return "TipContent{" +
-			", id=" + id +
-			", gmtCreate=" + gmtCreate +
-			", gmtUpdate=" + gmtUpdate +
-			", title=" + title +
-			", headImg=" + headImg +
-			", content=" + content +
-			", status=" + status +
-			", belongMemberId=" + belongMemberId +
-			", isDel=" + isDel +
-			"}";
+		return "TipContent{" + ", id=" + id + ", gmtCreate=" + gmtCreate + ", gmtUpdate=" + gmtUpdate + ", title="
+				+ title + ", headImg=" + headImg + ", content=" + content + ", status=" + status + ", belongMemberId="
+				+ belongMemberId + ", delF=" + delF + "}";
 	}
 }

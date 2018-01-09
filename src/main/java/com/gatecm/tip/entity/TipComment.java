@@ -69,8 +69,8 @@ public class TipComment extends Model<TipComment> {
 	/**
 	 * 0:未删除；1：删除
 	 */
-	@TableField("is_del")
-	private Integer isDel;
+	@TableField("del_f")
+	private Integer delF;
 
 	public Long getId() {
 		return id;
@@ -144,12 +144,12 @@ public class TipComment extends Model<TipComment> {
 		this.replyMemberId = replyMemberId;
 	}
 
-	public Integer getIsDel() {
-		return isDel;
+	public Integer getDelF() {
+		return delF;
 	}
 
-	public void setIsDel(Integer isDel) {
-		this.isDel = isDel;
+	public void setDelF(Integer delF) {
+		this.delF = delF;
 	}
 
 	@Override
@@ -161,6 +161,6 @@ public class TipComment extends Model<TipComment> {
 	public String toString() {
 		return "TipComment{" + ", id=" + id + ", gmtCreate=" + gmtCreate + ", gmtUpdate=" + gmtUpdate + ", memberId="
 				+ memberId + ", tipId=" + tipId + ", content=" + content + ", tfReply=" + tfReply + ", replyCommentId="
-				+ replyCommentId + ", replyMemberId=" + replyMemberId + ", isDel=" + isDel + "}";
+				+ replyCommentId + ", replyMemberId=" + replyMemberId + ", delF=" + delF + "}";
 	}
 }

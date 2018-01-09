@@ -5,9 +5,6 @@
 <title>我的草稿</title>
 <link rel="icon" th:href="@{/custom/common/image/logo.ico}" type="image/x-icon"/>  
 <!-- css -->
-<link rel="stylesheet" type="text/css" media="all"
-	href="/plugin/bootstrap/bootstrap.min.css"
-	th:href="@{/plugin/bootstrap/bootstrap.min.css}" />
 <link rel="stylesheet"
 	href="https://cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.css">
 <link rel="stylesheet" type="text/css" media="all"
@@ -16,48 +13,133 @@
 	th:href="@{/custom/common/css/common.css}" />
 <!-- js -->
 <script th:src="@{/plugin/jquery/jquery.min.js}"></script>
-<script th:src="@{/plugin/bootstrap/bootstrap.min.js}"></script>
 <script th:src="@{/plugin/layui/layui.js}"></script>
 <script th:src="@{/custom/common/js/common.js}"></script>
-<script th:src="@{/custom/common/js/ajaxCustome.js}"></script>
 <script th:src="@{/custom/common/js/time.js}"></script>
 <style type="text/css">
 body{
 	background-color:#fff;
 }
+
+.tip-box{
+padding: 5px 0px 5px 0px;
+border-bottom: 1px solid #eeeeee;
+margin-bottom: 12px;
+}
+
+.tip-box .title{
+font-size: 18px;
+font-weight: bold;
+display: block;
+height: 24px;
+line-height: 24px;
+margin-bottom: 8px;
+}
+
+.tip-box .delete{
+height: 20px;
+line-height: 20px;
+font-size: 15px;
+color: #909090 ;
+}
+
+.tip-box a:hover{
+color: #01AAED;
+transition: color 0.3s linear;
+-moz-transition: color 0.3s linear;
+-webkit-transition: color 0.3s linear;
+-o-transition: color 0.3s linear;
+}
+
+
+
+.tip-box .time{
+width: 100px;
+right: 0px;
+position: absolute;
+text-align: right;
+display: inline-block;
+height: 20px;
+line-height: 20px;
+font-size: 15px !important;
+color: #909090 !important;
+}
+
+#bottom-laypage{
+    position: absolute;
+    right: 0px;
+}
+
 </style>
 <script type="text/javascript">
+layui.use(['laypage','layer'],function(){
+	var laypage = layui.laypage;
+	var layer = layui.layer;
+	
 	function loadList(pageNum,pageSize){
-		var tipShowBox = $("#tip-list-box");
-		tipShowBox.empty();
 		var getUrl = "/api/tip/a/draft/list";
 		var requestData = "pageNum="+pageNum+"&pageSize="+pageSize;
-		$.get(getUrl,requestData,function(result){
-			$.each(result.data.list, function(n, value) {
-				tipShowBox.append('<li class="tip-box">'
-						+ '<h2><a data-type="draft-info" data="' + value.id
-						+ '" href="javascript:void(0);">' + value.title + '</a></h2>'
-						+ '<br/><span>' + getDateDiff(value.gmtCreate) + '</span>' + '</li>');
-			});
-			iniPaginatoin(result.data,"tip-pagination");
+		$.get(getUrl,requestData,function(rd){
+			iniDraftList(rd.data.list);
+			//page
+			laypage.render({
+			    elem: "bottom-laypage", //注意，这里的 是 id，不用加 # 号
+			    count: rd.data.total, //数据总数，从服务端得到
+			    limit: pageSize, //每页显示的条数。laypage将会借助 count 和 limit 计算出分页数。
+			    prev:'<i class="fa fa-chevron-left"></i>',
+			    next:'<i class="fa fa-chevron-right"></i>',
+			    layout: ['count','prev','page', 'next'],
+			    jump: function(obj, first){
+			        if(!first){
+			        	$.get(getUrl,{"pageNum":obj.curr,"pageSize":obj.limit},function(rd){
+			        		iniDraftList(rd.data.list);
+			        	});
+			        }
+			      }
+		 	 });
+		});
+	}
+	
+	function iniDraftList(draftList){
+		var tipShowBox = $("#tip-list-box");
+		tipShowBox.empty();
+		$.each(draftList, function(n, value) {
+			tipShowBox.append('<div class="tip-box">'
+					+ '<a class="title" data-type="draft-info" data="' + value.id
+					+ '" href="javascript:void(0);">' + value.title + '</a>'
+					+ '<span class="time">' + getDateDiff(value.gmtCreate) + '</span>' 
+					+ '<a class="delete" data="' + value.id +'" href="javascript:;" data-type="draft-del">删除</a>' 
+					+ '</div>');
 		});
 	}
 	
 	$(function() {
-		var pageSize = 5;
+		var pageSize = 8;
 		loadList(1,pageSize);
-		$("#tip-pagination").on("click","a",function(){
-			var currentPageNum = $(this).attr("data");
-			if(currentPageNum!=null){
-				loadList(currentPageNum,pageSize);
-			}
-		});		
 
 		$("#tip-list-box").on("click","a[data-type='draft-info']",function() {
 			var tipId = $(this).attr("data");
-			location.href = "/tip/" + tipId + "/edit";
+			location.href = "/tip/a/" + tipId + "/edit";
+		});
+		
+		$("#tip-list-box").on("click","a[data-type='draft-del']",function() {
+			var tipId = $(this).attr("data");
+			$.ajax({
+				url:"/api/tip/a/draft/"+tipId,
+				type:"DELETE",
+				dataType:"JSON",
+				success:function(rd){
+					if(rd.result){
+						layer.msg("操作成功");
+						setTimeout(function() {
+							loadList(1,pageSize);
+						}, 1000);
+					}
+				}
+			});
 		});
 	});
+});
 </script>
 
 
@@ -80,19 +162,16 @@ body{
 	</div>
 
 	<div class="layui-container">
-		<div class="row">
-			<div class="col-md-12">
-				<ul id="tip-list-box" class="tip-list-box">
-				</ul>
+		<div class="layui-row">
+			<div class="layui-col-md8 layui-col-md-offset2">
+				<div id="tip-list-box" class="tip-list-box"></div>
 			</div>
+		</div>	
 
-			<div class="col-md-12">
-				<div class="col-md-6 pull-right">
-					<ul id="tip-pagination" class="pagination pagination-sm">
-					</ul>
-				</div>
+		<div class="layui-row">
+			<div class="layui-col-md8 layui-col-md-offset2">
+				<div id="bottom-laypage"></div>
 			</div>
-
 		</div>
 	</div>
 

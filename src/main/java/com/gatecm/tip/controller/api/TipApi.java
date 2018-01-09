@@ -6,6 +6,7 @@ package com.gatecm.tip.controller.api;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Required;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -44,6 +45,17 @@ public class TipApi {
 	@RequestMapping(value = "/a/draft", method = RequestMethod.POST)
 	public Rrs draft(@RequestBody @Valid TipContentDto tip) {
 		return tipContentService.saveDraft(tip);
+	}
+
+	/**
+	 * 保存技巧为草稿
+	 * 
+	 * @param tip
+	 * @return
+	 */
+	@RequestMapping(value = "/a/draft/{tipId}", method = RequestMethod.DELETE)
+	public Rrs draft(@PathVariable Long tipId) {
+		return tipContentService.deleteDraft(tipId);
 	}
 
 	/**
