@@ -46,7 +46,7 @@
 			<if test="replyMemberId !=null ">
 				AND reply_member_id=#{replyMemberId}
 			</if>
-			<if test="isDel !=null ">
+			<if test="delF !=null ">
 				AND del_f=#{delF}
 			</if>
 			ORDER BY gmt_update desc

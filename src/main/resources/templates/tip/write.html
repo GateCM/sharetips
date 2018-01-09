@@ -48,8 +48,8 @@
 	</div>
 
 	<div class="layui-container">
-		<div class="row">
-			<div class="col-md-12" th:with="isEdit=${rd ne null && rd.result}">
+		<div class="layui-row">
+			<div class="layui-col-md10 layui-col-md-offset1" th:with="isEdit=${rd ne null && rd.result}">
 				<form class="form-horizontal" action="" role="form">
 					<input class="hide" name="tipId" th:value="${isEdit ? rd.data.id:''}" />
 					<div>

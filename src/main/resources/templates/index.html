@@ -22,8 +22,9 @@
 <script th:src="@{/custom/common/js/time.js}"></script>
 
 <script type="text/javascript">
-layui.use('util', function() {
+layui.use(['layer','util'], function() {
 	var util = layui.util;
+	var layer = layui.layer;
 	
 	$(function() {
 		loadList(1, 3, "new-tip");
@@ -35,9 +36,18 @@ layui.use('util', function() {
 		// 			location.href = "/tip/" + tipId + "/detail";
 		// 		});
 	
+		iniSignButton();
+		
 		$('button[data-type="sign"]').on("click",function(){
-			
+			$.post("/api/member/a/sign",function(rd){
+				if(rd.result){
+					layer.msg("签到成功，获得 10 积分");
+					iniSignButton();
+				}
+			});
 		});
+		
+		
 	});
 	function loadList(pageNum, pageSize, boxId) {
 		var tipShowBox = $("#" + boxId);
@@ -78,6 +88,29 @@ layui.use('util', function() {
 									+'</div></div></div></div>');
 				});
 			});
+	}
+	
+	//ini sign button 
+	function iniSignButton(){
+		var signButton = $('button[data-type="sign"]');
+		var unAbleClass = "layui-btn-disabled";
+		var ableClass = "layui-btn-danger";
+		if(entryStatus()){
+			$.get("/api/member/a/sign",function(rd){
+				if(rd.result){
+					signButton.addClass(unAbleClass);
+					signButton.removeClass(ableClass);
+					signButton.text("已签到");
+					signButton.attr("data-type","");
+					signButton.unbind();
+				}else{
+					signButton.addClass(ableClass);
+					signButton.removeClass(unAbleClass);
+				}
+			});
+		}else{
+			signButton.parent().remove();
+		}
 	}
 
 

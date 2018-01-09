@@ -21,6 +21,10 @@ body{
 	background-color:#fff;
 }
 
+.tip-list-box{
+height: 620px;
+}
+
 .tip-box{
 padding: 5px 0px 5px 0px;
 border-bottom: 1px solid #eeeeee;
@@ -36,14 +40,14 @@ line-height: 24px;
 margin-bottom: 8px;
 }
 
-.tip-box .delete{
+.tip-box .delete a{
 height: 20px;
 line-height: 20px;
 font-size: 15px;
 color: #909090 ;
 }
 
-.tip-box a:hover{
+.tip-box .delete a:hover{
 color: #01AAED;
 transition: color 0.3s linear;
 -moz-transition: color 0.3s linear;
@@ -108,8 +112,8 @@ layui.use(['laypage','layer'],function(){
 					+ '<a class="title" data-type="draft-info" data="' + value.id
 					+ '" href="javascript:void(0);">' + value.title + '</a>'
 					+ '<span class="time">' + getDateDiff(value.gmtCreate) + '</span>' 
-					+ '<a class="delete" data="' + value.id +'" href="javascript:;" data-type="draft-del">删除</a>' 
-					+ '</div>');
+					+ '<div class="delete" ><a data="' + value.id +'" href="javascript:;" data-type="draft-del">删除</a>' 
+					+ '</div></div>');
 		});
 	}
 	

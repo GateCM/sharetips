@@ -1,7 +1,7 @@
 /**
  * 
  */
-package com.gatecm.tip.generator;
+package com.gatecm.tip.config;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -28,13 +28,8 @@ import com.baomidou.mybatisplus.generator.config.rules.NamingStrategy;
  * @date 2017年10月11日 上午11:05:12
  *
  */
-public class MpGenerator {
+public class MybatisPlusGenerator {
 
-	/**
-	 * <p>
-	 * MySQL 生成演示
-	 * </p>
-	 */
 	public static void main(String[] args) {
 		AutoGenerator mpg = new AutoGenerator();
 
@@ -54,8 +49,8 @@ public class MpGenerator {
 		// 自定义文件命名，注意 %s 会自动填充表实体属性！
 		gc.setMapperName("%sDao");
 		gc.setXmlName("%sMapper");
-//		gc.setServiceName("%sService");
-//		gc.setServiceImplName("%sServiceImpl");
+		// gc.setServiceName("%sService");
+		// gc.setServiceImplName("%sServiceImpl");
 		// gc.setControllerName("%sAction");
 		mpg.setGlobalConfig(gc);
 
@@ -80,12 +75,12 @@ public class MpGenerator {
 		// 策略配置
 		StrategyConfig strategy = new StrategyConfig();
 		// strategy.setCapitalMode(true);// 全局大写命名 ORACLE 注意
-//		strategy.setTablePrefix(new String[] { "member_"});// 此处可以修改为您的表前缀
+		// strategy.setTablePrefix(new String[] { "member_"});// 此处可以修改为您的表前缀
 		// 表名生成策略
 		strategy.setNaming(NamingStrategy.underline_to_camel);
 		strategy.setEntityBooleanColumnRemoveIsPrefix(true);
 		// 需要生成的表
-		strategy.setInclude(new String[] { "tip_comment"}); 
+		strategy.setInclude(new String[] { "member_sign" });
 		// strategy.setExclude(new String[]{"test"}); // 排除生成的表
 		// 自定义实体父类
 		// strategy.setSuperEntityClass("com.gatecm.obsession.entity");

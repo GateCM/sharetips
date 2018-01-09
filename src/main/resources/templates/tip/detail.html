@@ -61,7 +61,9 @@ layui.use(['layer','util','laypage'],function() {
 							layer.msg("操作成功", {icon: 1});
 							setTimeout(function() {
 								iniComment(pageNum, pageSize);
+								$("#commentContent").val("");
 							}, 1000);
+							
 						}
 					}
 				});

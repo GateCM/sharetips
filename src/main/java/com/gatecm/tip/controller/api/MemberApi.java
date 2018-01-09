@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.gatecm.tip.dto.MemberRegisterDto;
 import com.gatecm.tip.service.MemberBasicService;
+import com.gatecm.tip.service.MemberSignService;
 import com.gatecm.tip.service.Rrs;
 
 /**
@@ -24,9 +25,22 @@ public class MemberApi {
 
 	@Autowired
 	private MemberBasicService memberBasicService;
+	
+	@Autowired
+	private MemberSignService memberSignService;
 
 	@RequestMapping(value = "/register", method = RequestMethod.POST)
-	public Rrs reg(@Valid MemberRegisterDto registerDto) {
+	public Rrs register(@Valid MemberRegisterDto registerDto) {
 		return memberBasicService.registByVcode(registerDto);
+	}
+	
+	@RequestMapping(value = "/a/sign", method = RequestMethod.GET)
+	public Rrs signTodayStatus() {
+		return memberSignService.isSignToday();
+	}
+	
+	@RequestMapping(value = "/a/sign", method = RequestMethod.POST)
+	public Rrs signToday() {
+		return memberSignService.signToday();
 	}
 }

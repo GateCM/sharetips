@@ -26,7 +26,7 @@ public class TimeUtils {
 	
 
 	/**
-	 * 获取当前日期
+	 * 获取当前日期 yyyy-MM-dd
 	 * 
 	 * @return
 	 */
