@@ -64,5 +64,4 @@ public class MemberSignServiceImpl implements MemberSignService {
 		rrs.setResult(memberSignDao.insert(insertParam).equals(1));
 		return rrs;
 	}
-
 }

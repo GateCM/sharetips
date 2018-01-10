@@ -13,7 +13,6 @@
 <script th:src="@{/plugin/jquery/jquery.min.js}"></script>
 <script th:src="@{/plugin/layui/layui.js}"></script>
 <script th:src="@{/custom/common/js/common.js}"></script>
-<script th:src="@{/plugin/validate/jquery.validate.min.js}"></script>
 <script th:src="@{/custom/common/js/ajaxCustome.js}"></script>
 <style type="text/css">
 
@@ -47,19 +46,24 @@
 }
 </style>
 <script>
-	layui.use('form', function() {
-		var form = layui.form; //获取form模块
-		$(function() {
-			$("button[data='submit']").click(function() {
-				var result = dajax($(this));
-				if (result.result) {
-					location.href = "/index";
-				} else {
-					alert("登录失败，账号或密码不正确");
-				}
-			});
-		});
+layui.use('form', function() {
+	var form = layui.form; //获取form模块
+	//自定义验证规则
+	form.verify({
+	  pass: [/^[\S]{6,12}$/, '密码必须6到12位，且不能出现空格']
 	});
+	
+	form.on('submit(signin)', function(data){
+		$.post('/api/login',data.field,function(rd){
+		 if (rd.result) {
+				location.href = "/index";
+			} else {
+				alert("登录失败，账号或密码不正确");
+			}
+		});
+		return false;
+	});
+});
 </script>
 </head>
 <body>
@@ -74,7 +78,7 @@
 							<label for="userName" class="layui-form-label">手机号</label>
 							<div class="layui-input-block">
 								<input id="userName" type="text" name="userName"
-									value="15968183204" required="required" lay-verify="required"
+									value="15968183204" required="required" lay-verify="required|phone"
 									placeholder="请输入手机号" autocomplete="off" class="layui-input">
 							</div>
 						</div>
@@ -82,7 +86,7 @@
 							<label for="password" class="layui-form-label">密码</label>
 							<div class="layui-input-block">
 								<input id="password" type="password" name="password"
-									value="12345" required="required" lay-verify="required"
+									value="123456" required="required" lay-verify="required|pass"
 									placeholder="请输入密码" autocomplete="off" class="layui-input">
 							</div>
 						</div>
@@ -101,7 +105,7 @@
 
 						<div class="layui-form-item">
 							<div class="layui-input-block">
-								<button data="submit" type="button" class="layui-btn">登录</button>
+								<button lay-submit="lay-submit" lay-filter="signin" type="button" class="layui-btn">登录</button>
 							</div>
 							<div class="signup-link layui-input-block">
 								<a th:href="@{/login/signup}">没有账号？注册一个</a>

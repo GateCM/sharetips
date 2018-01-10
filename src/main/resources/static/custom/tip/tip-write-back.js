@@ -1,8 +1,5 @@
-layui.use(['layer','form'],function(){
+layui.use('layer',function(){
 	var layer = layui.layer;
-	var form = layui.form;
-	
-	
 	
 	var taskId;
 	var hasSaved = true;

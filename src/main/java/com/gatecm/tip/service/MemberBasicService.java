@@ -32,9 +32,15 @@ public interface MemberBasicService extends IService<MemberBasic> {
 
 	/**
 	 * 重置用户密码
+	 * 
 	 * @param registerDto
 	 * @return
 	 */
 	Rrs resetPassowrd(MemberRegisterDto registerDto);
 
+	/**
+	 * @param phoneNumber
+	 * @return
+	 */
+	Rrs phoneNumberAvailable(String phoneNumber);
 }

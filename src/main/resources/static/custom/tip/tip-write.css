@@ -32,6 +32,11 @@ input:focus {
 .img-big-upload img {
 	height: 100%;
 }
+
+.tip-title{
+width: 600px !important;
+}
+
 .tip-e-title {
 	height: 60px;
 	font-size: 35px;

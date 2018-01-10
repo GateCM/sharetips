@@ -108,20 +108,34 @@ public class MemberBasicServiceImpl extends ServiceImpl<MemberBasicDao, MemberBa
 		if (!rrs.getResult()) {
 			return rrs;
 		}
-		MemberBasic selectParam = new MemberBasic();
-		selectParam.setPhoneNumber(phoneNumber);
-		selectParam.setDelF(BaseConstant.UN_DEL);
-		List<MemberVo> member = memberBasicDao.selectVoByParam(selectParam);
-		if (CollectionUtils.isEmpty(member)) {
+		MemberVo current = getMemberVoByPhoneNumber(phoneNumber);
+		if (current == null) {
 			return new Rrs(false);
 		}
 		MemberBasic entity = new MemberBasic();
-		entity.setId(member.get(0).getId());
+		entity.setId(current.getId());
 		// 盐值加密
 		PasswordEntity passwordSalt = PasswordHelper.encryptPassword(registerDto.getPassword());
 		entity.setPassword(passwordSalt.getPassword());
 		entity.setSalt(passwordSalt.getSalt());
 		rrs.setResult(updateById(entity));
 		return rrs;
+	}
+
+	private MemberVo getMemberVoByPhoneNumber(String phoneNumber) {
+		MemberBasic selectParam = new MemberBasic();
+		selectParam.setPhoneNumber(phoneNumber);
+		selectParam.setDelF(BaseConstant.UN_DEL);
+		List<MemberVo> member = memberBasicDao.selectVoByParam(selectParam);
+		if (CollectionUtils.isEmpty(member)) {
+			return null;
+		}
+		return member.get(0);
+	}
+
+	@Override
+	public Rrs phoneNumberAvailable(String phoneNumber) {
+		MemberVo current = getMemberVoByPhoneNumber(phoneNumber);
+		return new Rrs(current == null);
 	}
 }

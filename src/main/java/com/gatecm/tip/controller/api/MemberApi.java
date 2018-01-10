@@ -45,6 +45,16 @@ public class MemberApi {
 		return memberSignService.isSignToday();
 	}
 
+	/**
+	 * 判断该手机号是否已注册
+	 * 
+	 * @return
+	 */
+	@RequestMapping(value = "/phoneNumber/available", method = RequestMethod.GET)
+	public Rrs phoneNumberAvailable(String phoneNumber) {
+		return memberBasicService.phoneNumberAvailable(phoneNumber);
+	}
+
 	@RequestMapping(value = "/a/sign", method = RequestMethod.POST)
 	public Rrs signToday() {
 		return memberSignService.signToday();
