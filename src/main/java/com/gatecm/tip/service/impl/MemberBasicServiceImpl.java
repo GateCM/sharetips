@@ -3,9 +3,11 @@ package com.gatecm.tip.service.impl;
 import com.gatecm.tip.config.shiro.PasswordEntity;
 import com.gatecm.tip.config.shiro.PasswordHelper;
 import com.gatecm.tip.config.shiro.ShiroSessionUtils;
+import com.gatecm.tip.constant.BaseConstant;
 import com.gatecm.tip.constant.ErrorEnum;
 import com.gatecm.tip.constant.MemberEnum;
 import com.gatecm.tip.dto.MemberRegisterDto;
+import com.gatecm.tip.dto.vo.MemberVo;
 import com.gatecm.tip.entity.MemberBasic;
 import com.gatecm.tip.mapper.MemberBasicDao;
 import com.gatecm.tip.plugin.sms.SmsUtils;
@@ -15,9 +17,11 @@ import com.gatecm.tip.service.Rrs;
 import com.baomidou.mybatisplus.service.impl.ServiceImpl;
 
 import java.util.Date;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.util.CollectionUtils;
 
 /**
  * <p>
@@ -35,6 +39,9 @@ public class MemberBasicServiceImpl extends ServiceImpl<MemberBasicDao, MemberBa
 
 	@Autowired
 	private ShiroSessionUtils shiroSessionUtils;
+
+	@Autowired
+	private MemberBasicDao memberBasicDao;
 
 	@Override
 	public Rrs registByVcode(MemberRegisterDto registerDto) {
@@ -64,6 +71,8 @@ public class MemberBasicServiceImpl extends ServiceImpl<MemberBasicDao, MemberBa
 		VcodeEnum vcodeEnum = smsUtils.validation(phoneNumber, vcode);
 		switch (vcodeEnum) {
 		case VCODE_CORRECT:
+			// 移除
+			smsUtils.removeVcodeByPhoneNumber(phoneNumber);
 			rrs.setResult(true);
 			break;
 		case VCODE_TIME_OUT:
@@ -91,4 +100,28 @@ public class MemberBasicServiceImpl extends ServiceImpl<MemberBasicDao, MemberBa
 		return rrs;
 	}
 
+	@Override
+	public Rrs resetPassowrd(MemberRegisterDto registerDto) {
+		// 验证码校验
+		String phoneNumber = registerDto.getPhoneNumber();
+		Rrs rrs = validationVcode(phoneNumber, registerDto.getVcode());
+		if (!rrs.getResult()) {
+			return rrs;
+		}
+		MemberBasic selectParam = new MemberBasic();
+		selectParam.setPhoneNumber(phoneNumber);
+		selectParam.setDelF(BaseConstant.UN_DEL);
+		List<MemberVo> member = memberBasicDao.selectVoByParam(selectParam);
+		if (CollectionUtils.isEmpty(member)) {
+			return new Rrs(false);
+		}
+		MemberBasic entity = new MemberBasic();
+		entity.setId(member.get(0).getId());
+		// 盐值加密
+		PasswordEntity passwordSalt = PasswordHelper.encryptPassword(registerDto.getPassword());
+		entity.setPassword(passwordSalt.getPassword());
+		entity.setSalt(passwordSalt.getSalt());
+		rrs.setResult(updateById(entity));
+		return rrs;
+	}
 }

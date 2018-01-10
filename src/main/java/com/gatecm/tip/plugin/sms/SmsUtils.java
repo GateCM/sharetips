@@ -66,10 +66,10 @@ public class SmsUtils {
 		// 生成验证码
 		String vcode = createRandomVcode();
 		// 发送验证码
-		if (!AliDaYuSmsUtils.sendVcode(phoneNumber, vcode)) {
-			rrs.setError(ErrorEnum.SYS_SMS_SEND);
-			return rrs;
-		}
+//		if (!AliDaYuSmsUtils.sendVcode(phoneNumber, vcode)) {
+//			rrs.setError(ErrorEnum.SYS_SMS_SEND);
+//			return rrs;
+//		}
 		vCodeBean.setSendDate(new Date());
 		vCodeBean.setVCode(vcode);
 		// 增加短信发送次数

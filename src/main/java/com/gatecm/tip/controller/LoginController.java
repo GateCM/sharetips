@@ -27,6 +27,11 @@ public class LoginController {
 	public String signupPage() {
 		return "/member/signup";
 	}
+	
+	@RequestMapping(value = "/reset/pw")
+	public String resetPassword() {
+		return "/member/reset-password";
+	}
 
 	@RequestMapping(value = "/a/signout")
 	public String signOut() {

@@ -2,6 +2,7 @@ package com.gatecm.tip.service;
 
 import com.gatecm.tip.dto.MemberRegisterDto;
 import com.gatecm.tip.entity.MemberBasic;
+
 import com.baomidou.mybatisplus.service.IService;
 
 /**
@@ -28,5 +29,12 @@ public interface MemberBasicService extends IService<MemberBasic> {
 	 * @return
 	 */
 	Rrs getCurrentMemberInfo();
+
+	/**
+	 * 重置用户密码
+	 * @param registerDto
+	 * @return
+	 */
+	Rrs resetPassowrd(MemberRegisterDto registerDto);
 
 }
