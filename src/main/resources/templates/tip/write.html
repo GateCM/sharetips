@@ -44,50 +44,52 @@
 					<input class="hide" name="tipId"
 						th:value="${isEdit ? rd.data.id:''}" />
 
-					<div class="layui-collapse">
-						<div class="layui-colla-item">
-							<h2 class="layui-colla-title">更多设置</h2>
-							<div class="layui-colla-content" style="display:block">
-								<div class="layui-form-item">
-									<div class="layui-inline">
-										<div class="layui-input-inline">
-											<select name="quiz">
-												<option value="010">原创</option>
-												<option value="021">转载</option>
-											</select>
-										</div>
+					<div class="tip-setup">
+						<div class="tip-setup-switch">
+							<i class="fa fa-angle-right fa-rotate-90"></i>
+						</div>
+						<div class="tip-setup-box" style="display: block">
+							<div class="layui-form-item">
+								<div class="layui-inline">
+									<div class="layui-input-inline">
+										<select name="type">
+											<option value="1" selected="selected">原创</option>
+											<option value="2">转载</option>
+										</select>
 									</div>
 								</div>
-								<div class="layui-form-item">
-									<label class="layui-form-label">版块</label>
-										<div id="plate-checked" class="layui-input-block plate-check"></div>
-								</div>
-
-								<div class="layui-form-item">
-									<div id="tip-plate-box" class=""></div>
-								</div>
+							</div>
+							<div class="layui-form-item">
+								<label class="layui-form-label">版块</label>
+								<div id="plate-checked" class="layui-input-block plate-check"></div>
+							</div>
+							<div class="layui-form-item">
+								<div id="tip-plate-box" class=""></div>
 							</div>
 						</div>
 					</div>
 
 					<div class="layui-form-item">
-						<div class="layui-inline">
-							<div class="layui-input-inline tip-title">
-								<input data-type="auto-save" th:if="${isEdit}"
-									th:value="${rd.data.title}" type="text"
-									class="tip-e-title form-control" name="title"
-									placeholder="请输入标题"> <input data-type="auto-save"
-									th:unless="${isEdit}" type="text"
-									class="tip-e-title form-control" name="title"
-									placeholder="请输入标题">
-							</div>
+						<label class="layui-form-label">标题</label>
+						<div class="layui-input-block">
+							<input data-type="auto-save" th:if="${isEdit}"
+								th:value="${rd.data.title}" type="text" class="layui-input"
+								name="title" placeholder="请输入标题"> <input
+								data-type="auto-save" th:unless="${isEdit}" type="text"
+								class="layui-input" name="title" placeholder="请输入标题">
 						</div>
+
 					</div>
 					<!-- 文本 -->
 					<div th:unless="${isEdit}" id="editBox"></div>
 					<div th:if="${isEdit}" id="editBox" th:utext="${rd.data.content}"></div>
-
-					<button type="button" data-type="release-tip" class="layui-btn">发布</button>
+					<div class="layui-form-item">
+						<div class="layui-row">
+							<div class="layui-col-md12 submit">
+								<button type="button" data-type="release-tip" class="layui-btn">发布</button>
+							</div>
+						</div>
+					</div>
 				</form>
 			</div>
 		</div>

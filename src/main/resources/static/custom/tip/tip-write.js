@@ -54,9 +54,9 @@ layui.use([ 'layer', 'form', 'element' ], function() {
 
 	$(function() {
 		// colla
-		$(".layui-colla-title").unbind();
-		$(".layui-colla-title").click(function() {
-			$(".layui-colla-content").toggle(300);
+		$(".tip-setup-switch").click(function() {
+			$(".tip-setup-box").toggle(300);
+			$(".tip-setup-switch i").toggleClass("fa-rotate-90");
 		});
 
 		// ini plate

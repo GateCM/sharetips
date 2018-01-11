@@ -9,6 +9,20 @@ input:focus {
 	border-radius: 5px !important;
 }
 
+.tip-setup-box {
+	/* 	padding-left:14px; */
+	
+}
+
+.tip-setup-switch {
+	cursor: pointer;
+	height: 20px;
+	line-height: 20px;
+	padding: 5px 0px;
+	color: #9a9898;
+	width: 40px;
+}
+
 #tip-plate-box span, .plate-check span {
 	display: inline-block;
 	margin-right: 20px;
@@ -30,10 +44,11 @@ input:focus {
 #tip-plate-box span:hover {
 	color: white;
 	background-color: #5FB878;
-	transition:  background-color 0.3s,color 0.3s;
-	-moz-transition: background-color 0.3s,color 0.3s;/* Firefox 4 */
-	-webkit-transition: background-color 0.3s,color 0.3s;	/* Safari 和 Chrome */
-	-o-transition: background-color 0.3s,color 0.3s;/* Opera */
+	transition: background-color 0.3s, color 0.3s;
+	-moz-transition: background-color 0.3s, color 0.3s; /* Firefox 4 */
+	-webkit-transition: background-color 0.3s, color 0.3s;
+	/* Safari 和 Chrome */
+	-o-transition: background-color 0.3s, color 0.3s; /* Opera */
 }
 
 .plate-check {
@@ -49,48 +64,16 @@ input:focus {
 
 .plate-check span:hover {
 	background-color: #FF5722;
-	transition:  background-color 0.3s;
-	-moz-transition: background-color 0.3s;/* Firefox 4 */
-	-webkit-transition: background-color 0.3s;	/* Safari 和 Chrome */
-	-o-transition: background-color 0.3s;/* Opera */
+	transition: background-color 0.3s;
+	-moz-transition: background-color 0.3s; /* Firefox 4 */
+	-webkit-transition: background-color 0.3s; /* Safari 和 Chrome */
+	-o-transition: background-color 0.3s; /* Opera */
 }
 
-.img-big-upload {
-	margin: 0px 12px 0px 12px;
-	cursor: pointer;
-	text-align: center;
-	background: #ededed;
-	height: 200px;
-}
-
-.show-img {
-	border: none;
-	width: 100%;
-	background: #fff;
-}
-
-.img-big-upload i {
-	font-size: 50px;
-	color: #cfcfcf;
-	width: 100px;
-	height: 100%;
-	line-height: 200px;
-}
-
-.img-big-upload img {
-	height: 100%;
-}
-
-.tip-title {
-	width: 725px !important;
-}
-
-.tip-e-title {
-	height: 60px;
-	font-size: 35px;
-	font-weight: bold;
-	border: none;
-	box-shadow: none;
+/**editor start*/
+#editBox {
+	margin-bottom: 30px;
+	border: 1px solid #ebebeb;
 }
 
 .w-e-toolbar {
@@ -104,9 +87,19 @@ input:focus {
 	min-height: 300px !important;
 	border: none !important;
 	height: 100% !important;
+	overflow-wrap: break-word;
+	border-top: 1px solid #ebebeb !important;
 }
 
 .w-e-text {
 	min-height: 300px !important;
 	overflow-y: visible !important;
+}
+
+/**editor end*/
+
+.submit button{
+	width: 200px;
+	margin:0 auto;
+	display:block;
 }
