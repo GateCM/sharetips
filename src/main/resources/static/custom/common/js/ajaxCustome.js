@@ -1,9 +1,7 @@
 var CONTENT_TYPE_DEFAULT = "application/x-www-form-urlencoded;charset=UTF-8";
 var CTJ = "application/json; charset=utf-8";
-
 var AJAX_TYPE_POST = "POST";
 var AJAX_TYPE_GET = "GET";
-
 var AJAX_DATA_TYPE_JSON = "JSON";
 
 $(document).ajaxSuccess(function(){

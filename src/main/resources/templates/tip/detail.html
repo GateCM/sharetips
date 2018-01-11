@@ -18,7 +18,6 @@
 <script th:src="@{/plugin/jquery/jquery.min.js}"></script>
 <script th:src="@{/plugin/layui/layui.js}"></script>
 <script th:src="@{/custom/common/js/common.js}"></script>
-<script th:src="@{/custom/common/js/ajaxCustome.js}"></script>
 <script th:src="@{/custom/common/js/time.js}"></script>
 <script th:src="@{/custom/common/js/number.js}"></script>
 <script type="text/javascript">
@@ -44,18 +43,20 @@ layui.use(['layer','util','laypage'],function() {
 					layer.msg("请先登录再评论");
 					return false;
 				}
-				
 				if($("#commentContent").val()== ""){
+					layer.msg("不能发表空评论");
 					return false;
 				}
-				
 				var tipId = $('input[name="tipId"]').val();
+				var postJson = {};
+				postJson.content = $("#commentContent").val();
+				postJson.tfReply= $('input[name="tfReply"]').val();
 				$.ajax({
 					type: "POST",
 					url: "/api/tip/a/" + tipId+ "/comment",
 					contentType: CTJ,
 					dataType: "JSON",
-					data: JSON.stringify($(this).parents("form").serializeObject()),
+					data:JSON.stringify(postJson),
 					success:function(rd){
 						if (rd.result) {
 							layer.msg("操作成功", {icon: 1});

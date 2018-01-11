@@ -1,9 +1,8 @@
-layui.use(['layer','form'],function(){
+layui.use([ 'layer', 'form', 'element' ], function() {
 	var layer = layui.layer;
 	var form = layui.form;
-	
-	
-	
+	var element = layui.element;
+
 	var taskId;
 	var hasSaved = true;
 	// save tip draft task
@@ -13,12 +12,12 @@ layui.use(['layer','form'],function(){
 	// ini editor
 	var E = window.wangEditor;
 	var editor = new E('#editBox');
-	
+
 	// save tip draft
 	function saveDraft() {
 		if (!hasSaved) {
 			var adata = validateParam();
-			if (adata==null) {
+			if (adata == null) {
 				hasSaved = true;
 				return;
 			}
@@ -30,18 +29,18 @@ layui.use(['layer','form'],function(){
 				contentType : CTJ,
 				success : function(data) {
 					hasSaved = data.result;
-					if(hasSaved){
+					if (hasSaved) {
 						$("input[name='tipId']").val(data.data);
 						console.log("保存成功");
-					}else{
+					} else {
 						console.log("保存失败");
 					}
 				}
 			});
 		}
 	}
-	
-	function validateParam(){
+
+	function validateParam() {
 		var adata = {};
 		adata.tipId = $("input[name='tipId']").val();
 		adata.headImg = $(".img-big-upload img").attr("src");
@@ -52,12 +51,48 @@ layui.use(['layer','form'],function(){
 		}
 		return adata;
 	}
-	
+
 	$(function() {
-		
-		$(document).on("click",'[data-type="release-tip"]',function(){
+		// colla
+		$(".layui-colla-title").unbind();
+		$(".layui-colla-title").click(function() {
+			$(".layui-colla-content").toggle(300);
+		});
+
+		// ini plate
+		$.get("/api/base/plate", function(rd) {
+			if (rd.result) {
+				$.each(rd.data, function(n, value) {
+					$("#tip-plate-box").append(
+							'<span data="' + value.id + '">' + value.name
+									+ '</span>');
+				});
+				form.render();
+			}
+		})
+
+		// add plate
+		$(document).on('click', '#tip-plate-box span', function() {
+			var checkedParent = $("#plate-checked");
+			if (checkedParent.children('span').length >= 3) {
+				layer.msg('最多只能选择3个版块');
+				return;
+			}
+			checkedParent.append($(this).remove());
+		});
+		// del plate
+		$(document).on('click', '#plate-checked span', function() {
+			var delNode = $(this);
+			var plateNode = delNode.clone();
+			delNode.fadeOut(300, function() {
+				$("#tip-plate-box").append(plateNode);
+				delNode.remove();
+			})
+		});
+
+		$(document).on("click", '[data-type="release-tip"]', function() {
 			var adata = validateParam();
-			if (adata==null) {
+			if (adata == null) {
 				hasSaved = true;
 				return;
 			}
@@ -69,47 +104,15 @@ layui.use(['layer','form'],function(){
 				contentType : CTJ,
 				success : function(data) {
 					hasSaved = data.result;
-					if(hasSaved){
+					if (hasSaved) {
 						$("input[name='tipId']").val(data.data);
 						layer.msg("保存成功");
-					}else{
+					} else {
 						layer.msg("保存失败");
 					}
 				}
 			});
 		});
-		
-		// 题图上传
-		$(".img-big-upload")
-				.click(
-						function() {
-							var divNode = $(this);
-							var fileInput = $("#file-input");
-							// 模拟点击input
-							fileInput.trigger('click');
-							fileInput.change(function() {
-										$.ajaxFileUpload({
-													url : '/api/img/upload/tip',
-													secureuri : false,
-													dataType : 'json',
-													fileElementId : 'file-input',
-													success : function(data) {
-														if (data.result == true) {
-															var imgUrl = data.data;
-															divNode.empty();
-															divNode
-																	.addClass("show-img");
-															divNode
-																	.append('<img class="img-thumbnail" src="'
-																			+ imgUrl
-																			+ '"/>');
-														} else {
-															alert("上传失败");
-														}
-													}
-												});
-									});
-						});
 		// config editor
 		editor.customConfig.uploadFileName = 'file';
 		editor.customConfig.uploadImgServer = '/api/img/wang/upload/tip';
@@ -119,10 +122,10 @@ layui.use(['layer','form'],function(){
 		}
 		editor.create();
 		// check input change
-		$(document).on("change",'input[data-type="auto-save"]',function() {
+		$(document).on("change", 'input[data-type="auto-save"]', function() {
 			hasSaved = false;
 		});
-	
+
 		// start task
 		saveTask();
 	});

@@ -1,3 +1,5 @@
+var CTJ = "application/json; charset=utf-8";
+
 layui.use('element', function() {
 	var element = layui.element;
 

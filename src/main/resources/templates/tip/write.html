@@ -5,11 +5,7 @@
 <title>技巧编辑</title>
 <link rel="icon" th:href="@{/custom/common/image/logo.ico}"
 	type="image/x-icon" />
-
 <!-- css -->
-<link rel="stylesheet" type="text/css" media="all"
-	href="/plugin/bootstrap/bootstrap.min.css"
-	th:href="@{/plugin/bootstrap/bootstrap.min.css}" />
 <link rel="stylesheet"
 	href="https://cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.css">
 <link rel="stylesheet" type="text/css" media="all"
@@ -20,16 +16,12 @@
 	th:href="@{/custom/tip/tip-write.css}" />
 <!-- js -->
 <script th:src="@{/plugin/jquery/jquery.min.js}"></script>
-<script th:src="@{/plugin/bootstrap/bootstrap.min.js}"></script>
 <script th:src="@{/plugin/layui/layui.js}"></script>
 <script th:src="@{/plugin/editor/wangEditor.min.js}"></script>
-<script th:src="@{/plugin/upload/ajaxfileupload.js}"></script>
-<script th:src="@{/custom/common/js/ajaxCustome.js}"></script>
+<script th:src="@{/custom/common/js/common.js}"></script>
 <script th:src="@{/custom/tip/tip-write.js}"></script>
-
 </head>
 <body>
-
 	<!-- tip-nav -->
 	<div class="index-nav">
 		<div class="index-nav-logo">
@@ -38,8 +30,6 @@
 		</div>
 		<div class="main-nav">
 			<ul class="layui-nav" lay-filter="">
-				<li class="layui-nav-item"><a data-type="release-tip"
-					href="javascript:void(0);">发布</a></li>
 				<li data="tip" class="layui-nav-item"><a
 					th:href="@{/member/a/tip}">我的草稿</a>
 			</ul>
@@ -53,35 +43,29 @@
 				<form class="layui-form layui-form-pane" action="" role="form">
 					<input class="hide" name="tipId"
 						th:value="${isEdit ? rd.data.id:''}" />
-					<div class="layui-form-item">
-						<div class="layui-inline">
-							<div class="layui-input-inline">
-								<select name="quiz">
-									<option value="010">原创</option>
-									<option value="021">转载</option>
-								</select>
-							</div>
-						</div>
-						<div class="layui-inline">
-							<label class="layui-form-label">版块</label>
-							<div class="layui-input-inline">
-								<select name="quiz">
-									<option value="">请选择一个版块</option>
-									<option value="010">板块一</option>
-									<option value="021">板块二</option>
-									<option value="0571">版块三</option>
-								</select>
-							</div>
-						</div>
-						<div class="layui-inline">
-							<label class="layui-form-label">版块</label>
-							<div class="layui-input-inline">
-								<select name="quiz">
-									<option value="">请选择一个版块</option>
-									<option value="010">板块一</option>
-									<option value="021">板块二</option>
-									<option value="0571">版块三</option>
-								</select>
+
+					<div class="layui-collapse">
+						<div class="layui-colla-item">
+							<h2 class="layui-colla-title">更多设置</h2>
+							<div class="layui-colla-content" style="display:block">
+								<div class="layui-form-item">
+									<div class="layui-inline">
+										<div class="layui-input-inline">
+											<select name="quiz">
+												<option value="010">原创</option>
+												<option value="021">转载</option>
+											</select>
+										</div>
+									</div>
+								</div>
+								<div class="layui-form-item">
+									<label class="layui-form-label">版块</label>
+										<div id="plate-checked" class="layui-input-block plate-check"></div>
+								</div>
+
+								<div class="layui-form-item">
+									<div id="tip-plate-box" class=""></div>
+								</div>
 							</div>
 						</div>
 					</div>
@@ -90,48 +74,21 @@
 						<div class="layui-inline">
 							<div class="layui-input-inline tip-title">
 								<input data-type="auto-save" th:if="${isEdit}"
-								th:value="${rd.data.title}" type="text"
-								class="tip-e-title form-control" name="title"
-								placeholder="请输入标题"> <input data-type="auto-save"
-								th:unless="${isEdit}" type="text"
-								class="tip-e-title form-control" name="title"
-								placeholder="请输入标题">
+									th:value="${rd.data.title}" type="text"
+									class="tip-e-title form-control" name="title"
+									placeholder="请输入标题"> <input data-type="auto-save"
+									th:unless="${isEdit}" type="text"
+									class="tip-e-title form-control" name="title"
+									placeholder="请输入标题">
 							</div>
 						</div>
 					</div>
+					<!-- 文本 -->
+					<div th:unless="${isEdit}" id="editBox"></div>
+					<div th:if="${isEdit}" id="editBox" th:utext="${rd.data.content}"></div>
 
-
-
-
-					<div class="hide">
-						<div th:unless="${isEdit && rd.data.headImg ne null}"
-							class="col-sm-12 img-big-upload">
-							<i class="fa fa-image fa-3x"></i>
-						</div>
-
-						<div th:if="${isEdit  && rd.data.headImg ne null}"
-							class="col-sm-12 img-big-upload show-img">
-							<img class="img-thumbnail" th:src="${rd.data.headImg}" />
-						</div>
-						<input data-type="auto-save" id="file-input" class="hide"
-							type="file" name="file" />
-					</div>
-					<div class="form-group hide"></div>
-					<div class="form-group hide">
-						<div class="col-sm-12">
-							<input data-type="auto-save" th:if="${isEdit}"
-								th:value="${rd.data.title}" type="text"
-								class="tip-e-title form-control" name="title"
-								placeholder="请输入标题"> <input data-type="auto-save"
-								th:unless="${isEdit}" type="text"
-								class="tip-e-title form-control" name="title"
-								placeholder="请输入标题">
-						</div>
-					</div>
+					<button type="button" data-type="release-tip" class="layui-btn">发布</button>
 				</form>
-				<!-- 文本 -->
-				<div th:unless="${isEdit}" id="editBox"></div>
-				<div th:if="${isEdit}" id="editBox" th:utext="${rd.data.content}"></div>
 			</div>
 		</div>
 	</div>

@@ -1,6 +1,3 @@
-/**
- * 
- */
 package com.gatecm.tip.dto.vo;
 
 /**
