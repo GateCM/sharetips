@@ -52,6 +52,7 @@ public class MemberBasicServiceImpl extends ServiceImpl<MemberBasicDao, MemberBa
 		}
 		MemberBasic entity = new MemberBasic();
 		entity.setGmtCreate(new Date());
+		entity.setHeadUrl(BaseConstant.DEFAULT_HEAD_IMG);
 		entity.setNickname(registerDto.getNickname());
 		entity.setStatus(Integer.valueOf(MemberEnum.STATUS_NORMAL.getValue().toString()));
 		entity.setPhoneNumber(registerDto.getPhoneNumber());
@@ -137,5 +138,11 @@ public class MemberBasicServiceImpl extends ServiceImpl<MemberBasicDao, MemberBa
 	public Rrs phoneNumberAvailable(String phoneNumber) {
 		MemberVo current = getMemberVoByPhoneNumber(phoneNumber);
 		return new Rrs(current == null);
+	}
+
+	@Override
+	public Rrs getBasicInfo() {
+		MemberVo memberVo = memberBasicDao.selectVoById(shiroSessionUtils.getMemberId());
+		return new Rrs(true, memberVo);
 	}
 }

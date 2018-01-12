@@ -166,6 +166,7 @@ public class TipContentServiceImpl extends ServiceImpl<TipContentDao, TipContent
 	public Rrs getDetail(Long tipId) {
 		TipVo tv = tipContentDao.selectVoById(tipId);
 		addBelongMemberVo(tv);
+		tv.setPlates(findPalteByTipId(tipId));
 		return new Rrs(true, tv);
 	}
 

@@ -37,6 +37,10 @@
 	margin-left: 0px !important;
 }
 
+.section span{
+	margin-right: 5px;
+}
+
 /** right */
 .author-box {
 	min-height: 150px;

@@ -45,6 +45,11 @@ public class MemberApi {
 		return memberSignService.isSignToday();
 	}
 
+	@RequestMapping(value = "/a/basic", method = RequestMethod.GET)
+	public Rrs basic() {
+		return memberBasicService.getBasicInfo();
+	}
+
 	/**
 	 * 判断该手机号是否已注册
 	 * 

@@ -8,6 +8,11 @@ package com.gatecm.tip.constant;
  *
  */
 public interface BaseConstant {
+	
+	/**
+	 * 默认头像路径
+	 */
+	String DEFAULT_HEAD_IMG = "/custom/common/image/default_head.png";
 
 	/**
 	 * table param

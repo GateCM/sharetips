@@ -43,4 +43,11 @@ public interface MemberBasicService extends IService<MemberBasic> {
 	 * @return
 	 */
 	Rrs phoneNumberAvailable(String phoneNumber);
+
+	/**
+	 * 获取当前用户基本信息
+	 * 
+	 * @return
+	 */
+	Rrs getBasicInfo();
 }
