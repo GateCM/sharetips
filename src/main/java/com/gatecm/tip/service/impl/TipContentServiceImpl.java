@@ -7,20 +7,28 @@ import com.gatecm.tip.constant.TipEnum;
 import com.gatecm.tip.dto.PaginationDto;
 import com.gatecm.tip.dto.TipContentDto;
 import com.gatecm.tip.dto.vo.TipVo;
+import com.gatecm.tip.entity.SysTipPlate;
 import com.gatecm.tip.entity.TipContent;
+import com.gatecm.tip.entity.TipPlate;
 import com.gatecm.tip.mapper.MemberBasicDao;
+import com.gatecm.tip.mapper.SysTipPlateDao;
 import com.gatecm.tip.mapper.TipCommentDao;
 import com.gatecm.tip.mapper.TipContentDao;
+import com.gatecm.tip.mapper.TipPlateDao;
 import com.gatecm.tip.service.Rrs;
 import com.gatecm.tip.service.TipContentService;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.baomidou.mybatisplus.service.impl.ServiceImpl;
+
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+import org.springframework.util.CollectionUtils;
 
 /**
  * <p>
@@ -41,12 +49,19 @@ public class TipContentServiceImpl extends ServiceImpl<TipContentDao, TipContent
 
 	@Autowired
 	private MemberBasicDao memberBasicDao;
-	
+
 	@Autowired
 	private TipCommentDao tipCommentDao;
 
+	@Autowired
+	private TipPlateDao tipPlateDao;
+	
+	@Autowired
+	private SysTipPlateDao sysTipPlateDao;
+
 	// @CachePut(value = "tip", key = "#tip.tipId")
 	@Override
+	@Transactional
 	public Rrs saveDraft(TipContentDto tip) {
 		tip.setStatus((Integer) TipEnum.STATUS_DRAFT.getValue());
 		return createOrUpdateTipByDto(tip);
@@ -106,11 +121,30 @@ public class TipContentServiceImpl extends ServiceImpl<TipContentDao, TipContent
 		return new Rrs(true, pageInfo);
 	}
 
-	// @Cacheable(value = "tip", key = "#tipId")
 	@Override
 	public Rrs getDraftTip(Long tipId) {
-		TipContent draftTip = tipContentDao.selectById(tipId);
-		return new Rrs(true, draftTip);
+		TipContent param = new TipContent();
+		param.setId(tipId);
+		param.setStatus(TipEnum.STATUS_DRAFT.getIntegerValue());
+		List<TipVo> tipVos = tipContentDao.selectVoByParam(param);
+		if (!CollectionUtils.isEmpty(tipVos)) {
+			TipVo draftTip = tipVos.get(0);
+			draftTip.setPlates(findPalteByTipId(draftTip.getId()));
+			return new Rrs(true, draftTip);
+		}
+		return new Rrs(false);
+	}
+
+	private List<SysTipPlate> findPalteByTipId(Long tipId) {
+		TipPlate tipPlate = tipPlateDao.selectByTipId(tipId);
+		if (tipPlate != null) {
+			List<Long> idList = new ArrayList<>();
+			idList.add(tipPlate.getPlateId1());
+			idList.add(tipPlate.getPlateId2());
+			idList.add(tipPlate.getPlateId3());
+			return sysTipPlateDao.selectBatchIds(idList);
+		}
+		return new ArrayList<>();
 	}
 
 	// @Cacheable(value = "index", key = "#pagination.pageSize")
@@ -140,6 +174,7 @@ public class TipContentServiceImpl extends ServiceImpl<TipContentDao, TipContent
 	}
 
 	@Override
+	@Transactional
 	public Rrs releaseDraft(TipContentDto tip) {
 		tip.setStatus((Integer) TipEnum.STATUS_RELEASE.getValue());
 		return createOrUpdateTipByDto(tip);
@@ -152,16 +187,75 @@ public class TipContentServiceImpl extends ServiceImpl<TipContentDao, TipContent
 	 * @return
 	 */
 	private Rrs createOrUpdateTipByDto(TipContentDto tip) {
-		if (tip.getTipId() != null) {
+		// 判断type是否合法
+		if (!TipEnum.isType(tip.getType())) {
+			return new Rrs(false);
+		}
+		// 判断版块数是否合法(1~3)
+		Long[] plateIds = tip.getPlateIds();
+		if (plateIds == null || plateIds.length == 0 || plateIds.length > 3) {
+			return new Rrs(false);
+		}
+		Long tipId = tip.getTipId();
+		Rrs rrs;
+		if (tipId != null) {
 			// 判断操作用户是否为tip拥有者
 			if (!validTipBelongMember(tip.getTipId())) {
 				return new Rrs(false, ErrorEnum.SYS_EXCEPTION);
 			}
 			// 更新tip
-			return updateTip(tip.convert2TipContent());
+			rrs = updateTip(tip.convert2TipContent());
+			updateTipPlate(tipId, plateIds, false);
+		} else {
+			// 插入tip
+			rrs = createNewTip(tip.convert2TipContent());
+			updateTipPlate((Long) rrs.getData(), plateIds, true);
 		}
-		// 插入tip
-		return createNewTip(tip.convert2TipContent());
+
+		return rrs;
+	}
+
+	/**
+	 * 更新(或插入)技巧版块关联记录
+	 * 
+	 * @param tipId
+	 * @param plateIds
+	 * @param isFirst
+	 */
+	private void updateTipPlate(Long tipId, Long[] plateIds, boolean isFirst) {
+		Date current = new Date();
+		TipPlate entity = new TipPlate();
+		entity.setGmtCreate(current);
+		entity.setGmtUpdate(current);
+		entity.setTipId(tipId);
+		parse2PlateId(entity, plateIds);
+		if (isFirst) {
+			tipPlateDao.insert(entity);
+		} else {
+			entity.setId(tipPlateDao.selectByTipId(tipId).getId());
+			tipPlateDao.updateById(entity);
+		}
+	}
+
+	/**
+	 * 将plate_id数组按顺序解析为plate_id_1,plate_id_2,plate_id_3.
+	 * 
+	 * @param entity
+	 * @param plateIds
+	 */
+	private void parse2PlateId(TipPlate entity, Long[] plateIds) {
+		if (plateIds != null) {
+			int length = plateIds.length;
+			if (length > 0) {
+				entity.setPlateId1(plateIds[0]);
+			}
+			if (length > 1) {
+				entity.setPlateId2(plateIds[1]);
+			}
+			if (length > 2) {
+				entity.setPlateId3(plateIds[2]);
+			}
+		}
 	}
 
 	@Override

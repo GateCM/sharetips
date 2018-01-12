@@ -8,7 +8,7 @@ input:focus {
 	box-shadow: none !important;
 	border-radius: 5px !important;
 }
-
+/** setup start*/
 .tip-setup-box {
 	/* 	padding-left:14px; */
 	
@@ -69,6 +69,12 @@ input:focus {
 	-webkit-transition: background-color 0.3s; /* Safari 和 Chrome */
 	-o-transition: background-color 0.3s; /* Opera */
 }
+/** setup end*/
+.title .layui-input-block {
+	margin-left: 0px !important;
+	font-size: 20px;
+	font-weight: bold;
+}
 
 /**editor start*/
 #editBox {
@@ -97,9 +103,8 @@ input:focus {
 }
 
 /**editor end*/
-
-.submit button{
+.submit button {
 	width: 200px;
-	margin:0 auto;
-	display:block;
+	margin: 0 auto;
+	display: block;
 }

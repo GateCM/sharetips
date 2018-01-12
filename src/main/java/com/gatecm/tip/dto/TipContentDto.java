@@ -43,6 +43,13 @@ public class TipContentDto {
 	 */
 	private Integer status;
 
+	/**
+	 * 技巧类型
+	 */
+	private Integer type;
+
+	private Long[] plateIds;
+
 	public String getTitle() {
 		return title;
 	}
@@ -83,6 +90,22 @@ public class TipContentDto {
 		this.status = status;
 	}
 
+	public Integer getType() {
+		return type;
+	}
+
+	public void setType(Integer type) {
+		this.type = type;
+	}
+
+	public Long[] getPlateIds() {
+		return plateIds;
+	}
+
+	public void setPlateIds(Long[] plateIds) {
+		this.plateIds = plateIds;
+	}
+
 	public TipContent convert2TipContent() {
 		TipContent tipContent = new TipContent();
 		tipContent.setId(tipId);
@@ -90,7 +113,7 @@ public class TipContentDto {
 		tipContent.setTitle(title);
 		tipContent.setContent(content);
 		tipContent.setStatus(status);
+		tipContent.setType(type);
 		return tipContent;
 	}
-
 }

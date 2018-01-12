@@ -8,6 +8,8 @@
 */
 package com.gatecm.tip.constant;
 
+import javax.management.j2ee.statistics.Statistic;
+
 /**
  * @ClassName: TipEnum
  * @Description: TODO(技巧常量)
@@ -16,8 +18,18 @@ package com.gatecm.tip.constant;
  *
  */
 public enum TipEnum {
-	
-	PAG_NAV_PAGES_DRAFT(5,"技巧草稿分页导航显示页码"),
+
+	PAG_NAV_PAGES_DRAFT(5, "技巧草稿分页导航显示页码"),
+
+	/**
+	 * 技巧类型原创
+	 */
+	TYPE_ORIGINAL(1, "原创"),
+
+	/**
+	 * 技巧类型转载
+	 */
+	TYPE_REPRINT(2, "转载"),
 
 	/**
 	 * 技巧私人状态
@@ -46,8 +58,22 @@ public enum TipEnum {
 		return value;
 	}
 
+	public Integer getIntegerValue() {
+		return (Integer) value;
+	}
+
 	public String getMsg() {
 		return msg;
+	}
+
+	public static boolean isType(Integer value) {
+		if (value.equals(TYPE_ORIGINAL.getIntegerValue())) {
+			return true;
+		}
+		if (value.equals(TYPE_REPRINT.getIntegerValue())) {
+			return true;
+		}
+		return false;
 	}
 
 }

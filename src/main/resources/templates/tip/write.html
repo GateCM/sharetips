@@ -41,7 +41,7 @@
 			<div class="layui-col-md10 layui-col-md-offset1"
 				th:with="isEdit=${rd ne null && rd.result}">
 				<form class="layui-form layui-form-pane" action="" role="form">
-					<input class="hide" name="tipId"
+					<input autocomplete="off" class="hide" name="tipId"
 						th:value="${isEdit ? rd.data.id:''}" />
 
 					<div class="tip-setup">
@@ -52,7 +52,11 @@
 							<div class="layui-form-item">
 								<div class="layui-inline">
 									<div class="layui-input-inline">
-										<select name="type">
+										<select autocomplete="off" th:if="${isEdit}" name="type" lay-filter="type">
+											<option th:selected="${rd.data.type eq 1}"  value="1">原创</option>
+											<option th:selected="${rd.data.type eq 2}"  value="2">转载</option>
+										</select>
+										<select autocomplete="off" th:unless="${isEdit}" name="type" lay-filter="type">
 											<option value="1" selected="selected">原创</option>
 											<option value="2">转载</option>
 										</select>
@@ -61,7 +65,11 @@
 							</div>
 							<div class="layui-form-item">
 								<label class="layui-form-label">版块</label>
-								<div id="plate-checked" class="layui-input-block plate-check"></div>
+								<div th:if="${isEdit}" id="plate-checked" class="layui-input-block plate-check">
+									<span th:each="plate,plateStat:${rd.data.plates}" th:data="${plate.id}" th:text="${plate.name}">  
+									</span>
+								</div>
+								<div th:unless="${isEdit}" id="plate-checked" class="layui-input-block plate-check"></div>
 							</div>
 							<div class="layui-form-item">
 								<div id="tip-plate-box" class=""></div>
@@ -69,14 +77,12 @@
 						</div>
 					</div>
 
-					<div class="layui-form-item">
-						<label class="layui-form-label">标题</label>
+					<div class="layui-form-item title">
+<!-- 						<label class="layui-form-label">标题</label> -->
 						<div class="layui-input-block">
-							<input data-type="auto-save" th:if="${isEdit}"
-								th:value="${rd.data.title}" type="text" class="layui-input"
-								name="title" placeholder="请输入标题"> <input
-								data-type="auto-save" th:unless="${isEdit}" type="text"
-								class="layui-input" name="title" placeholder="请输入标题">
+							<input autocomplete="off" data-type="auto-save"
+								th:value="${isEdit?rd.data.title:''}" type="text" class="layui-input"
+								name="title" placeholder="请输入标题">
 						</div>
 
 					</div>

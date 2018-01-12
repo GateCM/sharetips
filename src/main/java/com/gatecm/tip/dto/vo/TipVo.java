@@ -1,6 +1,9 @@
 package com.gatecm.tip.dto.vo;
 
 import java.util.Date;
+import java.util.List;
+
+import com.gatecm.tip.entity.SysTipPlate;
 
 /**
  * @Description: TODO(技巧视图)
@@ -47,9 +50,16 @@ public class TipVo {
 	private String content;
 
 	/**
+	 * 类型
+	 */
+	private Integer type;
+
+	/**
 	 * 评论个数
 	 */
 	private Integer commentCount;
+
+	private List<SysTipPlate> plates;
 
 	public Long getId() {
 		return id;
@@ -87,6 +97,14 @@ public class TipVo {
 		return headImg;
 	}
 
+	public Integer getType() {
+		return type;
+	}
+
+	public void setType(Integer type) {
+		this.type = type;
+	}
+
 	public void setHeadImg(String headImg) {
 		this.headImg = headImg;
 	}
@@ -121,5 +139,13 @@ public class TipVo {
 
 	public void setCommentCount(Integer commentCount) {
 		this.commentCount = commentCount;
+	}
+
+	public List<SysTipPlate> getPlates() {
+		return plates;
+	}
+
+	public void setPlates(List<SysTipPlate> plates) {
+		this.plates = plates;
 	}
 }

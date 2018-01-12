@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.gatecm.tip.mapper.TipPlateDao">
+
+	<!-- 通用查询映射结果 -->
+	<resultMap id="BaseResultMap" type="com.gatecm.tip.entity.TipPlate">
+		<id column="id" property="id" />
+		<result column="gmt_create" property="gmtCreate" />
+		<result column="gmt_update" property="gmtUpdate" />
+		<result column="tip_id" property="tipId" />
+		<result column="plate_id_1" property="plateId1" />
+		<result column="plate_id_2" property="plateId2" />
+		<result column="plate_id_3" property="plateId3" />
+		<result column="plate_id_4" property="plateId4" />
+		<result column="plate_id_5" property="plateId5" />
+		<result column="del_f" property="delF" />
+	</resultMap>
+
+	<!-- 通用查询结果列 -->
+	<sql id="Base_Column_List">
+		id, gmt_create AS gmtCreate, gmt_update AS gmtUpdate,
+		tip_id AS tipId,
+		plate_id_1 AS plateId1, plate_id_2 AS plateId2,
+		plate_id_3 AS
+		plateId3, plate_id_4 AS plateId4, plate_id_5 AS plateId5,
+		del_f AS
+		delF
+	</sql>
+
+	<select id="selectByTipId" resultMap="BaseResultMap">
+		SELECT
+		*
+		FROM tip_plate
+		WHERE tip_id=#{tipId} AND del_f = 0
+	</select>
+
+</mapper>

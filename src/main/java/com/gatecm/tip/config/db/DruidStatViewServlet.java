@@ -1,7 +1,7 @@
 /**
  * 
  */
-package com.gatecm.tip.servlet;
+package com.gatecm.tip.config.db;
 
 import javax.servlet.annotation.WebInitParam;
 import javax.servlet.annotation.WebServlet;

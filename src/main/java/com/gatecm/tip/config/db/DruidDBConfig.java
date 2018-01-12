@@ -1,4 +1,4 @@
-package com.gatecm.tip.config;
+package com.gatecm.tip.config.db;
 
 import java.sql.SQLException;
 

@@ -1,7 +1,7 @@
 package com.gatecm.tip.dto.vo;
 
 /**
- * @Description: TODO()
+ * @Description: TODO(版块)
  * @author chenxiaohui
  * @date 2018年1月11日 上午11:30:23
  *

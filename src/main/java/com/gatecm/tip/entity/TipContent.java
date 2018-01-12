@@ -50,6 +50,12 @@ public class TipContent extends Model<TipContent> {
 	 * 内容（html格式）
 	 */
 	private String content;
+
+	/**
+	 * 类型(1 原创；2：转载)
+	 */
+	private Integer type;
+
 	/**
 	 * 状态(0：草稿；1 :已发布)
 	 */
@@ -119,6 +125,14 @@ public class TipContent extends Model<TipContent> {
 
 	public void setStatus(Integer status) {
 		this.status = status;
+	}
+
+	public Integer getType() {
+		return type;
+	}
+
+	public void setType(Integer type) {
+		this.type = type;
 	}
 
 	public Long getBelongMemberId() {

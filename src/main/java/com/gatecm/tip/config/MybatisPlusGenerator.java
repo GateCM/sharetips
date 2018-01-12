@@ -80,7 +80,7 @@ public class MybatisPlusGenerator {
 		strategy.setNaming(NamingStrategy.underline_to_camel);
 		strategy.setEntityBooleanColumnRemoveIsPrefix(true);
 		// 需要生成的表
-		strategy.setInclude(new String[] { "sys_tip_plate" });
+		strategy.setInclude(new String[] { "tip_plate" });
 		// strategy.setExclude(new String[]{"test"}); // 排除生成的表
 		// 自定义实体父类
 		// strategy.setSuperEntityClass("com.gatecm.obsession.entity");
