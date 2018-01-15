@@ -42,6 +42,7 @@ layui.use([ 'laypage', 'upload', 'layer' ], function() {
 			changHeadImg(rd.data.headUrl);
 			$("#member-info .nickname span").text(rd.data.nickname);
 			$("#member-info .motto span").text(rd.data.motto);
+			$("#member-info .point span").text(rd.data.totalPoint);
 		});
 
 		// left nav

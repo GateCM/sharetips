@@ -5,7 +5,47 @@ body {
 /**member basic start*/
 #member-info {
 	padding: 10px 10px 20px 10px;
+}
+
+#member-info .basic {
 	border-bottom: 1px solid #efefef;
+}
+
+#member-info .dynamic {
+	margin-top: 20px;
+}
+
+#member-info .dynamic .box {
+	height: 80px;
+	padding: 10px;
+	position: relative;
+	background: #008d2e99;
+	border-radius: 16px;
+	cursor:pointer;
+}
+
+#member-info .dynamic .box:hover {
+	background: #01a23699;
+}
+
+#member-info .dynamic .box .icon {
+	height: 80px;
+	font-size: 70px;
+	color: #fff;
+	width: 80px;
+}
+
+#member-info .dynamic .box .text {
+	position: absolute;
+	top: 10px;
+	left: 100px;
+	font-size: 14px;
+	color: #fff;
+	line-height: 25px;
+}
+
+#member-info .dynamic .box .text span {
+	display: block;
 }
 
 .head-img {
@@ -48,7 +88,6 @@ body {
 	color: #bcbcbc;
 	margin-top: 20px;
 }
-
 /**member basic end*/
 .center-nav {
 	min-height: 600px;

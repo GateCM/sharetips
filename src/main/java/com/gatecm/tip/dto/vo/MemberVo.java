@@ -58,6 +58,15 @@ public class MemberVo {
 	 */
 	private String email;
 
+	/**
+	 * 历史总积分
+	 */
+	private Long totalPoint;
+	/**
+	 * 当前积分
+	 */
+	private Long currentPoint;
+
 	public Long getId() {
 		return id;
 	}
@@ -130,11 +139,29 @@ public class MemberVo {
 		this.motto = motto;
 	}
 
+	public Long getTotalPoint() {
+		return totalPoint;
+	}
+
+	public void setTotalPoint(Long totalPoint) {
+		this.totalPoint = totalPoint;
+	}
+
+	public Long getCurrentPoint() {
+		return currentPoint;
+	}
+
+	public void setCurrentPoint(Long currentPoint) {
+		this.currentPoint = currentPoint;
+	}
+
 	public void brief() {
 		setAge(null);
 		setSex(null);
 		setBirthday(null);
 		setEmail(null);
 		setOccupation(null);
+		setTotalPoint(null);
+		setCurrentPoint(null);
 	}
 }
