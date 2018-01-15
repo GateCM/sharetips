@@ -6,6 +6,7 @@ import com.gatecm.tip.constant.ErrorEnum;
 import com.gatecm.tip.constant.TipEnum;
 import com.gatecm.tip.dto.PaginationDto;
 import com.gatecm.tip.dto.TipContentDto;
+import com.gatecm.tip.dto.vo.MemberVo;
 import com.gatecm.tip.dto.vo.TipVo;
 import com.gatecm.tip.entity.SysTipPlate;
 import com.gatecm.tip.entity.TipContent;
@@ -55,7 +56,7 @@ public class TipContentServiceImpl extends ServiceImpl<TipContentDao, TipContent
 
 	@Autowired
 	private TipPlateDao tipPlateDao;
-	
+
 	@Autowired
 	private SysTipPlateDao sysTipPlateDao;
 
@@ -155,7 +156,7 @@ public class TipContentServiceImpl extends ServiceImpl<TipContentDao, TipContent
 		selectParam.setStatus((Integer) TipEnum.STATUS_RELEASE.getValue());
 		List<TipVo> releaseTips = tipContentDao.selectVoByParam(selectParam);
 		for (TipVo tv : releaseTips) {
-			addBelongMemberVo(tv);
+			addBelongMemberBriefVo(tv);
 			tv.setCommentCount(tipCommentDao.selectCountByTipId(tv.getId()));
 		}
 		PageInfo<TipVo> pageInfo = new PageInfo<>(releaseTips);
@@ -165,13 +166,15 @@ public class TipContentServiceImpl extends ServiceImpl<TipContentDao, TipContent
 	@Override
 	public Rrs getDetail(Long tipId) {
 		TipVo tv = tipContentDao.selectVoById(tipId);
-		addBelongMemberVo(tv);
+		addBelongMemberBriefVo(tv);
 		tv.setPlates(findPalteByTipId(tipId));
 		return new Rrs(true, tv);
 	}
 
-	private void addBelongMemberVo(TipVo tv) {
-		tv.setBelongMember(memberBasicDao.selectVoById(tv.getBelongMemberId()));
+	private void addBelongMemberBriefVo(TipVo tv) {
+		MemberVo memberVo = memberBasicDao.selectVoById(tv.getBelongMemberId());
+		memberVo.brief();
+		tv.setBelongMember(memberVo);
 	}
 
 	@Override
@@ -267,7 +270,7 @@ public class TipContentServiceImpl extends ServiceImpl<TipContentDao, TipContent
 		selectParam.setBelongMemberId(shiroSessionUtils.getMemberId());
 		List<TipVo> releaseTips = tipContentDao.selectVoByParam(selectParam);
 		for (TipVo tv : releaseTips) {
-			addBelongMemberVo(tv);
+			addBelongMemberBriefVo(tv);
 		}
 		PageInfo<TipVo> pageInfo = new PageInfo<>(releaseTips);
 		return new Rrs(true, pageInfo);

@@ -1,70 +1,32 @@
-/**
- * 
- */
-package com.gatecm.tip.dto.vo;
+package com.gatecm.tip.dto;
 
 import java.util.Date;
 
+import com.gatecm.tip.entity.MemberBasic;
+
 /**
- * @Description: TODO(用户信息视图)
+ * @Description: TODO()
  * @author chenxiaohui
- * @date 2017年12月27日 上午10:28:12
+ * @date 2018年1月15日 下午2:24:48
  *
  */
-public class MemberVo {
+public class MemberDto {
 
-	/**
-	 * 统一主键
-	 */
-	private Long id;
-
-	/**
-	 * 昵称
-	 */
 	private String nickname;
 
-	/**
-	 * 头像路径
-	 */
 	private String headUrl;
 
-	/**
-	 * 签名
-	 */
-	private String motto;
-
-	/**
-	 * 年龄
-	 */
 	private Integer age;
 
-	/**
-	 * 性别
-	 */
 	private Integer sex;
 
-	/**
-	 * 生日
-	 */
+	private String motto;
+
 	private Date birthday;
 
-	/**
-	 * 职业
-	 */
 	private String occupation;
 
-	/**
-	 * 邮箱
-	 */
 	private String email;
-
-	public Long getId() {
-		return id;
-	}
-
-	public void setId(Long id) {
-		this.id = id;
-	}
 
 	public String getNickname() {
 		return nickname;
@@ -72,6 +34,14 @@ public class MemberVo {
 
 	public void setNickname(String nickname) {
 		this.nickname = nickname;
+	}
+
+	public String getHeadUrl() {
+		return headUrl;
+	}
+
+	public void setHeadUrl(String headUrl) {
+		this.headUrl = headUrl;
 	}
 
 	public Integer getAge() {
@@ -88,6 +58,14 @@ public class MemberVo {
 
 	public void setSex(Integer sex) {
 		this.sex = sex;
+	}
+
+	public String getMotto() {
+		return motto;
+	}
+
+	public void setMotto(String motto) {
+		this.motto = motto;
 	}
 
 	public Date getBirthday() {
@@ -114,27 +92,17 @@ public class MemberVo {
 		this.email = email;
 	}
 
-	public String getHeadUrl() {
-		return headUrl;
+	public MemberBasic returnUpdateBasic() {
+		MemberBasic basic = new MemberBasic();
+		basic.setAge(getAge());
+		basic.setSex(getSex());
+		basic.setBirthday(getBirthday());
+		basic.setEmail(getEmail());
+		basic.setHeadUrl(getHeadUrl());
+		basic.setMotto(getMotto());
+		basic.setNickname(getNickname());
+		basic.setOccupation(getOccupation());
+		return basic;
 	}
 
-	public void setHeadUrl(String headUrl) {
-		this.headUrl = headUrl;
-	}
-
-	public String getMotto() {
-		return motto;
-	}
-
-	public void setMotto(String motto) {
-		this.motto = motto;
-	}
-
-	public void brief() {
-		setAge(null);
-		setSex(null);
-		setBirthday(null);
-		setEmail(null);
-		setOccupation(null);
-	}
 }

@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.gatecm.tip.dto.MemberDto;
 import com.gatecm.tip.dto.MemberRegisterDto;
 import com.gatecm.tip.service.MemberBasicService;
 import com.gatecm.tip.service.MemberSignService;
@@ -38,6 +39,17 @@ public class MemberApi {
 	@RequestMapping(value = "/reset/pw", method = RequestMethod.PATCH)
 	public Rrs resetPassword(@RequestBody MemberRegisterDto registerDto) {
 		return memberBasicService.resetPassowrd(registerDto);
+	}
+
+	/**
+	 * 重置基本信息(密码除外)
+	 * 
+	 * @param registerDto
+	 * @return
+	 */
+	@RequestMapping(value = "/a/reset/basic", method = RequestMethod.PATCH)
+	public Rrs resetBasic(@RequestBody MemberDto memberDto) {
+		return memberBasicService.resetBasic(memberDto);
 	}
 
 	@RequestMapping(value = "/a/sign", method = RequestMethod.GET)

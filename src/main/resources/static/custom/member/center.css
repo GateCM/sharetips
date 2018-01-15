@@ -2,6 +2,54 @@ body {
 	background-color: #fff;
 }
 
+/**member basic start*/
+#member-info {
+	padding: 10px 10px 20px 10px;
+	border-bottom: 1px solid #efefef;
+}
+
+.head-img {
+	width: 100px;
+	margin: 0 auto;
+	position: relative;
+}
+
+.head-img img {
+	width: 100px;
+	border-radius: 7px;
+	cursor: pointer;
+}
+
+.edit {
+	top: 0px;
+	position: absolute;
+	right: 0px;
+}
+
+.edit a {
+	font-size: 16px;
+	color: #7f7f7f;
+	cursor: pointer;
+}
+
+.edit i {
+	color: #aeaeae;
+}
+
+.nickname {
+	font-size: 18px;
+	text-align: center;
+	margin-top: 20px;
+}
+
+.motto {
+	font-size: 14px;
+	text-align: center;
+	color: #bcbcbc;
+	margin-top: 20px;
+}
+
+/**member basic end*/
 .center-nav {
 	min-height: 600px;
 }

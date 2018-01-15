@@ -1,13 +1,30 @@
-layui.use([ 'laypage', 'upload' ], function() {
+layui.use([ 'laypage', 'upload', 'layer' ], function() {
 	var laypage = layui.laypage;
 	var upload = layui.upload;
+	var layer = layui.layer;
 	// 执行实例
 	var uploadInst = upload.render({
-		elem : '#test1', // 绑定元素
+		elem : '#member-info .head-img img', // 绑定元素
 		url : '/api/img/upload/tip', // 上传接口
-		done : function(res) {
-			// 上传完毕回调
-			console.log(JSON.stringify(res));
+		done : function(rd) {
+			if (rd.result) {
+				var imgUrl = rd.data;
+				var patchData = {
+					"headUrl" : imgUrl
+				};
+				$.ajax({
+					url : '/api/member/a/reset/basic',
+					type : "PATCH",
+					contentType : CTJ,
+					dataType : "JSON",
+					data : JSON.stringify(patchData),
+					success : function(rdu) {
+						if (rdu.result) {
+							changHeadImg(imgUrl);
+						}
+					}
+				});
+			}
 		},
 		error : function() {
 			// 请求异常回调
@@ -19,17 +36,19 @@ layui.use([ 'laypage', 'upload' ], function() {
 	// 技巧列表数据接口
 	var tipListUrl = "/api/tip/a/member/release/list";
 	$(function() {
-		
-		$.get("/api/member/a/basic",function(rd){
-//			alert(JSON.stringify(rd));
-		})
-		
+
+		$.get("/api/member/a/basic", function(rd) {
+			// alert(JSON.stringify(rd));
+			changHeadImg(rd.data.headUrl);
+			$("#member-info .nickname span").text(rd.data.nickname);
+			$("#member-info .motto span").text(rd.data.motto);
+		});
 
 		// left nav
 		$(document).on("click", "#center-nav li a", function() {
+			clearMain();
 			$("#center-nav li").removeClass("layui-nav-itemed");
 			$(this).parent().addClass("layui-nav-itemed");
-			$("#main-container").children().addClass("hide");
 			var showBoxId = $(this).attr("data");
 			$("#" + showBoxId).removeClass("hide");
 			if (showBoxId == "tip-list") {
@@ -38,7 +57,50 @@ layui.use([ 'laypage', 'upload' ], function() {
 				loadListWithLayPage(1, tipShowBoxId, layPageId);
 			}
 		});
+
+		// member basic
+		$('#member-info a[data="edit"]').click(function() {
+			clearMain();
+			$("#member-edit").removeClass("hide");
+			$.get("/api/member/a/basic", function(rd) {
+				// alert(JSON.stringify(rd));
+				$('input[name="nickname"]').val(rd.data.nickname);
+				$('input[name="age"]').val(rd.data.age);
+				$('input[name="sex"]').val(rd.data.sex);
+				$('input[name="motto"]').val(rd.data.motto);
+				$('input[name="birthday"]').val(rd.data.birthday);
+				$('input[name="occupation"]').val(rd.data.occupation);
+				$('input[name="email"]').val(rd.data.email);
+			});
+		});
+		
+		//update basic
+		$("#updateBasic").click(function(){
+			var patchData = $("#form-basic").serializeObject();
+			alert(JSON.stringify(patchData));
+			$.ajax({
+				url : '/api/member/a/reset/basic',
+				type : "PATCH",
+				contentType : CTJ,
+				dataType : "JSON",
+				data : JSON.stringify(patchData),
+				success : function(rdu) {
+					if (rdu.result) {
+						layer.msg("信息修改成功");
+					}
+				}
+			});
+		});
+		
 	});
+
+	function clearMain() {
+		$("#main-container").children().addClass("hide");
+	}
+
+	function changHeadImg(headUrl) {
+		$("#member-info .head-img img").attr("src", headUrl);
+	}
 
 	function loadListWithLayPage(pageNum, boxId, layPageId) {
 		$.get(tipListUrl, {

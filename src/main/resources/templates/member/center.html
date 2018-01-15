@@ -30,7 +30,7 @@
 			<div class="layui-col-md3 center-nav">
 				<ul id="center-nav" class="layui-nav layui-nav-tree"
 					lay-filter="test">
-					<li class="layui-nav-item layui-nav-itemed"><a
+					<li class="layui-nav-item layui-this layui-nav-itemed"><a
 						data="member-info" href="javascript:void(0);"><i
 							class="layui-icon">&#xe612;</i> 基本信息</a></li>
 					<li class="layui-nav-item"><a data="tip-list"
@@ -47,10 +47,77 @@
 			<div id="main-container" class="layui-col-md9">
 				<div id="member-info" class="layui-row">
 					<div class="layui-col-md12">
-					<img alt="" src="" />
-					<h2>名称</h2>
-					<p>座右铭</p>
-					
+						<div class="head-img">
+							<img alt="" src="" />
+						</div>
+						<div class="edit">
+							<a data="edit" href="javascript:void(0);"> 修改资料 </a>
+						</div>
+
+						<div class="nickname">
+							<span></span>
+						</div>
+
+						<div class="motto">
+							<span></span>
+						</div>
+
+					</div>
+				</div>
+
+				<div id="member-edit" class="layui-row hide">
+					<div class="layui-col-md12">
+						<div class="head-img">
+							<img alt="" src="" />
+						</div>
+						<form id="form-basic" class="layui-form layui-form-pane">
+							<div class="layui-form-item">
+								<label class="layui-form-label">昵称</label>
+								<div class="layui-input-block">
+									<input name="nickname" class="layui-input" />
+								</div>
+							</div>
+							<div class="layui-form-item">
+								<label class="layui-form-label">年龄</label>
+								<div class="layui-input-block">
+									<input name="age" class="layui-input" />
+								</div>
+							</div>
+							<div class="layui-form-item">
+								<label class="layui-form-label">性别</label>
+								<div class="layui-input-block">
+									<input name="sex" class="layui-input" />
+								</div>
+							</div>
+							<div class="layui-form-item">
+								<label class="layui-form-label">签名</label>
+								<div class="layui-input-block">
+									<input name="motto" class="layui-input" />
+								</div>
+							</div>
+							<div class="layui-form-item">
+								<label class="layui-form-label">生日</label>
+								<div class="layui-input-block">
+									<input name="birthday" class="layui-input" />
+								</div>
+							</div>
+							<div class="layui-form-item">
+								<label class="layui-form-label">职业</label>
+								<div class="layui-input-block">
+									<input name="occupation" class="layui-input" />
+								</div>
+							</div>
+							<div class="layui-form-item">
+								<label class="layui-form-label">邮箱</label>
+								<div class="layui-input-block">
+									<input name="email" class="layui-input" />
+								</div>
+							</div>
+							
+							<div class="layui-form-item">
+								<button id="updateBasic" type="button" class="layui-btn">提交</button>
+							</div>
+						</form>
 					</div>
 				</div>
 				<div id="tip-list" class="hide layui-row">

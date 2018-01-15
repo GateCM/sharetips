@@ -6,6 +6,7 @@ import com.gatecm.tip.config.shiro.ShiroSessionUtils;
 import com.gatecm.tip.constant.BaseConstant;
 import com.gatecm.tip.constant.ErrorEnum;
 import com.gatecm.tip.constant.MemberEnum;
+import com.gatecm.tip.dto.MemberDto;
 import com.gatecm.tip.dto.MemberRegisterDto;
 import com.gatecm.tip.dto.vo.MemberVo;
 import com.gatecm.tip.entity.MemberBasic;
@@ -144,5 +145,12 @@ public class MemberBasicServiceImpl extends ServiceImpl<MemberBasicDao, MemberBa
 	public Rrs getBasicInfo() {
 		MemberVo memberVo = memberBasicDao.selectVoById(shiroSessionUtils.getMemberId());
 		return new Rrs(true, memberVo);
+	}
+
+	@Override
+	public Rrs resetBasic(MemberDto memberDto) {
+		MemberBasic entity = memberDto.returnUpdateBasic();
+		entity.setId(shiroSessionUtils.getMemberId());
+		return new Rrs(updateById(entity));
 	}
 }

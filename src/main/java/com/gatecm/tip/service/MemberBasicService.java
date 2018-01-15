@@ -1,5 +1,6 @@
 package com.gatecm.tip.service;
 
+import com.gatecm.tip.dto.MemberDto;
 import com.gatecm.tip.dto.MemberRegisterDto;
 import com.gatecm.tip.entity.MemberBasic;
 
@@ -50,4 +51,12 @@ public interface MemberBasicService extends IService<MemberBasic> {
 	 * @return
 	 */
 	Rrs getBasicInfo();
+
+	/**
+	 * 更新用户基本信息（密码除外）
+	 * 
+	 * @param memberDto
+	 * @return
+	 */
+	Rrs resetBasic(MemberDto memberDto);
 }
