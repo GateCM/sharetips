@@ -9,6 +9,7 @@ body {
 
 #member-info .basic {
 	border-bottom: 1px solid #efefef;
+	min-height: 220px;
 }
 
 #member-info .dynamic {
