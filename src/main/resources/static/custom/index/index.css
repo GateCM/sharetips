@@ -20,7 +20,7 @@
 }
 
 .tip-entry {
-	height: 100px;
+	min-height: 100px;
 	width: 100%;
 	padding: 10px 0px 10px 0px;
 	border-bottom: 1px solid #f1f1f1;
@@ -77,8 +77,29 @@
 	text-overflow: ellipsis;
 	white-space: nowrap;
 	font-weight: bold;
-	margin: 5px 5px 15px 0px;
+	margin: 5px;
 	line-height: 30px;
+}
+
+.tip-content-box {
+	margin: 0px 10px 10px 5px;
+}
+
+.tip-content {
+	max-height: 60px;
+	font-size: 14px;
+	color: #6c6c6c;
+	overflow: hidden;
+	display: -webkit-box;
+	-webkit-box-orient: vertical;
+	-webkit-line-clamp: 3;
+	cursor: pointer;
+}
+
+.tip-content-box .btn-more {
+	text-align: center;
+	color: #4694f5;
+	cursor: pointer;
 }
 
 .tip-bottom {
@@ -99,14 +120,14 @@
 	color: #909090;
 	position: absolute;
 	padding: 1px 0px 0px 3px;
-	cursor:pointer
+	cursor: pointer
 }
 
 .tip-bottom .time {
-width: 100px;
-right: 0px;
-position: absolute;
-text-align: right;
+	width: 100px;
+	right: 0px;
+	position: absolute;
+	text-align: right;
 }
 
 /**right*/
