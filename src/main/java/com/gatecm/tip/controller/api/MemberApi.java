@@ -32,11 +32,23 @@ public class MemberApi {
 	@Autowired
 	private MemberSignService memberSignService;
 
+	/**
+	 * 手机号验证码注册
+	 * 
+	 * @param registerDto
+	 * @return
+	 */
 	@RequestMapping(value = "/register", method = RequestMethod.POST)
 	public Rrs<Object> register(@Valid MemberRegisterDto registerDto) {
 		return memberBasicService.registByVcode(registerDto);
 	}
 
+	/**
+	 * 忘记密码重置
+	 * 
+	 * @param registerDto
+	 * @return
+	 */
 	@RequestMapping(value = "/reset/pw", method = RequestMethod.PATCH)
 	public Rrs<Object> resetPassword(@RequestBody MemberRegisterDto registerDto) {
 		return memberBasicService.resetPassowrd(registerDto);
@@ -53,12 +65,21 @@ public class MemberApi {
 		return memberBasicService.resetBasic(memberDto);
 	}
 
+	/**
+	 * 判断当日是否签到
+	 * 
+	 * @return
+	 */
 	@RequestMapping(value = "/a/sign", method = RequestMethod.GET)
 	public Rrs<Object> signTodayStatus() {
-		
 		return memberSignService.isSignToday();
 	}
 
+	/**
+	 * 获取当前登录用户信息
+	 * 
+	 * @return
+	 */
 	@RequestMapping(value = "/a/basic", method = RequestMethod.GET)
 	public Rrs<MemberVo> basic() {
 		return memberBasicService.getBasicInfo();
@@ -74,6 +95,11 @@ public class MemberApi {
 		return memberBasicService.phoneNumberAvailable(phoneNumber);
 	}
 
+	/**
+	 * 当前用户签到
+	 * 
+	 * @return
+	 */
 	@RequestMapping(value = "/a/sign", method = RequestMethod.POST)
 	public Rrs<Object> signToday() {
 		return memberSignService.signToday();

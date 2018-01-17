@@ -18,21 +18,41 @@ import org.springframework.web.bind.annotation.RequestMethod;
 @RequestMapping(value = "/login", method = RequestMethod.GET)
 public class LoginController {
 
+	/**
+	 * 登录页
+	 * 
+	 * @return
+	 */
 	@RequestMapping(value = "/signin")
 	public String loginPage() {
 		return "/member/signin";
 	}
 
+	/**
+	 * 注册页
+	 * 
+	 * @return
+	 */
 	@RequestMapping(value = "/signup")
 	public String signupPage() {
 		return "/member/signup";
 	}
-	
+
+	/**
+	 * 重置密码页
+	 * 
+	 * @return
+	 */
 	@RequestMapping(value = "/reset/pw")
 	public String resetPassword() {
 		return "/member/reset-password";
 	}
 
+	/**
+	 * 退出并返回登录页
+	 * 
+	 * @return
+	 */
 	@RequestMapping(value = "/a/signout")
 	public String signOut() {
 		SecurityUtils.getSubject().logout();

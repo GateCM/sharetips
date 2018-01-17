@@ -34,6 +34,13 @@ public class ImgAPI {
 	@Autowired
 	private ImgService imgService;
 
+	/**
+	 * 富文本图片上传
+	 * 
+	 * @param fileDir
+	 * @param file
+	 * @return
+	 */
 	@RequestMapping(value = "/wang/upload/{fileDir}", method = RequestMethod.POST)
 	public Map<String, Object> pluginUploadWithFileDir(@PathVariable String fileDir, MultipartFile file) {
 		Map<String, Object> map = new HashMap<>();
@@ -46,6 +53,13 @@ public class ImgAPI {
 		return map;
 	}
 
+	/**
+	 * 通用图片上传
+	 * 
+	 * @param fileDir
+	 * @param file
+	 * @return
+	 */
 	@RequestMapping(value = "/upload/{fileDir}", method = RequestMethod.POST)
 	public Rrs<String> uploadWithFileDir(@PathVariable String fileDir, MultipartFile file) {
 		return imgService.upload(file, fileDir, 23L);

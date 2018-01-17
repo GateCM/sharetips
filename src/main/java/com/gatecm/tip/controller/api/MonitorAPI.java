@@ -25,6 +25,11 @@ public class MonitorAPI {
 	@Autowired
 	private MonitorService monitorService;
 
+	/**
+	 * 获取当前网站运行状态
+	 * 
+	 * @return
+	 */
 	@RequestMapping(value = "/index", method = RequestMethod.GET)
 	public Rrs<WebStatusVo> index() {
 		return monitorService.indexStatus();

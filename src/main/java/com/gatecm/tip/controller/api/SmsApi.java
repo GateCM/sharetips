@@ -23,8 +23,14 @@ public class SmsApi {
 	@Autowired
 	private SmsService smsService;
 
+	/**
+	 * 获取注册验证码
+	 * 
+	 * @param phoneNumber
+	 * @return
+	 */
 	@RequestMapping(value = "/register", method = RequestMethod.GET)
-	public Rrs<VcodeBean>  reg(String phoneNumber) {
-		 return smsService.sendRegVcode(phoneNumber);
+	public Rrs<VcodeBean> reg(String phoneNumber) {
+		return smsService.sendRegVcode(phoneNumber);
 	}
 }

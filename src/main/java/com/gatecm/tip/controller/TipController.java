@@ -25,11 +25,22 @@ public class TipController {
 	@Autowired
 	private TipContentService tipContentService;
 
+	/**
+	 * 技巧编辑页（空白）
+	 * 
+	 * @return
+	 */
 	@RequestMapping(value = "/a/write")
 	public String write() {
 		return "tip/write";
 	}
 
+	/**
+	 * 技巧编辑页（带数据）
+	 * 
+	 * @param tipId
+	 * @return
+	 */
 	@RequestMapping(value = "/a/{tipId}/edit")
 	public ModelAndView write(@PathVariable Long tipId) {
 		ModelAndView modelAndView = new ModelAndView();
@@ -39,6 +50,12 @@ public class TipController {
 		return modelAndView;
 	}
 
+	/**
+	 * 技巧详情页
+	 * 
+	 * @param tipId
+	 * @return
+	 */
 	@RequestMapping(value = "/{tipId}/detail")
 	public ModelAndView detail(@PathVariable Long tipId) {
 		ModelAndView modelAndView = new ModelAndView();
