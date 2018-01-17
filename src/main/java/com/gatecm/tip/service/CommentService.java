@@ -7,6 +7,8 @@ import javax.validation.Valid;
 
 import com.gatecm.tip.dto.CommentDto;
 import com.gatecm.tip.dto.PaginationDto;
+import com.gatecm.tip.dto.vo.CommentVo;
+import com.github.pagehelper.PageInfo;
 
 /**
  * @Description: TODO(评论接口)
@@ -22,7 +24,7 @@ public interface CommentService {
 	 * @param comment
 	 * @return
 	 */
-	Rrs addComment2Tip(@Valid CommentDto comment);
+	Rrs<Object> addComment2Tip(@Valid CommentDto comment);
 
 	/**
 	 * 获取指定技巧评论列表
@@ -31,6 +33,6 @@ public interface CommentService {
 	 * @param tipId
 	 * @return
 	 */
-	Rrs tipCommentList(PaginationDto pagination, Long tipId);
+	Rrs<PageInfo<CommentVo>> tipCommentList(PaginationDto pagination, Long tipId);
 
 }

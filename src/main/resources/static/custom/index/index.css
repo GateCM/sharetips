@@ -82,23 +82,27 @@
 }
 
 .tip-content-box {
+	font-size: 15px;
+	color: #232323;
 	margin: 0px 10px 10px 5px;
+}
+
+.more:hover {
+	color: #6c6c6c;
+	cursor: pointer;
 }
 
 .tip-content {
 	max-height: 60px;
-	font-size: 14px;
-	color: #6c6c6c;
 	overflow: hidden;
 	display: -webkit-box;
 	-webkit-box-orient: vertical;
 	-webkit-line-clamp: 3;
-	cursor: pointer;
 }
 
 .tip-content-box .btn-more {
 	text-align: center;
-	color: #4694f5;
+	color: #ccc;
 	cursor: pointer;
 }
 

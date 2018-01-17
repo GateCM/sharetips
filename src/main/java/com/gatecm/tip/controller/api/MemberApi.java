@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.gatecm.tip.dto.MemberDto;
 import com.gatecm.tip.dto.MemberRegisterDto;
+import com.gatecm.tip.dto.vo.MemberVo;
 import com.gatecm.tip.service.MemberBasicService;
 import com.gatecm.tip.service.MemberSignService;
 import com.gatecm.tip.service.Rrs;
@@ -32,12 +33,12 @@ public class MemberApi {
 	private MemberSignService memberSignService;
 
 	@RequestMapping(value = "/register", method = RequestMethod.POST)
-	public Rrs register(@Valid MemberRegisterDto registerDto) {
+	public Rrs<Object> register(@Valid MemberRegisterDto registerDto) {
 		return memberBasicService.registByVcode(registerDto);
 	}
 
 	@RequestMapping(value = "/reset/pw", method = RequestMethod.PATCH)
-	public Rrs resetPassword(@RequestBody MemberRegisterDto registerDto) {
+	public Rrs<Object> resetPassword(@RequestBody MemberRegisterDto registerDto) {
 		return memberBasicService.resetPassowrd(registerDto);
 	}
 
@@ -48,17 +49,18 @@ public class MemberApi {
 	 * @return
 	 */
 	@RequestMapping(value = "/a/reset/basic", method = RequestMethod.PATCH)
-	public Rrs resetBasic(@RequestBody MemberDto memberDto) {
+	public Rrs<Object> resetBasic(@RequestBody MemberDto memberDto) {
 		return memberBasicService.resetBasic(memberDto);
 	}
 
 	@RequestMapping(value = "/a/sign", method = RequestMethod.GET)
-	public Rrs signTodayStatus() {
+	public Rrs<Object> signTodayStatus() {
+		
 		return memberSignService.isSignToday();
 	}
 
 	@RequestMapping(value = "/a/basic", method = RequestMethod.GET)
-	public Rrs basic() {
+	public Rrs<MemberVo> basic() {
 		return memberBasicService.getBasicInfo();
 	}
 
@@ -68,12 +70,12 @@ public class MemberApi {
 	 * @return
 	 */
 	@RequestMapping(value = "/phoneNumber/available", method = RequestMethod.GET)
-	public Rrs phoneNumberAvailable(String phoneNumber) {
+	public Rrs<Object> phoneNumberAvailable(String phoneNumber) {
 		return memberBasicService.phoneNumberAvailable(phoneNumber);
 	}
 
 	@RequestMapping(value = "/a/sign", method = RequestMethod.POST)
-	public Rrs signToday() {
+	public Rrs<Object> signToday() {
 		return memberSignService.signToday();
 	}
 }

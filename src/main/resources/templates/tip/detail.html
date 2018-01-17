@@ -39,12 +39,19 @@
 						<div class="layui-col-md12">
 							<input name="tipId" class="hide" th:value="${rd.data.id}"
 								type="text" />
+							<div class="tip-type">
+								<img th:if="${rd.data.type eq 1}" draggable="false"
+									th:src="@{/custom/common/image/tip_type_1.png}" /> 
+								<img th:if="${rd.data.type eq 2}" draggable="false"
+									th:src="@{/custom/common/image/tip_type_2.png}" />
+							</div>
 							<div class="tip-title">
 								<h3 th:text="${rd.data.title}"></h3>
 							</div>
 							<div class="tip-status">
 								<div class="section">
-									<span th:each="plate, plateStat:${rd.data.plates}" th:text="${plate.name}" class="layui-badge layui-bg-green"></span> 
+									<span th:each="plate, plateStat:${rd.data.plates}"
+										th:text="${plate.name}" class="layui-badge"></span>
 								</div>
 								<div class="comment">
 									<span id="commentNumber">0</span> <i class="fa fa-commenting-o"></i>
@@ -84,8 +91,8 @@
 									<form class="layui-form">
 										<div class="layui-form-item layui-form-text">
 											<input name="tfReply" class="hide" value="false" type="text" />
-											<textarea id="commentContent" name="content" placeholder="说点什么"
-												class="layui-textarea" autocomplete="off"></textarea>
+											<textarea id="commentContent" name="content"
+												placeholder="说点什么" class="layui-textarea" autocomplete="off"></textarea>
 										</div>
 										<div class="layui-form-item">
 											<button id="submitComment" data-type="submitComment"

@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.gatecm.tip.entity.MemberBasic;
 import com.gatecm.tip.service.MemberBasicService;
 import com.gatecm.tip.service.Rrs;
 
@@ -63,7 +64,7 @@ public class LoginApi {
 	 * @return
 	 */
 	@RequestMapping(value = "/member", method = RequestMethod.GET)
-	public Rrs member() {
+	public Rrs<MemberBasic> member() {
 		return memberBasicService.getCurrentMemberInfo();
 	}
 }

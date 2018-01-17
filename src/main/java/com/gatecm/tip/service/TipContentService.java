@@ -2,7 +2,9 @@ package com.gatecm.tip.service;
 
 import com.gatecm.tip.dto.PaginationDto;
 import com.gatecm.tip.dto.TipContentDto;
+import com.gatecm.tip.dto.vo.TipVo;
 import com.gatecm.tip.entity.TipContent;
+import com.github.pagehelper.PageInfo;
 
 import javax.validation.Valid;
 
@@ -24,7 +26,7 @@ public interface TipContentService extends IService<TipContent> {
 	 * @param tip
 	 * @return
 	 */
-	Rrs saveDraft(TipContentDto tip);
+	Rrs<Long> saveDraft(TipContentDto tip);
 
 	/**
 	 * 获取技巧草稿列表
@@ -32,7 +34,7 @@ public interface TipContentService extends IService<TipContent> {
 	 * @param pagination
 	 * @return
 	 */
-	Rrs draftList(PaginationDto pagination);
+	Rrs<PageInfo<TipVo>> draftList(PaginationDto pagination);
 
 	/**
 	 * 获取技巧草稿数据
@@ -40,7 +42,7 @@ public interface TipContentService extends IService<TipContent> {
 	 * @param tipId
 	 * @return
 	 */
-	Rrs getDraftTip(Long tipId);
+	Rrs<TipVo> getDraftTip(Long tipId);
 
 	/**
 	 * 获取技巧发布列表
@@ -48,7 +50,7 @@ public interface TipContentService extends IService<TipContent> {
 	 * @param pagination
 	 * @return
 	 */
-	Rrs releaseList(PaginationDto pagination);
+	Rrs<PageInfo<TipVo>> releaseList(PaginationDto pagination);
 
 	/**
 	 * 获取技巧详情
@@ -56,7 +58,7 @@ public interface TipContentService extends IService<TipContent> {
 	 * @param tipId
 	 * @return
 	 */
-	Rrs getDetail(Long tipId);
+	Rrs<TipVo> getDetail(Long tipId);
 
 	/**
 	 * 发布技巧（插入或更新）
@@ -64,7 +66,7 @@ public interface TipContentService extends IService<TipContent> {
 	 * @param tip
 	 * @return
 	 */
-	Rrs releaseDraft(@Valid TipContentDto tip);
+	Rrs<Long> releaseDraft(@Valid TipContentDto tip);
 
 	/**
 	 * 获取指定会员技巧列表
@@ -72,7 +74,7 @@ public interface TipContentService extends IService<TipContent> {
 	 * @param pagination
 	 * @return
 	 */
-	Rrs findMemberReleaseTip(PaginationDto pagination);
+	Rrs<PageInfo<TipVo>> findMemberReleaseTip(PaginationDto pagination);
 
 	/**
 	 * 删除技巧草稿
@@ -80,5 +82,5 @@ public interface TipContentService extends IService<TipContent> {
 	 * @param tipId
 	 * @return
 	 */
-	Rrs deleteDraft(Long tipId);
+	Rrs<Object> deleteDraft(Long tipId);
 }

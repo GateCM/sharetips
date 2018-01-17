@@ -38,8 +38,8 @@ public class ImgServiceImpl implements ImgService {
 	private static final String FILE_DIR_TIP = "tip";
 
 	@Override
-	public Rrs upload(MultipartFile file, String fileDir, Long userId) {
-		Rrs resultEntity = new Rrs(false);
+	public Rrs<String> upload(MultipartFile file, String fileDir, Long userId) {
+		Rrs<String> resultEntity = new Rrs<>(false);
 		String dir;
 		int imgMSize;
 		String suffix = SUFFIX + userId + SUFFIX + TimeUtils.dateToShortStr(new Date()) + SUFFIX;

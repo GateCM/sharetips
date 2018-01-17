@@ -18,6 +18,7 @@ import com.gatecm.tip.mapper.TipContentDao;
 import com.gatecm.tip.mapper.TipPlateDao;
 import com.gatecm.tip.service.Rrs;
 import com.gatecm.tip.service.TipContentService;
+import com.gatecm.tip.util.RegularUtils;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.baomidou.mybatisplus.service.impl.ServiceImpl;
@@ -63,7 +64,7 @@ public class TipContentServiceImpl extends ServiceImpl<TipContentDao, TipContent
 	// @CachePut(value = "tip", key = "#tip.tipId")
 	@Override
 	@Transactional
-	public Rrs saveDraft(TipContentDto tip) {
+	public Rrs<Long> saveDraft(TipContentDto tip) {
 		tip.setStatus((Integer) TipEnum.STATUS_DRAFT.getValue());
 		return createOrUpdateTipByDto(tip);
 	}
@@ -74,9 +75,9 @@ public class TipContentServiceImpl extends ServiceImpl<TipContentDao, TipContent
 	 * @param tipContent
 	 * @return
 	 */
-	private Rrs updateTip(TipContent tipContent) {
+	private Rrs<Long> updateTip(TipContent tipContent) {
 		tipContent.setGmtUpdate(new Date());
-		return new Rrs(tipContentDao.updateById(tipContent).equals(1), tipContent.getId());
+		return new Rrs<>(tipContentDao.updateById(tipContent).equals(1), tipContent.getId());
 	}
 
 	/**
@@ -85,13 +86,13 @@ public class TipContentServiceImpl extends ServiceImpl<TipContentDao, TipContent
 	 * @param tipContent
 	 * @return
 	 */
-	private Rrs createNewTip(TipContent tipContent) {
+	private Rrs<Long> createNewTip(TipContent tipContent) {
 		Long memberId = shiroSessionUtils.getMemberId();
 		tipContent.setId(null);
 		tipContent.setBelongMemberId(memberId);
 		tipContent.setGmtCreate(new Date());
 		tipContent.setGmtUpdate(tipContent.getGmtCreate());
-		return new Rrs(tipContentDao.insert(tipContent).equals(1), tipContent.getId());
+		return new Rrs<>(tipContentDao.insert(tipContent).equals(1), tipContent.getId());
 	}
 
 	/**
@@ -110,7 +111,7 @@ public class TipContentServiceImpl extends ServiceImpl<TipContentDao, TipContent
 	}
 
 	@Override
-	public Rrs draftList(PaginationDto pagination) {
+	public Rrs<PageInfo<TipVo>> draftList(PaginationDto pagination) {
 		Long belongMemberId = shiroSessionUtils.getMemberId();
 		PageHelper.startPage(pagination.getPageNum(), pagination.getPageSize());
 		TipContent selectParam = new TipContent();
@@ -119,11 +120,11 @@ public class TipContentServiceImpl extends ServiceImpl<TipContentDao, TipContent
 		selectParam.setDelF(BaseConstant.UN_DEL);
 		List<TipVo> draftVos = tipContentDao.selectVoByParam(selectParam);
 		PageInfo<TipVo> pageInfo = new PageInfo<>(draftVos, (Integer) TipEnum.PAG_NAV_PAGES_DRAFT.getValue());
-		return new Rrs(true, pageInfo);
+		return new Rrs<>(true, pageInfo);
 	}
 
 	@Override
-	public Rrs getDraftTip(Long tipId) {
+	public Rrs<TipVo> getDraftTip(Long tipId) {
 		TipContent param = new TipContent();
 		param.setId(tipId);
 		param.setStatus(TipEnum.STATUS_DRAFT.getIntegerValue());
@@ -131,9 +132,9 @@ public class TipContentServiceImpl extends ServiceImpl<TipContentDao, TipContent
 		if (!CollectionUtils.isEmpty(tipVos)) {
 			TipVo draftTip = tipVos.get(0);
 			draftTip.setPlates(findPalteByTipId(draftTip.getId()));
-			return new Rrs(true, draftTip);
+			return new Rrs<>(true, draftTip);
 		}
-		return new Rrs(false);
+		return new Rrs<>(false);
 	}
 
 	private List<SysTipPlate> findPalteByTipId(Long tipId) {
@@ -150,7 +151,7 @@ public class TipContentServiceImpl extends ServiceImpl<TipContentDao, TipContent
 
 	// @Cacheable(value = "index", key = "#pagination.pageSize")
 	@Override
-	public Rrs releaseList(PaginationDto pagination) {
+	public Rrs<PageInfo<TipVo>> releaseList(PaginationDto pagination) {
 		PageHelper.startPage(pagination.getPageNum(), pagination.getPageSize());
 		TipContent selectParam = new TipContent();
 		selectParam.setStatus((Integer) TipEnum.STATUS_RELEASE.getValue());
@@ -158,17 +159,18 @@ public class TipContentServiceImpl extends ServiceImpl<TipContentDao, TipContent
 		for (TipVo tv : releaseTips) {
 			addBelongMemberBriefVo(tv);
 			tv.setCommentCount(tipCommentDao.selectCountByTipId(tv.getId()));
+			tv.setContent(RegularUtils.filterHtml(tv.getContent()));
 		}
 		PageInfo<TipVo> pageInfo = new PageInfo<>(releaseTips);
-		return new Rrs(true, pageInfo);
+		return new Rrs<>(true, pageInfo);
 	}
 
 	@Override
-	public Rrs getDetail(Long tipId) {
+	public Rrs<TipVo> getDetail(Long tipId) {
 		TipVo tv = tipContentDao.selectVoById(tipId);
 		addBelongMemberBriefVo(tv);
 		tv.setPlates(findPalteByTipId(tipId));
-		return new Rrs(true, tv);
+		return new Rrs<>(true, tv);
 	}
 
 	private void addBelongMemberBriefVo(TipVo tv) {
@@ -179,7 +181,7 @@ public class TipContentServiceImpl extends ServiceImpl<TipContentDao, TipContent
 
 	@Override
 	@Transactional
-	public Rrs releaseDraft(TipContentDto tip) {
+	public Rrs<Long> releaseDraft(TipContentDto tip) {
 		tip.setStatus((Integer) TipEnum.STATUS_RELEASE.getValue());
 		return createOrUpdateTipByDto(tip);
 	}
@@ -190,22 +192,22 @@ public class TipContentServiceImpl extends ServiceImpl<TipContentDao, TipContent
 	 * @param tip
 	 * @return
 	 */
-	private Rrs createOrUpdateTipByDto(TipContentDto tip) {
+	private Rrs<Long> createOrUpdateTipByDto(TipContentDto tip) {
 		// 判断type是否合法
 		if (!TipEnum.isType(tip.getType())) {
-			return new Rrs(false);
+			return new Rrs<>(false);
 		}
 		// 判断版块数是否合法(1~3)
 		Long[] plateIds = tip.getPlateIds();
 		if (plateIds == null || plateIds.length == 0 || plateIds.length > 3) {
-			return new Rrs(false);
+			return new Rrs<>(false);
 		}
 		Long tipId = tip.getTipId();
-		Rrs rrs;
+		Rrs<Long> rrs;
 		if (tipId != null) {
 			// 判断操作用户是否为tip拥有者
 			if (!validTipBelongMember(tip.getTipId())) {
-				return new Rrs(false, ErrorEnum.SYS_EXCEPTION);
+				return new Rrs<>(false, ErrorEnum.SYS_EXCEPTION);
 			}
 			// 更新tip
 			rrs = updateTip(tip.convert2TipContent());
@@ -263,7 +265,7 @@ public class TipContentServiceImpl extends ServiceImpl<TipContentDao, TipContent
 	}
 
 	@Override
-	public Rrs findMemberReleaseTip(PaginationDto pagination) {
+	public Rrs<PageInfo<TipVo>> findMemberReleaseTip(PaginationDto pagination) {
 		PageHelper.startPage(pagination.getPageNum(), pagination.getPageSize());
 		TipContent selectParam = new TipContent();
 		selectParam.setStatus((Integer) TipEnum.STATUS_RELEASE.getValue());
@@ -273,19 +275,19 @@ public class TipContentServiceImpl extends ServiceImpl<TipContentDao, TipContent
 			addBelongMemberBriefVo(tv);
 		}
 		PageInfo<TipVo> pageInfo = new PageInfo<>(releaseTips);
-		return new Rrs(true, pageInfo);
+		return new Rrs<>(true, pageInfo);
 	}
 
 	@Override
-	public Rrs deleteDraft(Long tipId) {
+	public Rrs<Object> deleteDraft(Long tipId) {
 		if (validTipBelongMember(tipId)) {
 			TipContent updateParam = new TipContent();
 			updateParam.setId(tipId);
 			updateParam.setDelF(BaseConstant.IS_DEL);
 			Integer result = tipContentDao.updateById(updateParam);
-			return new Rrs(result.equals(1));
+			return new Rrs<>(result.equals(1));
 		}
-		return new Rrs(false);
+		return new Rrs<>(false);
 	}
 
 }

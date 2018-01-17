@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.gatecm.tip.constant.BaseConstant;
+import com.gatecm.tip.dto.vo.TipVo;
 import com.gatecm.tip.service.Rrs;
 import com.gatecm.tip.service.TipContentService;
 
@@ -32,7 +33,7 @@ public class TipController {
 	@RequestMapping(value = "/a/{tipId}/edit")
 	public ModelAndView write(@PathVariable Long tipId) {
 		ModelAndView modelAndView = new ModelAndView();
-		Rrs rrs = tipContentService.getDraftTip(tipId);
+		Rrs<TipVo> rrs = tipContentService.getDraftTip(tipId);
 		modelAndView.addObject(BaseConstant.RESPONSE_DATA, rrs);
 		modelAndView.setViewName("tip/write");
 		return modelAndView;
@@ -41,7 +42,7 @@ public class TipController {
 	@RequestMapping(value = "/{tipId}/detail")
 	public ModelAndView detail(@PathVariable Long tipId) {
 		ModelAndView modelAndView = new ModelAndView();
-		Rrs rrs = tipContentService.getDetail(tipId);
+		Rrs<TipVo> rrs = tipContentService.getDetail(tipId);
 		modelAndView.addObject(BaseConstant.RESPONSE_DATA, rrs);
 		modelAndView.setViewName("tip/detail");
 		return modelAndView;

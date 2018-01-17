@@ -1,6 +1,10 @@
 package com.gatecm.tip.service;
 
+import com.gatecm.tip.dto.vo.PlateVo;
 import com.gatecm.tip.entity.SysTipPlate;
+
+import java.util.List;
+
 import com.baomidou.mybatisplus.service.IService;
 
 /**
@@ -18,6 +22,6 @@ public interface SysTipPlateService extends IService<SysTipPlate> {
 	 * 
 	 * @return
 	 */
-	Rrs loadAllPlates();
+	Rrs<List<PlateVo>> loadAllPlates();
 
 }

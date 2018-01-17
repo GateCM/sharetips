@@ -10,6 +10,10 @@ layui.use(['layer','util','laypage'],function() {
 		$(function() {
 			var pageNum = 1;
 			var pageSize = 5;
+			
+			//临时方法，设置技巧版块不同颜色
+			$(".section span").first().addClass("layui-bg-green");
+			$(".section span").last().addClass("layui-bg-blue");		
 
 			//ini comment
 			iniComment(pageNum, pageSize);

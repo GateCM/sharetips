@@ -7,8 +7,10 @@ layui.use('element', function() {
 		/** member space link */
 		$(document).on("click", ".member-link", function() {
 			var memberId = $(this).attr("data");
-			location.href = "/member/" + memberId + "/space";
+			var url = "/member/" + memberId + "/space";
+			openNewPage(url);
 		});
+		
 		iniIndexNav();
 	});
 	/** ini index nav */
@@ -18,9 +20,18 @@ layui.use('element', function() {
 	}
 });
 
+function openNewPage(url) {
+	alert(2343);
+	var a = document.createElement('a');
+	a.setAttribute('href', url);
+	a.setAttribute('target', '_blank');
+	alert(a);
+	a.click();
+}
+
 function entryStatus() {
 	var memberId = $("#lmInfo").attr("data");
-	if (memberId !=undefined) {
+	if (memberId != undefined) {
 		return true;
 	}
 	return false;

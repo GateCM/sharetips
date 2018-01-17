@@ -15,9 +15,12 @@ import org.springframework.web.bind.annotation.RestController;
 import com.gatecm.tip.dto.CommentDto;
 import com.gatecm.tip.dto.PaginationDto;
 import com.gatecm.tip.dto.TipContentDto;
+import com.gatecm.tip.dto.vo.CommentVo;
+import com.gatecm.tip.dto.vo.TipVo;
 import com.gatecm.tip.service.CommentService;
 import com.gatecm.tip.service.Rrs;
 import com.gatecm.tip.service.TipContentService;
+import com.github.pagehelper.PageInfo;
 
 /**
  * @Description: TODO()
@@ -42,7 +45,7 @@ public class TipApi {
 	 * @return
 	 */
 	@RequestMapping(value = "/a/draft", method = RequestMethod.POST)
-	public Rrs draft(@RequestBody @Valid TipContentDto tip) {
+	public Rrs<Long> draft(@RequestBody @Valid TipContentDto tip) {
 		return tipContentService.saveDraft(tip);
 	}
 
@@ -53,7 +56,7 @@ public class TipApi {
 	 * @return
 	 */
 	@RequestMapping(value = "/a/draft/{tipId}", method = RequestMethod.DELETE)
-	public Rrs draft(@PathVariable Long tipId) {
+	public Rrs<Object> draft(@PathVariable Long tipId) {
 		return tipContentService.deleteDraft(tipId);
 	}
 
@@ -64,7 +67,7 @@ public class TipApi {
 	 * @return
 	 */
 	@RequestMapping(value = "/a/release", method = RequestMethod.POST)
-	public Rrs release(@RequestBody @Valid TipContentDto tip) {
+	public Rrs<Long> release(@RequestBody @Valid TipContentDto tip) {
 		return tipContentService.releaseDraft(tip);
 	}
 
@@ -76,7 +79,7 @@ public class TipApi {
 	 * @return
 	 */
 	@RequestMapping(value = "/a/{tipId}/comment", method = RequestMethod.POST)
-	public Rrs comment(@PathVariable Long tipId, @RequestBody @Valid CommentDto comment) {
+	public Rrs<Object> comment(@PathVariable Long tipId, @RequestBody @Valid CommentDto comment) {
 		comment.setTipId(tipId);
 		return commentService.addComment2Tip(comment);
 	}
@@ -89,8 +92,20 @@ public class TipApi {
 	 * @return
 	 */
 	@RequestMapping(value = "/{tipId}/comment", method = RequestMethod.GET)
-	public Rrs comment(@PathVariable Long tipId, PaginationDto pagination) {
+	public Rrs<PageInfo<CommentVo>> comment(@PathVariable Long tipId, PaginationDto pagination) {
 		return commentService.tipCommentList(pagination, tipId);
+	}
+
+	/**
+	 * 获取技巧详情
+	 * 
+	 * @param tipId
+	 * @param pagination
+	 * @return
+	 */
+	@RequestMapping(value = "/{tipId}/detail", method = RequestMethod.GET)
+	public Rrs<TipVo> comment(@PathVariable Long tipId) {
+		return tipContentService.getDetail(tipId);
 	}
 
 	/**
@@ -100,7 +115,7 @@ public class TipApi {
 	 * @return
 	 */
 	@RequestMapping(value = "/a/draft/list", method = RequestMethod.GET)
-	public Rrs draftList(PaginationDto pagination) {
+	public Rrs<PageInfo<TipVo>> draftList(PaginationDto pagination) {
 		return tipContentService.draftList(pagination);
 	}
 
@@ -111,7 +126,7 @@ public class TipApi {
 	 * @return
 	 */
 	@RequestMapping(value = "/release/list", method = RequestMethod.GET)
-	public Rrs releaseList(PaginationDto pagination) {
+	public Rrs<PageInfo<TipVo>> releaseList(PaginationDto pagination) {
 		return tipContentService.releaseList(pagination);
 	}
 
@@ -122,7 +137,7 @@ public class TipApi {
 	 * @return
 	 */
 	@RequestMapping(value = "/a/member/release/list", method = RequestMethod.GET)
-	public Rrs memberReleaseList(PaginationDto pagination) {
+	public Rrs<PageInfo<TipVo>> memberReleaseList(PaginationDto pagination) {
 		return tipContentService.findMemberReleaseTip(pagination);
 	}
 }

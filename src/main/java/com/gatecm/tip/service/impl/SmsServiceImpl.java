@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.gatecm.tip.plugin.sms.SmsUtils;
+import com.gatecm.tip.plugin.sms.VcodeBean;
 import com.gatecm.tip.service.Rrs;
 import com.gatecm.tip.service.SmsService;
 
@@ -21,7 +22,7 @@ public class SmsServiceImpl implements SmsService {
 	private SmsUtils smsUtils;
 
 	@Override
-	public Rrs sendRegVcode(String phoneNumber) {
+	public Rrs<VcodeBean> sendRegVcode(String phoneNumber) {
 		return smsUtils.sendRegVcode(phoneNumber);
 	}
 

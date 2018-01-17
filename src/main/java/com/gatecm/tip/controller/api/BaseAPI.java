@@ -3,12 +3,15 @@
  */
 package com.gatecm.tip.controller.api;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.gatecm.tip.dto.vo.PlateVo;
 import com.gatecm.tip.service.Rrs;
 import com.gatecm.tip.service.SysTipPlateService;
 
@@ -25,9 +28,9 @@ public class BaseAPI {
 	@Autowired
 	private SysTipPlateService sysTipPlateService;
 
-	@Cacheable(value="base")
+	@Cacheable(value = "base")
 	@RequestMapping("/plate")
-	public Rrs plate() {
+	public Rrs<List<PlateVo>> plate() {
 		return sysTipPlateService.loadAllPlates();
 	}
 

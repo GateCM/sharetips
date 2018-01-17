@@ -28,11 +28,11 @@ public class SysTipPlateServiceImpl extends ServiceImpl<SysTipPlateDao, SysTipPl
 	private SysTipPlateDao sysTipPlateDao;
 
 	@Override
-	public Rrs loadAllPlates() {
+	public Rrs<List<PlateVo>> loadAllPlates() {
 		SysTipPlate param = new SysTipPlate();
 		param.setDelF(BaseConstant.UN_DEL);
 		List<PlateVo> plates = sysTipPlateDao.selectVoByParam(param);
-		return new Rrs(true, plates);
+		return new Rrs<>(true, plates);
 	}
 
 }

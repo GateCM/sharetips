@@ -1,5 +1,7 @@
 package com.gatecm.tip.service;
 
+import com.gatecm.tip.plugin.sms.VcodeBean;
+
 /**
  * @ClassName: SMSService
  * @Description: TODO(短信)
@@ -15,6 +17,6 @@ public interface SmsService {
 	 * @param phoneNumber
 	 * @return
 	 */
-	Rrs sendRegVcode(String phoneNumber);
+	Rrs<VcodeBean> sendRegVcode(String phoneNumber);
 
 }

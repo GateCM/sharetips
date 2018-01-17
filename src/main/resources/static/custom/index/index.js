@@ -23,6 +23,16 @@ layui.use([ 'layer', 'util' ], function() {
 				}
 			});
 		});
+		
+		$(document).on('click','.more',function(){
+			var contendBox = $(this);
+			var tipId = $(this).attr("data");
+			contendBox.empty();
+			$.get('/api/tip/'+tipId+'/detail',function(rd){
+				contendBox.append(rd.data.content);
+				contendBox.removeClass("more");
+			});
+		});
 
 	});
 	function loadList(pageNum, pageSize, boxId) {
@@ -35,6 +45,12 @@ layui.use([ 'layer', 'util' ], function() {
 		}, function(result) {
 			$.each(result.data.list, function(n, value) {
 				var memberId = value.belongMember.id;
+				var moreHtml = "";
+				var moreCss = "";
+				if(value.content.length>150){
+					moreHtml =  '<div class="btn-more"><i class="fa fa-angle-down"></i></div>';
+					moreCss = " more";
+				}
 				tipShowBox.append('<div class="tip-entry">'
 						+ '<div class="tip-record">'
 						+ '<div class="member" data="'
@@ -46,7 +62,7 @@ layui.use([ 'layer', 'util' ], function() {
 						+ '<a class="member-info"'
 						+ 'href="/member/'
 						+ memberId
-						+ '/space">'
+						+ '/space" target="_blank">'
 						+ value.belongMember.nickname
 						+ '</a>'
 						+ '<span class="motto">'
@@ -57,14 +73,14 @@ layui.use([ 'layer', 'util' ], function() {
 						+ '<div class="tip-title">'
 						+ '<a href="/tip/'
 						+ value.id
-						+ '/detail">'
+						+ '/detail" target="_blank">'
 						+ value.title
 						+ '</a></div>'
-						+ '<div class="tip-content-box">'
+						+ '<div data="'+value.id+'" class="tip-content-box '+moreCss+'">'
 						+ '<div class="tip-content">'
 						+ value.content
 						+ '</div>'
-						+ '<div class="btn-more">更多</div>'
+						+moreHtml
 						+ '</div>'
 						+ '<div class="tip-bottom">'
 						+ '<span class="time">'

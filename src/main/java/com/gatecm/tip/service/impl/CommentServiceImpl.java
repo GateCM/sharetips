@@ -44,7 +44,7 @@ public class CommentServiceImpl implements CommentService {
 	private MemberBasicDao memberBasicDao;
 
 	@Override
-	public Rrs addComment2Tip(@Valid CommentDto comment) {
+	public Rrs<Object> addComment2Tip(@Valid CommentDto comment) {
 		Long memberId = shiroSessionUtils.getMemberId();
 		TipComment insertParam = new TipComment();
 		insertParam.setGmtCreate(new Date());
@@ -57,11 +57,11 @@ public class CommentServiceImpl implements CommentService {
 			insertParam.setReplyCommentId(comment.getReplyCommentId());
 			insertParam.setReplyMemberId(comment.getReplyMemberId());
 		}
-		return new Rrs(tipCommentDao.insert(insertParam).equals(1));
+		return new Rrs<>(tipCommentDao.insert(insertParam).equals(1));
 	}
 
 	@Override
-	public Rrs tipCommentList(PaginationDto pagination, Long tipId) {
+	public Rrs<PageInfo<CommentVo>> tipCommentList(PaginationDto pagination, Long tipId) {
 		PageHelper.startPage(pagination.getPageNum(), pagination.getPageSize());
 		TipComment selectParam = new TipComment();
 		selectParam.setTipId(tipId);
@@ -71,7 +71,7 @@ public class CommentServiceImpl implements CommentService {
 			bindMemberVo(commentVo);
 		}
 		PageInfo<CommentVo> pageInfo = new PageInfo<>(commentVos, 5);
-		return new Rrs(true, pageInfo);
+		return new Rrs<>(true, pageInfo);
 	}
 
 	/**
