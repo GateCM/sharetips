@@ -9,10 +9,11 @@ import com.gatecm.tip.constant.ErrorEnum;
  * @ClassName: RRS
  * @Description: TODO(请求结果集 Request result set)
  * @author chenxiaohui
+ * @param <T>
  * @date 2017年12月3日 下午4:13:22
  *
  */
-public class Rrs {
+public class Rrs<T> {
 	/**
 	 * 操作结果，成功|失败，仅表示方法是否顺利执行
 	 */
@@ -20,7 +21,7 @@ public class Rrs {
 	/**
 	 * 返回数据主体
 	 */
-	Object data;
+	T data;
 	/**
 	 * 错误
 	 */
@@ -43,7 +44,7 @@ public class Rrs {
 		this.error = error;
 	}
 
-	public Rrs(boolean result, Object data) {
+	public Rrs(boolean result, T data) {
 		this.result = result;
 		this.data = data;
 	}
@@ -56,11 +57,11 @@ public class Rrs {
 		this.result = result;
 	}
 
-	public Object getData() {
+	public T getData() {
 		return data;
 	}
 
-	public void setData(Object data) {
+	public void setData(T data) {
 		this.data = data;
 	}
 

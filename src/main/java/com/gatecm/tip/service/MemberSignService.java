@@ -13,12 +13,12 @@ public interface MemberSignService {
 	 * 
 	 * @return
 	 */
-	Rrs isSignToday();
+	Rrs<Object> isSignToday();
 
 	/**
 	 * 今日签到
 	 * 
 	 * @return
 	 */
-	Rrs signToday();
+	Rrs<Object> signToday();
 }

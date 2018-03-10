@@ -6,6 +6,7 @@ import com.gatecm.tip.config.shiro.ShiroSessionUtils;
 import com.gatecm.tip.constant.BaseConstant;
 import com.gatecm.tip.constant.ErrorEnum;
 import com.gatecm.tip.constant.MemberEnum;
+import com.gatecm.tip.dto.MemberDto;
 import com.gatecm.tip.dto.MemberRegisterDto;
 import com.gatecm.tip.dto.vo.MemberVo;
 import com.gatecm.tip.entity.MemberBasic;
@@ -44,9 +45,9 @@ public class MemberBasicServiceImpl extends ServiceImpl<MemberBasicDao, MemberBa
 	private MemberBasicDao memberBasicDao;
 
 	@Override
-	public Rrs registByVcode(MemberRegisterDto registerDto) {
+	public Rrs<Object> registByVcode(MemberRegisterDto registerDto) {
 		// 验证码校验
-		Rrs rrs = validationVcode(registerDto.getPhoneNumber(), registerDto.getVcode());
+		Rrs<Object> rrs = validationVcode(registerDto.getPhoneNumber(), registerDto.getVcode());
 		if (!rrs.getResult()) {
 			return rrs;
 		}
@@ -67,8 +68,8 @@ public class MemberBasicServiceImpl extends ServiceImpl<MemberBasicDao, MemberBa
 	/**
 	 * 短信验证码校验
 	 */
-	private Rrs validationVcode(String phoneNumber, String vcode) {
-		Rrs rrs = new Rrs(false);
+	private Rrs<Object> validationVcode(String phoneNumber, String vcode) {
+		Rrs<Object> rrs = new Rrs<>(false);
 		VcodeEnum vcodeEnum = smsUtils.validation(phoneNumber, vcode);
 		switch (vcodeEnum) {
 		case VCODE_CORRECT:
@@ -90,8 +91,8 @@ public class MemberBasicServiceImpl extends ServiceImpl<MemberBasicDao, MemberBa
 	}
 
 	@Override
-	public Rrs getCurrentMemberInfo() {
-		Rrs rrs = new Rrs(true);
+	public Rrs<MemberBasic> getCurrentMemberInfo() {
+		Rrs<MemberBasic> rrs = new Rrs<>(true);
 		MemberBasic memberBasic = shiroSessionUtils.getMember();
 		if (memberBasic == null) {
 			rrs.setResult(false);
@@ -102,16 +103,16 @@ public class MemberBasicServiceImpl extends ServiceImpl<MemberBasicDao, MemberBa
 	}
 
 	@Override
-	public Rrs resetPassowrd(MemberRegisterDto registerDto) {
+	public Rrs<Object> resetPassowrd(MemberRegisterDto registerDto) {
 		// 验证码校验
 		String phoneNumber = registerDto.getPhoneNumber();
-		Rrs rrs = validationVcode(phoneNumber, registerDto.getVcode());
+		Rrs<Object> rrs = validationVcode(phoneNumber, registerDto.getVcode());
 		if (!rrs.getResult()) {
 			return rrs;
 		}
 		MemberVo current = getMemberVoByPhoneNumber(phoneNumber);
 		if (current == null) {
-			return new Rrs(false);
+			return new Rrs<>(false);
 		}
 		MemberBasic entity = new MemberBasic();
 		entity.setId(current.getId());
@@ -135,14 +136,21 @@ public class MemberBasicServiceImpl extends ServiceImpl<MemberBasicDao, MemberBa
 	}
 
 	@Override
-	public Rrs phoneNumberAvailable(String phoneNumber) {
+	public Rrs<Object> phoneNumberAvailable(String phoneNumber) {
 		MemberVo current = getMemberVoByPhoneNumber(phoneNumber);
-		return new Rrs(current == null);
+		return new Rrs<>(current == null);
 	}
 
 	@Override
-	public Rrs getBasicInfo() {
+	public Rrs<MemberVo> getBasicInfo() {
 		MemberVo memberVo = memberBasicDao.selectVoById(shiroSessionUtils.getMemberId());
-		return new Rrs(true, memberVo);
+		return new Rrs<>(true, memberVo);
+	}
+
+	@Override
+	public Rrs<Object> resetBasic(MemberDto memberDto) {
+		MemberBasic entity = memberDto.returnUpdateBasic();
+		entity.setId(shiroSessionUtils.getMemberId());
+		return new Rrs<>(updateById(entity));
 	}
 }

@@ -11,6 +11,23 @@
 	padding: 25px;
 }
 
+.tip-type {
+	position: absolute;
+	right: -34px;
+	top: -40px;
+	width: 80px;
+	height: 80px;
+	-moz-user-select: none;
+	-khtml-user-select: none;
+	user-select: none;
+	opacity: 0.4;
+}
+
+.tip-type img {
+	width: 80px;
+	height: 80px;
+}
+
 .tip-title {
 	font-size: 22px;
 	font-weight: bold;
@@ -37,7 +54,7 @@
 	margin-left: 0px !important;
 }
 
-.section span{
+.section span {
 	margin-right: 5px;
 }
 
@@ -134,9 +151,8 @@
 	padding: 4px 0px 0px 0px;
 }
 
-.no-comment{
+.no-comment {
 	color: #cecece;
-	
 }
 
 #bottom-laypage div {

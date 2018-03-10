@@ -2,6 +2,94 @@ body {
 	background-color: #fff;
 }
 
+/**member basic start*/
+#member-info {
+	padding: 10px 10px 20px 10px;
+}
+
+#member-info .basic {
+	border-bottom: 1px solid #efefef;
+	min-height: 220px;
+}
+
+#member-info .dynamic {
+	margin-top: 20px;
+}
+
+#member-info .dynamic .box {
+	height: 80px;
+	padding: 10px;
+	position: relative;
+	background: #008d2e99;
+	border-radius: 16px;
+	cursor:pointer;
+}
+
+#member-info .dynamic .box:hover {
+	background: #01a23699;
+}
+
+#member-info .dynamic .box .icon {
+	height: 80px;
+	font-size: 70px;
+	color: #fff;
+	width: 80px;
+}
+
+#member-info .dynamic .box .text {
+	position: absolute;
+	top: 10px;
+	left: 100px;
+	font-size: 14px;
+	color: #fff;
+	line-height: 25px;
+}
+
+#member-info .dynamic .box .text span {
+	display: block;
+}
+
+.head-img {
+	width: 100px;
+	margin: 0 auto;
+	position: relative;
+}
+
+.head-img img {
+	width: 100px;
+	border-radius: 7px;
+	cursor: pointer;
+}
+
+.edit {
+	top: 0px;
+	position: absolute;
+	right: 0px;
+}
+
+.edit a {
+	font-size: 16px;
+	color: #7f7f7f;
+	cursor: pointer;
+}
+
+.edit i {
+	color: #aeaeae;
+}
+
+.nickname {
+	font-size: 18px;
+	text-align: center;
+	margin-top: 20px;
+}
+
+.motto {
+	font-size: 14px;
+	text-align: center;
+	color: #bcbcbc;
+	margin-top: 20px;
+}
+/**member basic end*/
 .center-nav {
 	min-height: 600px;
 }

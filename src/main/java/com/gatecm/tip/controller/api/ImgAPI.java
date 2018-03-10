@@ -34,20 +34,34 @@ public class ImgAPI {
 	@Autowired
 	private ImgService imgService;
 
+	/**
+	 * 富文本图片上传
+	 * 
+	 * @param fileDir
+	 * @param file
+	 * @return
+	 */
 	@RequestMapping(value = "/wang/upload/{fileDir}", method = RequestMethod.POST)
 	public Map<String, Object> pluginUploadWithFileDir(@PathVariable String fileDir, MultipartFile file) {
 		Map<String, Object> map = new HashMap<>();
 		Long memberId = shiroSessionUtils.getMemberId();
-		Rrs rrs = imgService.upload(file, fileDir, memberId);
+		Rrs<String> rrs = imgService.upload(file, fileDir, memberId);
 		if (rrs.getResult()) {
 			map.put(BaseConstant.WANG_EDITER_UPLOAD_ERRNO, BaseConstant.WANG_EDITER_UPLOAD_SUCCESS);
-			map.put(BaseConstant.WANG_EDITER_UPLOAD_RETURN_URL_ARRAY, new Object[] { rrs.getData() });
+			map.put(BaseConstant.WANG_EDITER_UPLOAD_RETURN_URL_ARRAY, rrs.getData());
 		}
 		return map;
 	}
 
+	/**
+	 * 通用图片上传
+	 * 
+	 * @param fileDir
+	 * @param file
+	 * @return
+	 */
 	@RequestMapping(value = "/upload/{fileDir}", method = RequestMethod.POST)
-	public Rrs uploadWithFileDir(@PathVariable String fileDir, MultipartFile file) {
+	public Rrs<String> uploadWithFileDir(@PathVariable String fileDir, MultipartFile file) {
 		return imgService.upload(file, fileDir, 23L);
 	}
 }

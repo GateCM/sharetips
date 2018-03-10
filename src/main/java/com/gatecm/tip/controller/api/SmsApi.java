@@ -5,6 +5,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.gatecm.tip.plugin.sms.VcodeBean;
 import com.gatecm.tip.service.Rrs;
 import com.gatecm.tip.service.SmsService;
 
@@ -22,8 +23,14 @@ public class SmsApi {
 	@Autowired
 	private SmsService smsService;
 
+	/**
+	 * 获取注册验证码
+	 * 
+	 * @param phoneNumber
+	 * @return
+	 */
 	@RequestMapping(value = "/register", method = RequestMethod.GET)
-	public Rrs reg(String phoneNumber) {
-		 return smsService.sendRegVcode(phoneNumber);
+	public Rrs<VcodeBean> reg(String phoneNumber) {
+		return smsService.sendRegVcode(phoneNumber);
 	}
 }

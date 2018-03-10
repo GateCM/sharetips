@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.gatecm.tip.entity.MemberBasic;
 import com.gatecm.tip.service.MemberBasicService;
 import com.gatecm.tip.service.Rrs;
 
@@ -31,11 +32,18 @@ public class LoginApi {
 	@Autowired
 	private MemberBasicService memberBasicService;
 
+	/**
+	 * 登录
+	 * 
+	 * @param userName
+	 * @param password
+	 * @return
+	 */
 	@RequestMapping(value = "", method = RequestMethod.POST)
 	public Map<String, Object> login(String userName, String password) {
 		Map<String, Object> map = new HashMap<>();
 		UsernamePasswordToken token = new UsernamePasswordToken(userName, password);
-		// 获取当前的Subject+
+		// 获取当前的Subject
 		Subject currentUser = SecurityUtils.getSubject();
 		try {
 			currentUser.login(token);
@@ -63,7 +71,7 @@ public class LoginApi {
 	 * @return
 	 */
 	@RequestMapping(value = "/member", method = RequestMethod.GET)
-	public Rrs member() {
+	public Rrs<MemberBasic> member() {
 		return memberBasicService.getCurrentMemberInfo();
 	}
 }

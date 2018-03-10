@@ -12,7 +12,6 @@ import org.springframework.util.StringUtils;
 
 import com.gatecm.tip.constant.BaseConstant;
 import com.gatecm.tip.constant.ErrorEnum;
-import com.gatecm.tip.plugin.sms.AliDaYuSmsUtils;
 import com.gatecm.tip.plugin.sms.VcodeBean;
 import com.gatecm.tip.service.Rrs;
 
@@ -49,8 +48,8 @@ public class SmsUtils {
 	 * @param phoneNumber
 	 * @return Rrs
 	 */
-	public Rrs sendRegVcode(String phoneNumber) {
-		Rrs rrs = new Rrs(false);
+	public Rrs<VcodeBean> sendRegVcode(String phoneNumber) {
+		Rrs<VcodeBean> rrs = new Rrs<>(false);
 		VcodeBean vCodeBean = phoneNumberVCodeMap.get(phoneNumber);
 		// 首次发送
 		if (vCodeBean == null) {

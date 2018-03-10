@@ -8,7 +8,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.gatecm.tip.dto.MemberDto;
 import com.gatecm.tip.dto.MemberRegisterDto;
+import com.gatecm.tip.dto.vo.MemberVo;
 import com.gatecm.tip.service.MemberBasicService;
 import com.gatecm.tip.service.MemberSignService;
 import com.gatecm.tip.service.Rrs;
@@ -30,23 +32,56 @@ public class MemberApi {
 	@Autowired
 	private MemberSignService memberSignService;
 
+	/**
+	 * 手机号验证码注册
+	 * 
+	 * @param registerDto
+	 * @return
+	 */
 	@RequestMapping(value = "/register", method = RequestMethod.POST)
-	public Rrs register(@Valid MemberRegisterDto registerDto) {
+	public Rrs<Object> register(@Valid MemberRegisterDto registerDto) {
 		return memberBasicService.registByVcode(registerDto);
 	}
 
+	/**
+	 * 忘记密码重置
+	 * 
+	 * @param registerDto
+	 * @return
+	 */
 	@RequestMapping(value = "/reset/pw", method = RequestMethod.PATCH)
-	public Rrs resetPassword(@RequestBody MemberRegisterDto registerDto) {
+	public Rrs<Object> resetPassword(@RequestBody MemberRegisterDto registerDto) {
 		return memberBasicService.resetPassowrd(registerDto);
 	}
 
+	/**
+	 * 重置基本信息(密码除外)
+	 * 
+	 * @param registerDto
+	 * @return
+	 */
+	@RequestMapping(value = "/a/reset/basic", method = RequestMethod.PATCH)
+	public Rrs<Object> resetBasic(@RequestBody MemberDto memberDto) {
+		return memberBasicService.resetBasic(memberDto);
+	}
+
+	/**
+	 * 判断当日是否签到
+	 * 
+	 * @return
+	 */
 	@RequestMapping(value = "/a/sign", method = RequestMethod.GET)
-	public Rrs signTodayStatus() {
+	public Rrs<Object> signTodayStatus() {
 		return memberSignService.isSignToday();
 	}
 
+	/**
+	 * 获取当前登录用户信息
+	 * 
+	 * @return
+	 */
 	@RequestMapping(value = "/a/basic", method = RequestMethod.GET)
-	public Rrs basic() {
+	public Rrs<MemberVo> basic() {
 		return memberBasicService.getBasicInfo();
 	}
 
@@ -56,12 +91,17 @@ public class MemberApi {
 	 * @return
 	 */
 	@RequestMapping(value = "/phoneNumber/available", method = RequestMethod.GET)
-	public Rrs phoneNumberAvailable(String phoneNumber) {
+	public Rrs<Object> phoneNumberAvailable(String phoneNumber) {
 		return memberBasicService.phoneNumberAvailable(phoneNumber);
 	}
 
+	/**
+	 * 当前用户签到
+	 * 
+	 * @return
+	 */
 	@RequestMapping(value = "/a/sign", method = RequestMethod.POST)
-	public Rrs signToday() {
+	public Rrs<Object> signToday() {
 		return memberSignService.signToday();
 	}
 }

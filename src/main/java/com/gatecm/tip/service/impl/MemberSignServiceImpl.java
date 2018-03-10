@@ -34,20 +34,20 @@ public class MemberSignServiceImpl implements MemberSignService {
 	private MemberSignDao memberSignDao;
 
 	@Override
-	public Rrs isSignToday() {
+	public Rrs<Object> isSignToday() {
 		Long memberId = shiroSessionUtils.getMemberId();
 		Map<String, Object> columnMap = new HashMap<>();
 		columnMap.put("member_id", memberId);
 		columnMap.put("sign_date", TimeUtils.getDateNow());
 		columnMap.put("del_f", BaseConstant.UN_DEL);
 		List<MemberSign> records = memberSignDao.selectByMap(columnMap);
-		return new Rrs(!CollectionUtils.isEmpty(records));
+		return new Rrs<>(!CollectionUtils.isEmpty(records));
 	}
 
 	@Override
-	public Rrs signToday() {
+	public Rrs<Object> signToday() {
 		// 判断今日是否签到
-		Rrs rrs = isSignToday();
+		Rrs<Object> rrs = isSignToday();
 		if (rrs.getResult()) {
 			rrs.setResult(false);
 			return rrs;

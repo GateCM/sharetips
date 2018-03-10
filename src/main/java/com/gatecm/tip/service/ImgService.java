@@ -19,5 +19,5 @@ public interface ImgService {
 	 * @param fileDir
 	 * @return
 	 */
-	Rrs upload(MultipartFile file, String fileDir, Long userId);
+	Rrs<String> upload(MultipartFile file, String fileDir, Long userId);
 }

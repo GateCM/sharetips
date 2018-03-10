@@ -8,7 +8,18 @@ package com.gatecm.tip.constant;
  *
  */
 public interface BaseConstant {
-	
+
+	/**
+	 * temp config start
+	 */
+	// 首页技巧摘要长度
+	int INDEX_ABSTRACT_SHOW_LENGTH = 150;
+	String INDEX_ABSTRACT_END_ELILIPSIS = "...";
+
+	/**
+	 * temp config end
+	 */
+
 	/**
 	 * 默认头像路径
 	 */

@@ -24,11 +24,11 @@ public class MonitorServiceImpl implements MonitorService {
 	private MemberBasicDao memberBasicDao;
 
 	@Override
-	public Rrs indexStatus() {
+	public Rrs<WebStatusVo> indexStatus() {
 		WebStatusVo webStatusVo = new WebStatusVo();
 		Integer actMemberNum = memberBasicDao.selectAllCount();
 		webStatusVo.setActMemberNum(actMemberNum);
-		return new Rrs(true, webStatusVo);
+		return new Rrs<>(true, webStatusVo);
 	}
 
 }

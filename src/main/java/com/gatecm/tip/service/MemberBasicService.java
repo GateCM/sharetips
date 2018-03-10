@@ -1,6 +1,8 @@
 package com.gatecm.tip.service;
 
+import com.gatecm.tip.dto.MemberDto;
 import com.gatecm.tip.dto.MemberRegisterDto;
+import com.gatecm.tip.dto.vo.MemberVo;
 import com.gatecm.tip.entity.MemberBasic;
 
 import com.baomidou.mybatisplus.service.IService;
@@ -21,14 +23,14 @@ public interface MemberBasicService extends IService<MemberBasic> {
 	 * @param registerDto
 	 * @return Rrs
 	 */
-	Rrs registByVcode(MemberRegisterDto registerDto);
+	Rrs<Object> registByVcode(MemberRegisterDto registerDto);
 
 	/**
 	 * 获取当前登录用户信息
 	 * 
 	 * @return
 	 */
-	Rrs getCurrentMemberInfo();
+	Rrs<MemberBasic> getCurrentMemberInfo();
 
 	/**
 	 * 重置用户密码
@@ -36,18 +38,26 @@ public interface MemberBasicService extends IService<MemberBasic> {
 	 * @param registerDto
 	 * @return
 	 */
-	Rrs resetPassowrd(MemberRegisterDto registerDto);
+	Rrs<Object> resetPassowrd(MemberRegisterDto registerDto);
 
 	/**
 	 * @param phoneNumber
 	 * @return
 	 */
-	Rrs phoneNumberAvailable(String phoneNumber);
+	Rrs<Object> phoneNumberAvailable(String phoneNumber);
 
 	/**
 	 * 获取当前用户基本信息
 	 * 
 	 * @return
 	 */
-	Rrs getBasicInfo();
+	Rrs<MemberVo> getBasicInfo();
+
+	/**
+	 * 更新用户基本信息（密码除外）
+	 * 
+	 * @param memberDto
+	 * @return
+	 */
+	Rrs<Object> resetBasic(MemberDto memberDto);
 }

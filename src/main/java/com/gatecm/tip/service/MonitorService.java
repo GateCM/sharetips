@@ -3,6 +3,8 @@
  */
 package com.gatecm.tip.service;
 
+import com.gatecm.tip.dto.vo.WebStatusVo;
+
 /**
  * @Description: TODO(网站监控)
  * @author chenxiaohui
@@ -16,6 +18,6 @@ public interface MonitorService {
 	 * 
 	 * @return
 	 */
-	Rrs indexStatus();
+	Rrs<WebStatusVo> indexStatus();
 
 }
