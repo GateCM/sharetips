@@ -25,7 +25,7 @@ public class LoginController {
 	 */
 	@RequestMapping(value = "/signin")
 	public String loginPage() {
-		return "/member/signin";
+		return "member/signin";
 	}
 
 	/**
@@ -35,7 +35,7 @@ public class LoginController {
 	 */
 	@RequestMapping(value = "/signup")
 	public String signupPage() {
-		return "/member/signup";
+		return "member/signup";
 	}
 
 	/**
@@ -45,7 +45,7 @@ public class LoginController {
 	 */
 	@RequestMapping(value = "/reset/pw")
 	public String resetPassword() {
-		return "/member/reset-password";
+		return "member/reset-password";
 	}
 
 	/**
@@ -56,6 +56,6 @@ public class LoginController {
 	@RequestMapping(value = "/a/signout")
 	public String signOut() {
 		SecurityUtils.getSubject().logout();
-		return "/member/signin";
+		return "member/signin";
 	}
 }
