@@ -16,3 +16,15 @@ target/
 /*/bin/
 /*/logs/
 /*/.factorypath
+/.idea/
+.idea/.name
+.idea/inspectionProfiles/
+.idea/misc.xml
+.idea/sonarlint/
+.idea/workspace.xml
+java_pid37678.hprof
+java_pid89020.hprof
+java_pid89020.hprof.analysis/
+!/.idea/
+/.mvn/
+/target/
