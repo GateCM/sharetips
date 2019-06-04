@@ -66,7 +66,7 @@ jQuery
 					jQuery.event.trigger("ajaxStart");
 				}
 				var requestDone = false;
-				// Create the request object
+				// Create the handler object
 				var xml = {}
 				if (s.global)
 					jQuery.event.trigger("ajaxSend", [ xml, s ]);
@@ -95,7 +95,7 @@ jQuery
 						try {
 							status = isTimeout != "timeout" ? "success"
 									: "error";
-							// Make sure that the request was successful or
+							// Make sure that the handler was successful or
 							// notmodified
 							if (status != "error") {
 								// process the data (runs the xml through
@@ -118,7 +118,7 @@ jQuery
 							jQuery.handleError(s, xml, status, e);
 						}
 
-						// The request was completed
+						// The handler was completed
 						if (s.global)
 							jQuery.event.trigger("ajaxComplete", [ xml, s ]);
 
@@ -150,7 +150,7 @@ jQuery
 				// Timeout checker
 				if (s.timeout > 0) {
 					setTimeout(function() {
-						// Check to see if the request is still happening
+						// Check to see if the handler is still happening
 						if (!requestDone)
 							uploadCallback("timeout");
 					}, s.timeout);

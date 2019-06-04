@@ -86,11 +86,11 @@
 		</dependency>
 
 		<!-- 阿里大于短信 -->
-		<dependency>
-			<groupId>com.alibaba</groupId>
-			<artifactId>sms</artifactId>
-			<version>1.0</version>
-		</dependency>
+		<!--<dependency>-->
+			<!--<groupId>com.alibaba</groupId>-->
+			<!--<artifactId>sms</artifactId>-->
+			<!--<version>1.0</version>-->
+		<!--</dependency>-->
 
 		<!-- 阿里OSS -->
 		<dependency>
@@ -192,6 +192,41 @@
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-activemq</artifactId>
 		</dependency>
+		<dependency>
+			<groupId>org.projectlombok</groupId>
+			<artifactId>lombok</artifactId>
+			<version>1.18.4</version>
+		</dependency>
+
+		<dependency>
+			<groupId>com.alibaba</groupId>
+			<artifactId>fastjson</artifactId>
+			<version>1.2.25</version>
+		</dependency>
+
+
+
+
+
+		<!-- http -->
+		<dependency>
+			<groupId>org.apache.httpcomponents</groupId>
+			<artifactId>httpclient</artifactId>
+			<version>4.5.2</version>
+		</dependency>
+		<dependency>
+			<groupId>commons-httpclient</groupId>
+			<artifactId>commons-httpclient</artifactId>
+			<version>3.1</version>
+		</dependency>
+		<!-- xml处理 -->
+		<dependency>
+			<groupId>org.jdom</groupId>
+			<artifactId>jdom</artifactId>
+			<version>1.1.3</version>
+		</dependency>
+
+
 
 	</dependencies>
 
@@ -229,7 +264,7 @@
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
 				<configuration>
-					<maimClass>com.gatecm.tip.StartApplication</maimClass>
+					<mainClass>com.gatecm.tip.StartApplication</mainClass>
 				</configuration>
 				<executions>
 					<execution>

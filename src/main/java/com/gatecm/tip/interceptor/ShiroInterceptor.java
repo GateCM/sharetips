@@ -29,7 +29,7 @@ public class ShiroInterceptor implements HandlerInterceptor {
 
 //		Subject currentUser = SecurityUtils.getSubject();
 		System.err.println(request.getRequestURI());
-//		if (currentUser.isPermitted(request.getRequestURI())) {
+//		if (currentUser.isPermitted(handler.getRequestURI())) {
 //			return true;
 //		} else {
 //			response.sendRedirect("/login/page");  

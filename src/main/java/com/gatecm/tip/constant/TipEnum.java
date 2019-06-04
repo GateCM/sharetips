@@ -8,7 +8,6 @@
 */
 package com.gatecm.tip.constant;
 
-import javax.management.j2ee.statistics.Statistic;
 
 /**
  * @ClassName: TipEnum

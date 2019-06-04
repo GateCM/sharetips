@@ -1,0 +1,24 @@
+package cn.gov.zcy.vaccine.ip.model;
+
+import lombok.Data;
+import java.util.Date;
+
+/**
+ * Created by yaoguang on ${date}.
+ * Description: ${table.name}
+ *
+ * @author <a href="mailto:chenxiaohui@cai-inc.com"/>
+ */
+@Data
+public class ${entity} {
+
+## ----------  BEGIN 字段循环遍历  ----------
+#foreach($field in ${table.fields})
+#if("$!field.comment" != "")
+    /**
+	 * ${field.comment}
+     */
+#end
+	private ${field.propertyType} ${field.propertyName};
+#end
+}

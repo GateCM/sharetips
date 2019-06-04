@@ -14,7 +14,7 @@ public class MyShiroHttpServletResponse extends ShiroHttpServletResponse {
     public String encodeRedirectURL(String url){
         /** 下面是ShiroHttpServletResponse源码，重写shiro的encodeRedirectURL方法，把url路径里的JSESSIONID去掉 **/
 //        if (isEncodeable(toAbsolute(url))) {
-//            return toEncoded(url, request.getSession().getId());
+//            return toEncoded(url, handler.getSession().getId());
 //        } else {
 //            return url;
 //        }

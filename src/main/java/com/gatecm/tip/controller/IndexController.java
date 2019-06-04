@@ -28,4 +28,18 @@ public class IndexController {
 		return "index";
 	}
 
+	@RequestMapping(value = "/ddd",method = RequestMethod.POST)
+	public String ddd() {
+		System.out.println("post");
+		return "index";
+
+	}
+
+
+	@RequestMapping(value = "/ddd",method = RequestMethod.GET)
+	public String ddd2() {
+		System.out.println("get");
+		return "index";
+	}
+
 }

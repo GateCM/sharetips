@@ -1,0 +1,16 @@
+package cn.gov.zcy.vaccine.ip.dao;
+
+import cn.gov.zcy.vaccine.ip.model.${entity};
+import io.terminus.common.mysql.dao.MyBatisDao;
+import org.springframework.stereotype.Repository;
+
+/**
+ * Created by yaoguang on ${date}.
+ * Description:
+ *
+ * @author <a href="mailto:chenxiaohui@cai-inc.com"/>
+ */
+@Repository
+public class ${table.mapperName} extends MyBatisDao<${entity}> {
+
+}
