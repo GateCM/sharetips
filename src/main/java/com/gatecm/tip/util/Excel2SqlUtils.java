@@ -13,7 +13,7 @@ import java.util.*;
  *
  * @author <a href="mailto:chenxiaohui@cai-inc.com"/>
  */
-public class SqlInsertUtils2 {
+public class Excel2SqlUtils {
     public static final String insertPre = "INSERT INTO `db_vaccine`.`vaccine_administrative_division`(`id`, `code`, `name`, `parent_id`, `parent_code`, `status`, `org_id`, `create_at`, `updated_at`) VALUES ";
     public static final String insertEnd = ", now(), now());";
 
@@ -67,8 +67,8 @@ public class SqlInsertUtils2 {
         sql.add(increment);
 
 
-        Xml2InsertSqlCommonUtils.printSql(sql);
-        Xml2InsertSqlCommonUtils.writeSqlFile("/Users/chenxiaohui/Desktop/疫苗/疫苗初始化/","db_vaccine.vaccine_administrative_division",sql);
+        Excel2SqlCommonUtils.printSql(sql);
+        Excel2SqlCommonUtils.writeSqlFile("/Users/chenxiaohui/Desktop/疫苗/疫苗初始化/","db_vaccine.vaccine_administrative_division",sql);
     }
 
     public static String batchnsertSql(List<ad> adList) {

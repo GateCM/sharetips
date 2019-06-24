@@ -16,7 +16,7 @@ import java.util.stream.Collectors;
  *
  * @author <a href="mailto:chenxiaohui@cai-inc.com"/>
  */
-public class Xml2InsertSqlCommonUtils {
+public class Excel2SqlCommonUtils {
 
     /**
      * 有"#"后缀的列名表示该列为字符类型 需要加"'"
