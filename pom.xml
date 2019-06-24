@@ -26,11 +26,15 @@
 		<java.version>1.8</java.version>
 		<!-- <mybatis.version>1.3.0</mybatis.version> -->
 		<mybatis-plus.version>2.1.2</mybatis-plus.version>
+		<!--<mybatis-plus.version>3.1.1</mybatis-plus.version>-->
 		<druid.version>1.0.19</druid.version>
 		<velocity.version>2.0</velocity.version>
 		<pagehelper-spring.version>4.2.1</pagehelper-spring.version>
 		<mybatisplus-spring-boot-starter.version>1.0.4</mybatisplus-spring-boot-starter.version>
 		<shiro.version>1.3.2</shiro.version>
+        <!--POI类库依赖-->
+        <poi.version>3.10-FINAL</poi.version>
+        <poi-ooxml.version>3.10-FINAL</poi-ooxml.version>
 	</properties>
 
 	<dependencies>
@@ -221,11 +225,21 @@
 		</dependency>
 		<!-- xml处理 -->
 		<dependency>
-			<groupId>org.jdom</groupId>
-			<artifactId>jdom</artifactId>
-			<version>1.1.3</version>
+			<groupId>dom4j</groupId>
+			<artifactId>dom4j</artifactId>
+			<version>1.6.1</version>
 		</dependency>
-
+        <!-- excel表格 POI -->
+        <dependency>
+            <groupId>org.apache.poi</groupId>
+            <artifactId>poi-ooxml</artifactId>
+            <version>${poi-ooxml.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.poi</groupId>
+            <artifactId>poi</artifactId>
+            <version>${poi.version}</version>
+        </dependency>
 
 
 	</dependencies>

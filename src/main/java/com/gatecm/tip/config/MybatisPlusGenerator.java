@@ -33,12 +33,12 @@ public class MybatisPlusGenerator {
     public static final String DB_URL = "jdbc:mysql://localhost:3306/temp?characterEncoding=utf8";
     public static final String PARENT_PACKAGE = "result";
     public static final String[] TABLES = new String[]{
-            "vaccine_administrative_division",
             "vaccine_category_attach_attributes",
             "vaccine_ip_bact_enum",
+            "vaccine_ip_vaccinate_part_enum",
             "vaccine_ip_contraindication_enum",
-            "vaccine_ip_sync_data_mission",
-            "vaccine_item_attach_attributes"};
+           "vaccine_ip_sync_data_mission",
+           "vaccine_item_attach_attributes"};
 
 
     public static void main(String[] args) {
