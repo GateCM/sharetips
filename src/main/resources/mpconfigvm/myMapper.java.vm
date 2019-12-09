@@ -1,16 +1,58 @@
-package cn.gov.zcy.vaccine.dal.ip.dao;
+package com.cm.eql.core.dao;
 
-import cn.gov.zcy.vaccine.dal.ip.model.${entity};
-import io.terminus.common.mysql.dao.MyBatisDao;
+import com.cm.eql.core.model.${entity};
 import org.springframework.stereotype.Repository;
+import java.util.List;
+import java.util.Map;
 
 /**
  * Created by yaoguang on ${date}.
- * Description:
+ * Description: ${table.name}
  *
  * @author <a href="mailto:chenxiaohui@cai-inc.com"/>
  */
 @Repository
-public class ${table.mapperName} extends MyBatisDao<${entity}> {
-
+public interface ${table.mapperName} {
+    /**
+     * 创建
+     * @param ${entity}
+     * @return
+     */
+    int create(${entity} ${entity});
+    /**
+     * 批量创建
+     * @param ${entity}List
+     * @return
+     */
+    int creates(List<${entity}> ${entity}List);
+    /**
+     * 按id加载
+     * @param id
+     * @return
+     */
+    ${entity} loadById(Long id);
+    /**
+     * 按id删除
+     * @param id
+     * @return
+     */
+    int deleteById(Long id);
+    /**
+     * 更新
+     * @param ${entity}
+     * @return
+     */
+    int update(${entity} ${entity});
+    /**
+     * 按条件查询
+     * @param paramMap
+     * @return
+     */
+    List<${entity}> list(Map<String, Object> paramMap);
+    /**
+     * 按条件统计
+     * @param paramMap
+     * @return
+     */
+    long count(Map<String, Object> paramMap);
 }

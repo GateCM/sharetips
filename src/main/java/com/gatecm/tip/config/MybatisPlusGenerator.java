@@ -3,24 +3,19 @@
  */
 package com.gatecm.tip.config;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
 import com.baomidou.mybatisplus.generator.AutoGenerator;
 import com.baomidou.mybatisplus.generator.InjectionConfig;
-import com.baomidou.mybatisplus.generator.config.DataSourceConfig;
-import com.baomidou.mybatisplus.generator.config.FileOutConfig;
-import com.baomidou.mybatisplus.generator.config.GlobalConfig;
-import com.baomidou.mybatisplus.generator.config.PackageConfig;
-import com.baomidou.mybatisplus.generator.config.StrategyConfig;
-import com.baomidou.mybatisplus.generator.config.TemplateConfig;
+import com.baomidou.mybatisplus.generator.config.*;
 import com.baomidou.mybatisplus.generator.config.converts.MySqlTypeConvert;
 import com.baomidou.mybatisplus.generator.config.po.TableInfo;
 import com.baomidou.mybatisplus.generator.config.rules.DbColumnType;
 import com.baomidou.mybatisplus.generator.config.rules.DbType;
 import com.baomidou.mybatisplus.generator.config.rules.NamingStrategy;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 /**
  * @author chenxiaohui
@@ -30,15 +25,11 @@ import com.baomidou.mybatisplus.generator.config.rules.NamingStrategy;
 public class MybatisPlusGenerator {
 
     public static final String DIR = "/Users/chenxiaohui/dbmapper";
-    public static final String DB_URL = "jdbc:mysql://localhost:3306/temp?characterEncoding=utf8";
+    public static final String DB_URL = "jdbc:mysql://localhost:3306/db_operating?characterEncoding=utf8";
     public static final String PARENT_PACKAGE = "result";
-    public static final String[] TABLES = new String[]{
-            "vaccine_category_attach_attributes",
-            "vaccine_ip_bact_enum",
-            "vaccine_ip_vaccinate_part_enum",
-            "vaccine_ip_contraindication_enum",
-           "vaccine_ip_sync_data_mission",
-           "vaccine_item_attach_attributes"};
+
+
+
 
 
     public static void main(String[] args) {
@@ -91,7 +82,7 @@ public class MybatisPlusGenerator {
         strategy.setNaming(NamingStrategy.underline_to_camel);
         strategy.setEntityBooleanColumnRemoveIsPrefix(true);
         // 需要生成的表
-//        strategy.setInclude(TABLES);
+//        strategy.setInclude(new String[]{"ad_order_res_extra"});
         // strategy.setExclude(new String[]{"test"}); // 排除生成的表
         // 自定义实体父类
         // strategy.setSuperEntityClass("com.gatecm.obsession.entity");
@@ -132,7 +123,7 @@ public class MybatisPlusGenerator {
         List<FileOutConfig> focList = new ArrayList<FileOutConfig>();
 
         // 调整 xml 生成目录演示
-        focList.add(new FileOutConfig("/mpconfigvm/mapper.xml.vm") {
+        focList.add(new FileOutConfig("/mpconfigvm/myMapper.xml.vm") {
             @Override
             public String outputFile(TableInfo tableInfo) {
                 return "/mapper/" + tableInfo.getEntityName() + ".xml";
@@ -148,7 +139,6 @@ public class MybatisPlusGenerator {
         tc.setEntity("/mpconfigvm/myEntity.java.vm");
         tc.setMapper("/mpconfigvm/myMapper.java.vm");
         tc.setXml("/mpconfigvm/myMapper.xml.vm");
-        tc.setService("/mpconfigvm/service.java.vm");
         tc.setServiceImpl("/mpconfigvm/myManager.java.vm");
         // 如上任何一个模块如果设置 空 OR Null 将不生成该模块。
 

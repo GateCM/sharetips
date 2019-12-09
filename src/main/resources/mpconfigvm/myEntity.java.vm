@@ -1,4 +1,4 @@
-package cn.gov.zcy.vaccine.dal.ip.model;
+package com.cm.eql.core.model;
 
 import lombok.Data;
 import java.util.Date;

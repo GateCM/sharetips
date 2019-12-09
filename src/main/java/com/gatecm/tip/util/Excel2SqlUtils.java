@@ -20,10 +20,10 @@ public class Excel2SqlUtils {
 
     public static void main(String[] args) throws IOException {
 
-        String path = "/Users/chenxiaohui/Desktop/疫苗/疫苗初始化/区划.xls";
+        String path = "/Users/chenxiaohui/Desktop/疫苗/疫苗初始化/20190603门诊33.xls";
 
         InputStream in = new FileInputStream(new File(path));
-        List<List<String>> lines = ExcelImportUtils.readExcel("区划.xls", in, 9, "行政区划");
+        List<List<String>> lines = ExcelImportUtils.readExcel("20190603门诊33.xls", in, 9, "StreetCode");
         lines.remove(0);
         Map<String, Long> codeIdMap = new HashMap<>();
         List<ad> adList = new ArrayList<>();

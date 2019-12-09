@@ -3,25 +3,8 @@
  */
 package thread;
 
-import static org.assertj.core.api.Assertions.setMaxElementsForPrinting;
-
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Collections;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Map;
 import java.util.concurrent.BlockingQueue;
-import java.util.concurrent.ConcurrentHashMap;
-import java.util.concurrent.Executor;
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
 import java.util.concurrent.LinkedBlockingQueue;
-import java.util.concurrent.TimeUnit;
-
-import org.mockito.MockitoFramework;
-
-import com.gatecm.tip.entity.MemberBasic;
 
 /**
 * @ClassName: FinalTest
