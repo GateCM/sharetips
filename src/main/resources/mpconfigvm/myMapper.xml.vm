@@ -111,6 +111,9 @@ ${field.name}, #else${field.name}
             <include refid="criteria"></include>
         </where>
         ORDER BY gmt_create DESC
+        <if test="limit != null and offset != null">
+            limit #{offset}, #{limit}
+        </if>
     </select>
 
     <select id="count" parameterType="java.util.Map" resultType="java.lang.Long">
