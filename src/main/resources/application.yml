@@ -92,7 +92,7 @@ mybatis-plus:
 logging:
   level:
     org.springframework: WARN
-    com.gatecm.tip.mapper: DEBUG
+    com.gatecm.tip.mapper: INFO
   file: logs/spring-boot-logging.log
   
   

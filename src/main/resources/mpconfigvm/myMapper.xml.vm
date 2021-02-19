@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.cm.eql.core.dao.${entity}Dao">
+<mapper namespace="cn.gov.zcy.merchant.platform.dao.${entity}Dao">
 #set($blank=" ")
-#set($doPackage="com.cm.eql.core.model")
+#set($doPackage="cn.gov.zcy.merchant.platform.domain")
 #if(${baseResultMap})
 
-    <resultMap id="BaseResultMap" type="${doPackage}.${entity}">
+    <resultMap id="BaseResultMap" type="${doPackage}.${entity}DO">
 #foreach($field in ${table.fields})
 #if(${field.keyFlag})##生成主键排在第一位
         <id property="${field.propertyName}" column="${field.name}" />
@@ -46,7 +46,7 @@ ${field.name}, #else${field.name}
         #end
      </sql>
 
-    <insert id="create" parameterType="${doPackage}.${entity}" keyProperty="id" keyColumn="id" useGeneratedKeys="true">
+    <insert id="create" parameterType="${doPackage}.${entity}DO" keyProperty="id" keyColumn="id" useGeneratedKeys="true">
         INSERT INTO
         <include refid="tb"/>(<include refid="cols_exclude_id"/>) VALUES
         (
@@ -59,7 +59,7 @@ ${field.name}, #else${field.name}
 #end ${blank}      )
     </insert>
 
-    <insert id="creates" parameterType="${doPackage}.${entity}" keyProperty="id" keyColumn="id" useGeneratedKeys="true">
+    <insert id="creates" parameterType="${doPackage}.${entity}DO" keyProperty="id" keyColumn="id" useGeneratedKeys="true">
         INSERT INTO
         <include refid="tb"/>(<include refid="cols_exclude_id"/>) VALUES
         <foreach collection="list" item="value" separator=",">
@@ -86,7 +86,7 @@ ${field.name}, #else${field.name}
         DELETE FROM <include refid="tb"/> WHERE id = #{id,jdbcType=BIGINT}
     </delete>
 
-    <update id="update" parameterType="${doPackage}.${entity}">
+    <update id="update" parameterType="${doPackage}.${entity}DO">
         UPDATE <include refid="tb"/>
         <set>
 #foreach($field in ${table.fields})

@@ -17,10 +17,10 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 @ServletComponentScan
 @EnableTransactionManagement
 public class StartApplication {
-
 	public static void main(String[] args) {
 		SpringApplication app = new SpringApplication(StartApplication.class);
 		app.setBannerMode(Banner.Mode.OFF);
 		app.run(args);
 	}
+
 }

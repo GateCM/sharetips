@@ -1,10 +1,10 @@
-package com.cm.eql.core.manager;
+package cn.gov.zcy.merchant.platform.manager;
 
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
-import com.cm.eql.core.dao.${table.mapperName};
-import com.cm.eql.core.model.${entity};
+import cn.gov.zcy.merchant.platform.dao.${table.mapperName};
+import cn.gov.zcy.merchant.platform.domain.${entity}DO;
 
 /**
  * Created by yaoguang on ${date}.

@@ -1,6 +1,6 @@
-package com.cm.eql.core.dao;
+package cn.gov.zcy.merchant.platform.dao;
 
-import com.cm.eql.core.model.${entity};
+import cn.gov.zcy.merchant.platform.domain.${entity}DO;
 import org.springframework.stereotype.Repository;
 import java.util.List;
 import java.util.Map;
@@ -15,22 +15,22 @@ import java.util.Map;
 public interface ${table.mapperName} {
     /**
      * 创建
-     * @param ${entity}
+     * @param ${entity}DO
      * @return
      */
-    int create(${entity} ${entity});
+    int create(${entity}DO ${entity}DO);
     /**
      * 批量创建
-     * @param ${entity}List
+     * @param ${entity}DOList
      * @return
      */
-    int creates(List<${entity}> ${entity}List);
+    int creates(List<${entity}DO> ${entity}DOList);
     /**
      * 按id加载
      * @param id
      * @return
      */
-    ${entity} loadById(Long id);
+    ${entity}DO loadById(Long id);
     /**
      * 按id删除
      * @param id
@@ -39,16 +39,16 @@ public interface ${table.mapperName} {
     int deleteById(Long id);
     /**
      * 更新
-     * @param ${entity}
+     * @param ${entity}DO
      * @return
      */
-    int update(${entity} ${entity});
+    int update(${entity}DO ${entity}DO);
     /**
      * 按条件查询
      * @param paramMap
      * @return
      */
-    List<${entity}> list(Map<String, Object> paramMap);
+    List<${entity}DO> list(Map<String, Object> paramMap);
     /**
      * 按条件统计
      * @param paramMap

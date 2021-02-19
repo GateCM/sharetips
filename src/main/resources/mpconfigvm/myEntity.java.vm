@@ -1,4 +1,4 @@
-package com.cm.eql.core.model;
+package cn.gov.zcy.merchant.platform.domain;
 
 import lombok.Data;
 import java.util.Date;
@@ -10,7 +10,7 @@ import java.util.Date;
  * @author <a href="mailto:chenxiaohui@cai-inc.com"/>
  */
 @Data
-public class ${entity} {
+public class ${entity}DO {
 
 ## ----------  BEGIN 字段循环遍历  ----------
 #foreach($field in ${table.fields})
