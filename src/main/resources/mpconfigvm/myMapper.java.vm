@@ -1,6 +1,6 @@
-package cn.gov.zcy.merchant.platform.dao;
+package cn.gov.zcy.ad.exchange.message.dao;
 
-import cn.gov.zcy.merchant.platform.domain.${entity}DO;
+import cn.gov.zcy.ad.exchange.message.domain.${entity}DO;
 import org.springframework.stereotype.Repository;
 import java.util.List;
 import java.util.Map;

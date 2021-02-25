@@ -1,4 +1,4 @@
-package cn.gov.zcy.merchant.platform.domain;
+package cn.gov.zcy.ad.exchange.message.domain;
 
 import lombok.Data;
 import java.util.Date;

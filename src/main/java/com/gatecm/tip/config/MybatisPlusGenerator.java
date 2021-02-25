@@ -25,7 +25,7 @@ import java.util.Map;
 public class MybatisPlusGenerator {
 
     public static final String DIR = "/Users/chenxiaohui/dbmapper";
-    public static final String DB_URL = "jdbc:mysql://localhost:3306/db_activitycenter?characterEncoding=utf8";
+    public static final String DB_URL = "jdbc:mysql://localhost:3306/db_marketing?characterEncoding=utf8";
 //    public static final String DB_URL = "jdbc:mysql://localhost:3306/db_operating?characterEncoding=utf8";
     public static final String PARENT_PACKAGE = "result";
 
@@ -79,7 +79,7 @@ public class MybatisPlusGenerator {
         strategy.setNaming(NamingStrategy.underline_to_camel);
         strategy.setEntityBooleanColumnRemoveIsPrefix(true);
         // 需要生成的表
-        strategy.setInclude(new String[]{"ep_rule_activity","ep_rule_activity_hit_record","ep_rule_activity_order"});
+        strategy.setInclude(new String[]{"paas_login_device","paas_operator"});
         // strategy.setExclude(new String[]{"test"}); // 排除生成的表
         // 自定义实体父类
         // strategy.setSuperEntityClass("com.gatecm.obsession.entity");

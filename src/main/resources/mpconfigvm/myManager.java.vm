@@ -1,10 +1,10 @@
-package cn.gov.zcy.merchant.platform.manager;
+package cn.gov.zcy.ad.exchange.message.manager;
 
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import cn.gov.zcy.merchant.platform.dao.${table.mapperName};
-import cn.gov.zcy.merchant.platform.domain.${entity}DO;
+import cn.gov.zcy.ad.exchange.message.domain.${entity}DO;
 
 /**
  * Created by yaoguang on ${date}.
